@@ -1,0 +1,16 @@
+# # PlanData
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**terminal_id** | **string** |  | [optional]
+**total_amount** | **float** |  |
+**first_installment_amount** | **float** |  | [optional]
+**currency** | **string** |  | [optional]
+**number_of_installments** | **int** |  |
+**purchase_method** | [**\Splitit\Model\PurchaseMethod**](PurchaseMethod.md) |  |
+**ref_order_number** | **string** |  | [optional]
+**tags** | **array<string,string>** |  | [optional]
+
+[[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)
