@@ -1,4 +1,5 @@
 <?php
+
 /**
  * InstallmentPlanApiTest
  * PHP version 7.4
@@ -29,6 +30,8 @@ use PHPUnit\Framework\TestCase;
 class InstallmentPlanApiTest extends TestCase
 {
 
+    protected \Splitit\Api\InstallmentPlanApi $api;
+
     /**
      * Setup before running any test cases
      */
@@ -41,6 +44,8 @@ class InstallmentPlanApiTest extends TestCase
      */
     public function setUp(): void
     {
+        $config = \Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+        $this->api = new \Splitit\Api\InstallmentPlanApi($config);
     }
 
     /**
@@ -101,8 +106,12 @@ class InstallmentPlanApiTest extends TestCase
      */
     public function testPost()
     {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
+        $installmentPlanInitiateRequest = [
+            "auto_capture" => True,
+            "attempt3d_secure" => True,
+        ];
+
+        $this->api->post(date("c"), $installmentPlanInitiateRequest);
     }
 
     /**
