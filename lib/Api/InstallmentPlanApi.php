@@ -1,4 +1,5 @@
 <?php
+
 /**
  * InstallmentPlanApi
  * PHP version 7.4
@@ -107,7 +108,7 @@ class InstallmentPlanApi
         ],
     ];
 
-/**
+    /**
      * @param ClientInterface $client
      * @param Configuration   $config
      * @param HeaderSelector  $selector
@@ -220,7 +221,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanCancelResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -313,7 +314,6 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -484,7 +484,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -504,7 +504,6 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -607,7 +606,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentsEligibilityResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -700,7 +699,6 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -863,7 +861,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -890,7 +888,6 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -993,7 +990,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanGetResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -1086,7 +1083,6 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -1257,7 +1253,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -1277,7 +1273,6 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -1382,7 +1377,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InitiatePlanResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -1490,7 +1485,6 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -1669,7 +1663,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -1696,7 +1690,6 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -1705,6 +1698,8 @@ class InstallmentPlanApi
                 $httpBody = ObjectSerializer::buildQuery($formParams);
             }
         }
+
+        $this->config->refreshOAuthAccessToken();
 
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
@@ -1801,7 +1796,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanCreateResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -1909,7 +1904,6 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -2088,7 +2082,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -2115,7 +2109,6 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -2220,7 +2213,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanRefundResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -2313,7 +2306,6 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -2494,7 +2486,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -2521,7 +2513,6 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -2628,7 +2619,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanSearchResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -2721,7 +2712,6 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -2913,7 +2903,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -2933,7 +2923,6 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -3038,7 +3027,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanUpdateResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -3131,7 +3120,6 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -3312,7 +3300,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -3339,7 +3327,6 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -3442,7 +3429,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanUpdateResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -3535,7 +3522,6 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -3698,7 +3684,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -3725,7 +3711,6 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -3828,7 +3813,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\VerifyAuthorizationResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -3921,7 +3906,6 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -4092,7 +4076,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -4112,7 +4096,6 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);

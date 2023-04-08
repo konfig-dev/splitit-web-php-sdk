@@ -44,7 +44,11 @@ class InstallmentPlanApiTest extends TestCase
      */
     public function setUp(): void
     {
-        $config = \Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+        $config = \Splitit\Configuration::getDefaultConfiguration();
+        $clientId = getenv("SPLITIT_CLIENT_ID");
+        $clientSecret = getenv("SPLITIT_CLIENT_SECRET");
+        $config->setClientId($clientId);
+        $config->setClientSecret($clientSecret);
         $this->api = new \Splitit\Api\InstallmentPlanApi($config);
     }
 
@@ -106,12 +110,12 @@ class InstallmentPlanApiTest extends TestCase
      */
     public function testPost()
     {
-        $installmentPlanInitiateRequest = [
+        $installment_plan_initiate_request = [
             "auto_capture" => True,
             "attempt3d_secure" => True,
         ];
 
-        $this->api->post(date("c"), $installmentPlanInitiateRequest);
+        $this->api->post(date("c"), $installment_plan_initiate_request);
     }
 
     /**
