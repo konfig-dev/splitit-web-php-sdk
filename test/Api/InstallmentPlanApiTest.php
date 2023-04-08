@@ -26,6 +26,7 @@ use \Splitit\Configuration;
 use \Splitit\ApiException;
 use \Splitit\ObjectSerializer;
 use PHPUnit\Framework\TestCase;
+use Splitit\Model\PurchaseMethod;
 
 class InstallmentPlanApiTest extends TestCase
 {
@@ -110,12 +111,33 @@ class InstallmentPlanApiTest extends TestCase
      */
     public function testPost()
     {
-        $installment_plan_initiate_request = [
-            "auto_capture" => True,
-            "attempt3d_secure" => True,
-        ];
+        $installment_plan_initiate_request = new \Splitit\Model\InstallmentPlanInitiateRequest([
+            'auto_capture' => true,
+            'attempt_3d_secure' => true,
+            'shopper' => [
+                'email' => 'fake@email.com',
+            ],
+            'plan_data' => [
+                'total_amount' => 10,
+                'number_of_installments' => 10,
+                'currency' => 'USD',
+                'purchase_method' => PurchaseMethod::IN_STORE,
+            ],
+            'billing_address' => [
+                'address_line1' => '144 Union St',
+                'city' => 'Brooklyn',
+                'state' => 'North Dakota',
+                'zip' => '11231',
+                'country' => 'United States',
+            ],
+            'redirect_urls' => [],
+        ]);
 
-        $this->api->post(date("c"), $installment_plan_initiate_request);
+        $response = $this->api->post(date("c"), $installment_plan_initiate_request);
+        $this->assertNotNull(
+            $response,
+            "response is null"
+        );
     }
 
     /**
