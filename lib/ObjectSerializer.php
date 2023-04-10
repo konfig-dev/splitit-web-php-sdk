@@ -1,5 +1,4 @@
 <?php
-
 /**
  * ObjectSerializer
  *
@@ -98,7 +97,7 @@ class ObjectSerializer
                     }
                 }
             } else {
-                foreach ($data as $property => $value) {
+                foreach($data as $property => $value) {
                     $values[$property] = self::sanitizeForSerialization($value);
                 }
             }
@@ -173,9 +172,9 @@ class ObjectSerializer
         }
 
         switch ($openApiType) {
-                # For numeric values, false and '' are considered empty.
-                # This comparison is safe for floating point values, since the previous call to empty() will
-                # filter out values that don't match 0.
+            # For numeric values, false and '' are considered empty.
+            # This comparison is safe for floating point values, since the previous call to empty() will
+            # filter out values that don't match 0.
             case 'int':
             case 'integer':
                 return $value !== 0;
@@ -184,12 +183,12 @@ class ObjectSerializer
             case 'float':
                 return $value !== 0 && $value !== 0.0;
 
-                # For boolean values, '' is considered empty
+            # For boolean values, '' is considered empty
             case 'bool':
             case 'boolean':
                 return !in_array($value, [false, 0], true);
 
-                # For all the other types, any value at this point can be considered empty.
+            # For all the other types, any value at this point can be considered empty.
             default:
                 return true;
         }
@@ -230,7 +229,7 @@ class ObjectSerializer
         }
 
         # Handle DateTime objects in query
-        if ($openApiType === "\\DateTime" && $value instanceof \DateTime) {
+        if($openApiType === "\\DateTime" && $value instanceof \DateTime) {
             return ["{$paramName}" => $value->format(self::$dateTimeFormat)];
         }
 
@@ -468,7 +467,7 @@ class ObjectSerializer
             // determine file name
             if (
                 is_array($httpHeaders)
-                && array_key_exists('Content-Disposition', $httpHeaders)
+                && array_key_exists('Content-Disposition', $httpHeaders) 
                 && preg_match('/inline; filename=[\'"]?([^\'"\s]+)[\'"]?$/i', $httpHeaders['Content-Disposition'], $match)
             ) {
                 $filename = Configuration::getDefaultConfiguration()->getTempFolderPath() . DIRECTORY_SEPARATOR . self::sanitizeFilename($match[1]);

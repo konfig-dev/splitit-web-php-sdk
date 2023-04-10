@@ -1,5 +1,4 @@
 <?php
-
 /**
  * InstallmentPlanApi
  * PHP version 7.4
@@ -108,7 +107,7 @@ class InstallmentPlanApi
         ],
     ];
 
-    /**
+/**
      * @param ClientInterface $client
      * @param Configuration   $config
      * @param HeaderSelector  $selector
@@ -182,7 +181,7 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanCancelResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function cancelWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['cancel'][0])
+    public function cancelWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['cancel'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $request = $this->cancelRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
 
@@ -191,6 +190,19 @@ class InstallmentPlanApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                if (
+                    ($e->getCode() == 401 || $e->getCode() == 403) &&
+                    !empty($this->getConfig()->getAccessToken()) &&
+                    $requestOptions->shouldRetryOAuth()
+                ) {
+                    return $this->cancelWithHttpInfo(
+                        $installment_plan_number,
+                        $x_splitit_idempotency_key,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -221,7 +233,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanCancelResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -314,6 +326,7 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
+
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -484,7 +497,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json',],
+            ['text/plain', 'application/json', 'text/json', ],
             $contentType,
             $multipart
         );
@@ -504,6 +517,7 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
+
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -513,6 +527,7 @@ class InstallmentPlanApi
             }
         }
 
+        $this->config->refreshOAuthAccessToken();
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -567,7 +582,7 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentsEligibilityResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function checkEligibilityWithHttpInfo($x_splitit_idempotency_key, $check_installments_eligibility_request, string $contentType = self::contentTypes['checkEligibility'][0])
+    public function checkEligibilityWithHttpInfo($x_splitit_idempotency_key, $check_installments_eligibility_request, string $contentType = self::contentTypes['checkEligibility'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $request = $this->checkEligibilityRequest($x_splitit_idempotency_key, $check_installments_eligibility_request, $contentType);
 
@@ -576,6 +591,19 @@ class InstallmentPlanApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                if (
+                    ($e->getCode() == 401 || $e->getCode() == 403) &&
+                    !empty($this->getConfig()->getAccessToken()) &&
+                    $requestOptions->shouldRetryOAuth()
+                ) {
+                    return $this->checkEligibilityWithHttpInfo(
+                        $x_splitit_idempotency_key,
+                        $check_installments_eligibility_request,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -606,7 +634,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentsEligibilityResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -699,6 +727,7 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
+
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -861,7 +890,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json',],
+            ['text/plain', 'application/json', 'text/json', ],
             $contentType,
             $multipart
         );
@@ -888,6 +917,7 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
+
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -897,6 +927,7 @@ class InstallmentPlanApi
             }
         }
 
+        $this->config->refreshOAuthAccessToken();
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -951,7 +982,7 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanGetResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['get'][0])
+    public function getWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['get'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $request = $this->getRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
 
@@ -960,6 +991,19 @@ class InstallmentPlanApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                if (
+                    ($e->getCode() == 401 || $e->getCode() == 403) &&
+                    !empty($this->getConfig()->getAccessToken()) &&
+                    $requestOptions->shouldRetryOAuth()
+                ) {
+                    return $this->getWithHttpInfo(
+                        $installment_plan_number,
+                        $x_splitit_idempotency_key,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -990,7 +1034,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanGetResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -1083,6 +1127,7 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
+
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -1253,7 +1298,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json',],
+            ['text/plain', 'application/json', 'text/json', ],
             $contentType,
             $multipart
         );
@@ -1273,6 +1318,7 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
+
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -1282,6 +1328,7 @@ class InstallmentPlanApi
             }
         }
 
+        $this->config->refreshOAuthAccessToken();
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -1391,7 +1438,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InitiatePlanResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -1499,6 +1546,7 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
+
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -1677,7 +1725,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json',],
+            ['text/plain', 'application/json', 'text/json', ],
             $contentType,
             $multipart
         );
@@ -1704,6 +1752,7 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
+
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -1714,7 +1763,6 @@ class InstallmentPlanApi
         }
 
         $this->config->refreshOAuthAccessToken();
-
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -1771,7 +1819,7 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanCreateResponse|\Splitit\Model\PlanErrorResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function post2WithHttpInfo($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post2'][0])
+    public function post2WithHttpInfo($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post2'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $request = $this->post2Request($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode, $contentType);
 
@@ -1780,6 +1828,20 @@ class InstallmentPlanApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                if (
+                    ($e->getCode() == 401 || $e->getCode() == 403) &&
+                    !empty($this->getConfig()->getAccessToken()) &&
+                    $requestOptions->shouldRetryOAuth()
+                ) {
+                    return $this->post2WithHttpInfo(
+                        $x_splitit_idempotency_key,
+                        $installment_plan_create_request,
+                        $x_splitit_test_mode,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -1810,7 +1872,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanCreateResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -1918,6 +1980,7 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
+
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -2096,7 +2159,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json',],
+            ['text/plain', 'application/json', 'text/json', ],
             $contentType,
             $multipart
         );
@@ -2123,6 +2186,7 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
+
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -2132,6 +2196,7 @@ class InstallmentPlanApi
             }
         }
 
+        $this->config->refreshOAuthAccessToken();
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -2188,7 +2253,7 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanRefundResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function refundWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, string $contentType = self::contentTypes['refund'][0])
+    public function refundWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, string $contentType = self::contentTypes['refund'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $request = $this->refundRequest($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, $contentType);
 
@@ -2197,6 +2262,20 @@ class InstallmentPlanApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                if (
+                    ($e->getCode() == 401 || $e->getCode() == 403) &&
+                    !empty($this->getConfig()->getAccessToken()) &&
+                    $requestOptions->shouldRetryOAuth()
+                ) {
+                    return $this->refundWithHttpInfo(
+                        $installment_plan_number,
+                        $x_splitit_idempotency_key,
+                        $installment_plan_refund_request,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -2227,7 +2306,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanRefundResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -2320,6 +2399,7 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
+
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -2500,7 +2580,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json',],
+            ['text/plain', 'application/json', 'text/json', ],
             $contentType,
             $multipart
         );
@@ -2527,6 +2607,7 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
+
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -2536,6 +2617,7 @@ class InstallmentPlanApi
             }
         }
 
+        $this->config->refreshOAuthAccessToken();
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -2594,7 +2676,7 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanSearchResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function searchWithHttpInfo($x_splitit_idempotency_key, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = self::contentTypes['search'][0])
+    public function searchWithHttpInfo($x_splitit_idempotency_key, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = self::contentTypes['search'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $request = $this->searchRequest($x_splitit_idempotency_key, $installment_plan_number, $ref_order_number, $extended_params, $contentType);
 
@@ -2603,6 +2685,21 @@ class InstallmentPlanApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                if (
+                    ($e->getCode() == 401 || $e->getCode() == 403) &&
+                    !empty($this->getConfig()->getAccessToken()) &&
+                    $requestOptions->shouldRetryOAuth()
+                ) {
+                    return $this->searchWithHttpInfo(
+                        $x_splitit_idempotency_key,
+                        $installment_plan_number,
+                        $ref_order_number,
+                        $extended_params,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -2633,7 +2730,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanSearchResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -2726,6 +2823,7 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
+
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -2917,7 +3015,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json',],
+            ['text/plain', 'application/json', 'text/json', ],
             $contentType,
             $multipart
         );
@@ -2937,6 +3035,7 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
+
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -2946,6 +3045,7 @@ class InstallmentPlanApi
             }
         }
 
+        $this->config->refreshOAuthAccessToken();
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -3002,7 +3102,7 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanUpdateResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateOrderWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0])
+    public function updateOrderWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $request = $this->updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, $contentType);
 
@@ -3011,6 +3111,20 @@ class InstallmentPlanApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                if (
+                    ($e->getCode() == 401 || $e->getCode() == 403) &&
+                    !empty($this->getConfig()->getAccessToken()) &&
+                    $requestOptions->shouldRetryOAuth()
+                ) {
+                    return $this->updateOrderWithHttpInfo(
+                        $installment_plan_number,
+                        $x_splitit_idempotency_key,
+                        $update_order_request,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -3041,7 +3155,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanUpdateResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -3134,6 +3248,7 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
+
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -3314,7 +3429,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json',],
+            ['text/plain', 'application/json', 'text/json', ],
             $contentType,
             $multipart
         );
@@ -3341,6 +3456,7 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
+
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -3350,6 +3466,7 @@ class InstallmentPlanApi
             }
         }
 
+        $this->config->refreshOAuthAccessToken();
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -3404,7 +3521,7 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanUpdateResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateOrder2WithHttpInfo($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, string $contentType = self::contentTypes['updateOrder2'][0])
+    public function updateOrder2WithHttpInfo($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, string $contentType = self::contentTypes['updateOrder2'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $request = $this->updateOrder2Request($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, $contentType);
 
@@ -3413,6 +3530,19 @@ class InstallmentPlanApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                if (
+                    ($e->getCode() == 401 || $e->getCode() == 403) &&
+                    !empty($this->getConfig()->getAccessToken()) &&
+                    $requestOptions->shouldRetryOAuth()
+                ) {
+                    return $this->updateOrder2WithHttpInfo(
+                        $x_splitit_idempotency_key,
+                        $installment_plan_update_request_by_identifier,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -3443,7 +3573,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanUpdateResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -3536,6 +3666,7 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
+
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -3698,7 +3829,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json',],
+            ['text/plain', 'application/json', 'text/json', ],
             $contentType,
             $multipart
         );
@@ -3725,6 +3856,7 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
+
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -3734,6 +3866,7 @@ class InstallmentPlanApi
             }
         }
 
+        $this->config->refreshOAuthAccessToken();
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -3788,7 +3921,7 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\VerifyAuthorizationResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function verifyAuthorizationWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['verifyAuthorization'][0])
+    public function verifyAuthorizationWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['verifyAuthorization'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $request = $this->verifyAuthorizationRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
 
@@ -3797,6 +3930,19 @@ class InstallmentPlanApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                if (
+                    ($e->getCode() == 401 || $e->getCode() == 403) &&
+                    !empty($this->getConfig()->getAccessToken()) &&
+                    $requestOptions->shouldRetryOAuth()
+                ) {
+                    return $this->verifyAuthorizationWithHttpInfo(
+                        $installment_plan_number,
+                        $x_splitit_idempotency_key,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -3827,7 +3973,7 @@ class InstallmentPlanApi
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Splitit\Model\VerifyAuthorizationResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -3920,6 +4066,7 @@ class InstallmentPlanApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
+
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -4090,7 +4237,7 @@ class InstallmentPlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json',],
+            ['text/plain', 'application/json', 'text/json', ],
             $contentType,
             $multipart
         );
@@ -4110,6 +4257,7 @@ class InstallmentPlanApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
+
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -4119,6 +4267,7 @@ class InstallmentPlanApi
             }
         }
 
+        $this->config->refreshOAuthAccessToken();
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
