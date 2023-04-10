@@ -1338,7 +1338,7 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InitiatePlanResponse|\Splitit\Model\PlanErrorResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postWithHttpInfo($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post'][0], \Splitit\RequestOptions $requestOptions = new RequestOptions())
+    public function postWithHttpInfo($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $request = $this->postRequest($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType);
 
