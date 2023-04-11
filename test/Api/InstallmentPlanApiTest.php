@@ -133,7 +133,10 @@ class InstallmentPlanApiTest extends TestCase
             'redirect_urls' => [],
         ]);
 
-        $response = $this->api->post(date("c"), $installment_plan_initiate_request);
+        $response = $this->api->post([
+            "x_splitit_idempotency_key" => date("c"),
+            "installment_plan_initiate_request" => $installment_plan_initiate_request
+        ]);
         $this->assertNotNull(
             $response,
             "response is null"

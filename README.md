@@ -60,14 +60,14 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
     $config
 );
 
-$installment_plan_number = "installmentPlanNumber_example";
-$x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
+
+$request = [
+    'installment_plan_number' => "installmentPlanNumber_example",
+    'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
+];
 
 try {
-    $result = $apiInstance->cancel(
-        installment_plan_number: $installment_plan_number, 
-        x_splitit_idempotency_key: $x_splitit_idempotency_key
-    );
+    $result = $apiInstance->cancel(request);
     print_r($result->$getInstallmentPlanNumber());
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->cancel: ', $e->getMessage(), PHP_EOL;

@@ -43,14 +43,14 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
     $config
 );
 
-$installment_plan_number = "installmentPlanNumber_example";
-$x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
+
+$request = [
+    'installment_plan_number' => "installmentPlanNumber_example",
+    'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
+];
 
 try {
-    $result = $apiInstance->cancel(
-        installment_plan_number: $installment_plan_number, 
-        x_splitit_idempotency_key: $x_splitit_idempotency_key
-    );
+    $result = $apiInstance->cancel(request);
     print_r($result->$getInstallmentPlanNumber());
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->cancel: ', $e->getMessage(), PHP_EOL;
@@ -58,6 +58,8 @@ try {
 ```
 
 ### Parameters
+
+Note: the input parameter is an associative array with the keys listed as the parameter names below.
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
@@ -108,15 +110,15 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
     $config
 );
 
-$x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
-$check_installments_eligibility_request = [
-    ];
+
+$request = [
+    'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
+    'check_installments_eligibility_request' => [
+    ],
+];
 
 try {
-    $result = $apiInstance->checkEligibility(
-        x_splitit_idempotency_key: $x_splitit_idempotency_key, 
-        check_installments_eligibility_request: $check_installments_eligibility_request
-    );
+    $result = $apiInstance->checkEligibility(request);
     print_r($result->$getPaymentPlanOptions());
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->checkEligibility: ', $e->getMessage(), PHP_EOL;
@@ -124,6 +126,8 @@ try {
 ```
 
 ### Parameters
+
+Note: the input parameter is an associative array with the keys listed as the parameter names below.
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
@@ -174,14 +178,14 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
     $config
 );
 
-$installment_plan_number = "installmentPlanNumber_example";
-$x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
+
+$request = [
+    'installment_plan_number' => "installmentPlanNumber_example",
+    'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
+];
 
 try {
-    $result = $apiInstance->get(
-        installment_plan_number: $installment_plan_number, 
-        x_splitit_idempotency_key: $x_splitit_idempotency_key
-    );
+    $result = $apiInstance->get(request);
     print_r($result->$getInstallmentPlanNumber());
     print_r($result->$getDateCreated());
     print_r($result->$getRefOrderNumber());
@@ -204,6 +208,8 @@ try {
 ```
 
 ### Parameters
+
+Note: the input parameter is an associative array with the keys listed as the parameter names below.
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
@@ -254,19 +260,18 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
     $config
 );
 
-$x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
-$installment_plan_initiate_request = [
+
+$request = [
+    'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
+    'installment_plan_initiate_request' => [
         "auto_capture" => True,
         "attempt3d_secure" => True,
-    ];
-$x_splitit_test_mode = "None";
+    ],
+    'x_splitit_test_mode' => "None",
+];
 
 try {
-    $result = $apiInstance->post(
-        x_splitit_idempotency_key: $x_splitit_idempotency_key, 
-        installment_plan_initiate_request: $installment_plan_initiate_request, 
-        x_splitit_test_mode: $x_splitit_test_mode
-    );
+    $result = $apiInstance->post(request);
     print_r($result->$getInstallmentPlanNumber());
     print_r($result->$getRefOrderNumber());
     print_r($result->$getPurchaseMethod());
@@ -283,6 +288,8 @@ try {
 ```
 
 ### Parameters
+
+Note: the input parameter is an associative array with the keys listed as the parameter names below.
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
@@ -334,19 +341,18 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
     $config
 );
 
-$x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
-$installment_plan_create_request = [
+
+$request = [
+    'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
+    'installment_plan_create_request' => [
         "auto_capture" => True,
         "terms_and_conditions_accepted" => True,
-    ];
-$x_splitit_test_mode = "None";
+    ],
+    'x_splitit_test_mode' => "None",
+];
 
 try {
-    $result = $apiInstance->post2(
-        x_splitit_idempotency_key: $x_splitit_idempotency_key, 
-        installment_plan_create_request: $installment_plan_create_request, 
-        x_splitit_test_mode: $x_splitit_test_mode
-    );
+    $result = $apiInstance->post2(request);
     print_r($result->$getInstallmentPlanNumber());
     print_r($result->$getDateCreated());
     print_r($result->$getRefOrderNumber());
@@ -368,6 +374,8 @@ try {
 ```
 
 ### Parameters
+
+Note: the input parameter is an associative array with the keys listed as the parameter names below.
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
@@ -419,19 +427,18 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
     $config
 );
 
-$installment_plan_number = "installmentPlanNumber_example";
-$x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
-$installment_plan_refund_request = [
+
+$request = [
+    'installment_plan_number' => "installmentPlanNumber_example",
+    'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
+    'installment_plan_refund_request' => [
         "amount" => 3.14,
         "refund_strategy" => "FutureInstallmentsFirst",
-    ];
+    ],
+];
 
 try {
-    $result = $apiInstance->refund(
-        installment_plan_number: $installment_plan_number, 
-        x_splitit_idempotency_key: $x_splitit_idempotency_key, 
-        installment_plan_refund_request: $installment_plan_refund_request
-    );
+    $result = $apiInstance->refund(request);
     print_r($result->$getRefundId());
     print_r($result->$getInstallmentPlanNumber());
     print_r($result->$getCurrency());
@@ -444,6 +451,8 @@ try {
 ```
 
 ### Parameters
+
+Note: the input parameter is an associative array with the keys listed as the parameter names below.
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
@@ -495,20 +504,18 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
     $config
 );
 
-$x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
-$installment_plan_number = "string_example";
-$ref_order_number = "string_example";
-$extended_params = [
+
+$request = [
+    'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
+    'installment_plan_number' => "string_example",
+    'ref_order_number' => "string_example",
+    'extended_params' => [
         "key": "string_example",
-    ];
+    ],
+];
 
 try {
-    $result = $apiInstance->search(
-        x_splitit_idempotency_key: $x_splitit_idempotency_key, 
-        installment_plan_number: $installment_plan_number, 
-        ref_order_number: $ref_order_number, 
-        extended_params: $extended_params
-    );
+    $result = $apiInstance->search(request);
     print_r($result->$getPlanList());
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->search: ', $e->getMessage(), PHP_EOL;
@@ -516,6 +523,8 @@ try {
 ```
 
 ### Parameters
+
+Note: the input parameter is an associative array with the keys listed as the parameter names below.
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
@@ -568,18 +577,17 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
     $config
 );
 
-$installment_plan_number = "installmentPlanNumber_example";
-$x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
-$update_order_request = [
+
+$request = [
+    'installment_plan_number' => "installmentPlanNumber_example",
+    'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
+    'update_order_request' => [
         "shipping_status" => "Pending",
-    ];
+    ],
+];
 
 try {
-    $result = $apiInstance->updateOrder(
-        installment_plan_number: $installment_plan_number, 
-        x_splitit_idempotency_key: $x_splitit_idempotency_key, 
-        update_order_request: $update_order_request
-    );
+    $result = $apiInstance->updateOrder(request);
     print_r($result->$getRefOrderNumber());
     print_r($result->$getInstallmentPlanNumber());
     print_r($result->$getStatus());
@@ -590,6 +598,8 @@ try {
 ```
 
 ### Parameters
+
+Note: the input parameter is an associative array with the keys listed as the parameter names below.
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
@@ -641,14 +651,14 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
     $config
 );
 
-$x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
-$installment_plan_update_request_by_identifier = None;
+
+$request = [
+    'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
+    'installment_plan_update_request_by_identifier' => None,
+];
 
 try {
-    $result = $apiInstance->updateOrder2(
-        x_splitit_idempotency_key: $x_splitit_idempotency_key, 
-        installment_plan_update_request_by_identifier: $installment_plan_update_request_by_identifier
-    );
+    $result = $apiInstance->updateOrder2(request);
     print_r($result->$getRefOrderNumber());
     print_r($result->$getInstallmentPlanNumber());
     print_r($result->$getStatus());
@@ -659,6 +669,8 @@ try {
 ```
 
 ### Parameters
+
+Note: the input parameter is an associative array with the keys listed as the parameter names below.
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
@@ -709,14 +721,14 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
     $config
 );
 
-$installment_plan_number = "installmentPlanNumber_example";
-$x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
+
+$request = [
+    'installment_plan_number' => "installmentPlanNumber_example",
+    'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
+];
 
 try {
-    $result = $apiInstance->verifyAuthorization(
-        installment_plan_number: $installment_plan_number, 
-        x_splitit_idempotency_key: $x_splitit_idempotency_key
-    );
+    $result = $apiInstance->verifyAuthorization(request);
     print_r($result->$getIsAuthorized());
     print_r($result->$getAuthorizationAmount());
     print_r($result->$getAuthorization());
@@ -726,6 +738,8 @@ try {
 ```
 
 ### Parameters
+
+Note: the input parameter is an associative array with the keys listed as the parameter names below.
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
