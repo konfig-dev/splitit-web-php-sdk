@@ -473,14 +473,14 @@ class InstallmentPlanApi
         // verify the required parameter 'installment_plan_number' is set
         if ($installment_plan_number === null || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $installment_plan_number when calling cancel'
+                'Missing the required parameter installment_plan_number when calling cancel'
             );
         }
 
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $x_splitit_idempotency_key when calling cancel'
+                'Missing the required parameter x_splitit_idempotency_key when calling cancel'
             );
         }
 
@@ -886,14 +886,17 @@ class InstallmentPlanApi
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $x_splitit_idempotency_key when calling checkEligibility'
+                'Missing the required parameter x_splitit_idempotency_key when calling checkEligibility'
             );
         }
 
+        if (!($check_installments_eligibility_request instanceof \Splitit\Model\CheckInstallmentsEligibilityRequest)) {
+            throw new \InvalidArgumentException('"check_installments_eligibility_request" must be instance of "\Splitit\Model\CheckInstallmentsEligibilityRequest" when calling InstallmentPlanApi.checkEligibility.');
+        }
         // verify the required parameter 'check_installments_eligibility_request' is set
         if ($check_installments_eligibility_request === null || (is_array($check_installments_eligibility_request) && count($check_installments_eligibility_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $check_installments_eligibility_request when calling checkEligibility'
+                'Missing the required parameter check_installments_eligibility_request when calling checkEligibility'
             );
         }
 
@@ -1298,14 +1301,14 @@ class InstallmentPlanApi
         // verify the required parameter 'installment_plan_number' is set
         if ($installment_plan_number === null || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $installment_plan_number when calling get'
+                'Missing the required parameter installment_plan_number when calling get'
             );
         }
 
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $x_splitit_idempotency_key when calling get'
+                'Missing the required parameter x_splitit_idempotency_key when calling get'
             );
         }
 
@@ -1740,14 +1743,17 @@ class InstallmentPlanApi
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $x_splitit_idempotency_key when calling post'
+                'Missing the required parameter x_splitit_idempotency_key when calling post'
             );
         }
 
+        if (!($installment_plan_initiate_request instanceof \Splitit\Model\InstallmentPlanInitiateRequest)) {
+            throw new \InvalidArgumentException('"installment_plan_initiate_request" must be instance of "\Splitit\Model\InstallmentPlanInitiateRequest" when calling InstallmentPlanApi.post.');
+        }
         // verify the required parameter 'installment_plan_initiate_request' is set
         if ($installment_plan_initiate_request === null || (is_array($installment_plan_initiate_request) && count($installment_plan_initiate_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $installment_plan_initiate_request when calling post'
+                'Missing the required parameter installment_plan_initiate_request when calling post'
             );
         }
 
@@ -2186,14 +2192,17 @@ class InstallmentPlanApi
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $x_splitit_idempotency_key when calling post2'
+                'Missing the required parameter x_splitit_idempotency_key when calling post2'
             );
         }
 
+        if (!($installment_plan_create_request instanceof \Splitit\Model\InstallmentPlanCreateRequest)) {
+            throw new \InvalidArgumentException('"installment_plan_create_request" must be instance of "\Splitit\Model\InstallmentPlanCreateRequest" when calling InstallmentPlanApi.post2.');
+        }
         // verify the required parameter 'installment_plan_create_request' is set
         if ($installment_plan_create_request === null || (is_array($installment_plan_create_request) && count($installment_plan_create_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $installment_plan_create_request when calling post2'
+                'Missing the required parameter installment_plan_create_request when calling post2'
             );
         }
 
@@ -2609,21 +2618,24 @@ class InstallmentPlanApi
         // verify the required parameter 'installment_plan_number' is set
         if ($installment_plan_number === null || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $installment_plan_number when calling refund'
+                'Missing the required parameter installment_plan_number when calling refund'
             );
         }
 
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $x_splitit_idempotency_key when calling refund'
+                'Missing the required parameter x_splitit_idempotency_key when calling refund'
             );
         }
 
+        if (!($installment_plan_refund_request instanceof \Splitit\Model\InstallmentPlanRefundRequest)) {
+            throw new \InvalidArgumentException('"installment_plan_refund_request" must be instance of "\Splitit\Model\InstallmentPlanRefundRequest" when calling InstallmentPlanApi.refund.');
+        }
         // verify the required parameter 'installment_plan_refund_request' is set
         if ($installment_plan_refund_request === null || (is_array($installment_plan_refund_request) && count($installment_plan_refund_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $installment_plan_refund_request when calling refund'
+                'Missing the required parameter installment_plan_refund_request when calling refund'
             );
         }
 
@@ -3048,7 +3060,7 @@ class InstallmentPlanApi
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $x_splitit_idempotency_key when calling search'
+                'Missing the required parameter x_splitit_idempotency_key when calling search'
             );
         }
 
@@ -3482,21 +3494,24 @@ class InstallmentPlanApi
         // verify the required parameter 'installment_plan_number' is set
         if ($installment_plan_number === null || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $installment_plan_number when calling updateOrder'
+                'Missing the required parameter installment_plan_number when calling updateOrder'
             );
         }
 
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $x_splitit_idempotency_key when calling updateOrder'
+                'Missing the required parameter x_splitit_idempotency_key when calling updateOrder'
             );
         }
 
+        if (!($update_order_request instanceof \Splitit\Model\UpdateOrderRequest)) {
+            throw new \InvalidArgumentException('"update_order_request" must be instance of "\Splitit\Model\UpdateOrderRequest" when calling InstallmentPlanApi.updateOrder.');
+        }
         // verify the required parameter 'update_order_request' is set
         if ($update_order_request === null || (is_array($update_order_request) && count($update_order_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $update_order_request when calling updateOrder'
+                'Missing the required parameter update_order_request when calling updateOrder'
             );
         }
 
@@ -3909,14 +3924,17 @@ class InstallmentPlanApi
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $x_splitit_idempotency_key when calling updateOrder2'
+                'Missing the required parameter x_splitit_idempotency_key when calling updateOrder2'
             );
         }
 
+        if (!($installment_plan_update_request_by_identifier instanceof \Splitit\Model\InstallmentPlanUpdateRequestByIdentifier)) {
+            throw new \InvalidArgumentException('"installment_plan_update_request_by_identifier" must be instance of "\Splitit\Model\InstallmentPlanUpdateRequestByIdentifier" when calling InstallmentPlanApi.updateOrder2.');
+        }
         // verify the required parameter 'installment_plan_update_request_by_identifier' is set
         if ($installment_plan_update_request_by_identifier === null || (is_array($installment_plan_update_request_by_identifier) && count($installment_plan_update_request_by_identifier) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $installment_plan_update_request_by_identifier when calling updateOrder2'
+                'Missing the required parameter installment_plan_update_request_by_identifier when calling updateOrder2'
             );
         }
 
@@ -4321,14 +4339,14 @@ class InstallmentPlanApi
         // verify the required parameter 'installment_plan_number' is set
         if ($installment_plan_number === null || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $installment_plan_number when calling verifyAuthorization'
+                'Missing the required parameter installment_plan_number when calling verifyAuthorization'
             );
         }
 
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $x_splitit_idempotency_key when calling verifyAuthorization'
+                'Missing the required parameter x_splitit_idempotency_key when calling verifyAuthorization'
             );
         }
 

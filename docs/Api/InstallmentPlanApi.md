@@ -113,8 +113,8 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
 
 $request = [
     'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
-    'check_installments_eligibility_request' => [
-    ],
+    'check_installments_eligibility_request' => new \Splitit\Model\CheckInstallmentsEligibilityRequest([
+    ]),
 ];
 
 try {
@@ -263,10 +263,10 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
 
 $request = [
     'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
-    'installment_plan_initiate_request' => [
+    'installment_plan_initiate_request' => new \Splitit\Model\InstallmentPlanInitiateRequest([
         "auto_capture" => True,
         "attempt3d_secure" => True,
-    ],
+    ]),
     'x_splitit_test_mode' => "None",
 ];
 
@@ -344,10 +344,10 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
 
 $request = [
     'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
-    'installment_plan_create_request' => [
+    'installment_plan_create_request' => new \Splitit\Model\InstallmentPlanCreateRequest([
         "auto_capture" => True,
         "terms_and_conditions_accepted" => True,
-    ],
+    ]),
     'x_splitit_test_mode' => "None",
 ];
 
@@ -431,10 +431,10 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
 $request = [
     'installment_plan_number' => "installmentPlanNumber_example",
     'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
-    'installment_plan_refund_request' => [
+    'installment_plan_refund_request' => new \Splitit\Model\InstallmentPlanRefundRequest([
         "amount" => 3.14,
         "refund_strategy" => "FutureInstallmentsFirst",
-    ],
+    ]),
 ];
 
 try {
@@ -581,9 +581,9 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
 $request = [
     'installment_plan_number' => "installmentPlanNumber_example",
     'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
-    'update_order_request' => [
+    'update_order_request' => new \Splitit\Model\UpdateOrderRequest([
         "shipping_status" => "Pending",
-    ],
+    ]),
 ];
 
 try {
@@ -654,7 +654,7 @@ $apiInstance = new Splitit\Api\InstallmentPlanApi(
 
 $request = [
     'x_splitit_idempotency_key' => "X-Splitit-IdempotencyKey_example",
-    'installment_plan_update_request_by_identifier' => None,
+    'installment_plan_update_request_by_identifier' => new \Splitit\Model\InstallmentPlanUpdateRequestByIdentifier(None),
 ];
 
 try {
