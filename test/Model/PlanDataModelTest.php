@@ -142,4 +142,13 @@ class PlanDataModelTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "first_installment_date"
+     */
+    public function testPropertyFirstInstallmentDate()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }

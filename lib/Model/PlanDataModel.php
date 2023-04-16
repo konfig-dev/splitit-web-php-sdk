@@ -56,7 +56,8 @@ class PlanDataModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'purchase_method' => '\Splitit\Model\PurchaseMethod',
         'ref_order_number' => 'string',
         'extended_params' => 'array<string,string>',
-        'first_installment_amount' => 'float'
+        'first_installment_amount' => 'float',
+        'first_installment_date' => '\DateTime'
     ];
 
     /**
@@ -74,7 +75,8 @@ class PlanDataModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'purchase_method' => null,
         'ref_order_number' => null,
         'extended_params' => null,
-        'first_installment_amount' => 'decimal'
+        'first_installment_amount' => 'decimal',
+        'first_installment_date' => 'date-time'
     ];
 
     /**
@@ -90,7 +92,8 @@ class PlanDataModel implements ModelInterface, ArrayAccess, \JsonSerializable
 		'purchase_method' => false,
 		'ref_order_number' => false,
 		'extended_params' => false,
-		'first_installment_amount' => false
+		'first_installment_amount' => false,
+		'first_installment_date' => false
     ];
 
     /**
@@ -186,7 +189,8 @@ class PlanDataModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'purchase_method' => 'PurchaseMethod',
         'ref_order_number' => 'RefOrderNumber',
         'extended_params' => 'ExtendedParams',
-        'first_installment_amount' => 'FirstInstallmentAmount'
+        'first_installment_amount' => 'FirstInstallmentAmount',
+        'first_installment_date' => 'FirstInstallmentDate'
     ];
 
     /**
@@ -202,7 +206,8 @@ class PlanDataModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'purchase_method' => 'setPurchaseMethod',
         'ref_order_number' => 'setRefOrderNumber',
         'extended_params' => 'setExtendedParams',
-        'first_installment_amount' => 'setFirstInstallmentAmount'
+        'first_installment_amount' => 'setFirstInstallmentAmount',
+        'first_installment_date' => 'setFirstInstallmentDate'
     ];
 
     /**
@@ -218,7 +223,8 @@ class PlanDataModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'purchase_method' => 'getPurchaseMethod',
         'ref_order_number' => 'getRefOrderNumber',
         'extended_params' => 'getExtendedParams',
-        'first_installment_amount' => 'getFirstInstallmentAmount'
+        'first_installment_amount' => 'getFirstInstallmentAmount',
+        'first_installment_date' => 'getFirstInstallmentDate'
     ];
 
     /**
@@ -286,6 +292,7 @@ class PlanDataModel implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('ref_order_number', $data ?? [], null);
         $this->setIfExists('extended_params', $data ?? [], null);
         $this->setIfExists('first_installment_amount', $data ?? [], null);
+        $this->setIfExists('first_installment_date', $data ?? [], null);
     }
 
     /**
@@ -564,6 +571,35 @@ class PlanDataModel implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['first_installment_amount'] = $first_installment_amount;
+
+        return $this;
+    }
+
+    /**
+     * Gets first_installment_date
+     *
+     * @return \DateTime|null
+     */
+    public function getFirstInstallmentDate()
+    {
+        return $this->container['first_installment_date'];
+    }
+
+    /**
+     * Sets first_installment_date
+     *
+     * @param \DateTime|null $first_installment_date first_installment_date
+     *
+     * @return self
+     */
+    public function setFirstInstallmentDate($first_installment_date)
+    {
+
+        if (is_null($first_installment_date)) {
+            throw new \InvalidArgumentException('non-nullable first_installment_date cannot be null');
+        }
+
+        $this->container['first_installment_date'] = $first_installment_date;
 
         return $this;
     }

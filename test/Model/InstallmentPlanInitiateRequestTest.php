@@ -124,4 +124,13 @@ class InstallmentPlanInitiateRequestTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "ux_settings"
+     */
+    public function testPropertyUxSettings()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }

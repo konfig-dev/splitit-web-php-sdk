@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentPlanInitiateRequest
+ * UxSettingsModel
  *
  * PHP version 7.4
  *
@@ -26,13 +26,13 @@ use \ArrayAccess;
 use \Splitit\ObjectSerializer;
 
 /**
- * InstallmentPlanInitiateRequest Class Doc Comment
+ * UxSettingsModel Class Doc Comment
  *
  * @category Class
  * @package  Splitit
  * @implements \ArrayAccess<string, mixed>
  */
-class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
+class UxSettingsModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
       *
       * @var string
       */
-    protected static $openAPIModelName = 'InstallmentPlanInitiateRequest';
+    protected static $openAPIModelName = 'UxSettingsModel';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,13 +49,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
       * @var string[]
       */
     protected static $openAPITypes = [
-        'auto_capture' => 'bool',
-        'attempt3d_secure' => 'bool',
-        'shopper' => '\Splitit\Model\ShopperData',
-        'plan_data' => '\Splitit\Model\PlanDataModel',
-        'billing_address' => '\Splitit\Model\AddressDataModel',
-        'redirect_urls' => '\Splitit\Model\InitiateRedirectionEndpointsModel',
-        'ux_settings' => '\Splitit\Model\UxSettingsModel'
+        'displayed_installment_options' => 'int[]'
     ];
 
     /**
@@ -66,13 +60,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'auto_capture' => null,
-        'attempt3d_secure' => null,
-        'shopper' => null,
-        'plan_data' => null,
-        'billing_address' => null,
-        'redirect_urls' => null,
-        'ux_settings' => null
+        'displayed_installment_options' => 'int32'
     ];
 
     /**
@@ -81,13 +69,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'auto_capture' => false,
-		'attempt3d_secure' => false,
-		'shopper' => false,
-		'plan_data' => false,
-		'billing_address' => false,
-		'redirect_urls' => false,
-		'ux_settings' => false
+        'displayed_installment_options' => false
     ];
 
     /**
@@ -176,13 +158,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
      * @var string[]
      */
     protected static $attributeMap = [
-        'auto_capture' => 'AutoCapture',
-        'attempt3d_secure' => 'Attempt3dSecure',
-        'shopper' => 'Shopper',
-        'plan_data' => 'PlanData',
-        'billing_address' => 'BillingAddress',
-        'redirect_urls' => 'RedirectUrls',
-        'ux_settings' => 'UxSettings'
+        'displayed_installment_options' => 'DisplayedInstallmentOptions'
     ];
 
     /**
@@ -191,13 +167,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
      * @var string[]
      */
     protected static $setters = [
-        'auto_capture' => 'setAutoCapture',
-        'attempt3d_secure' => 'setAttempt3dSecure',
-        'shopper' => 'setShopper',
-        'plan_data' => 'setPlanData',
-        'billing_address' => 'setBillingAddress',
-        'redirect_urls' => 'setRedirectUrls',
-        'ux_settings' => 'setUxSettings'
+        'displayed_installment_options' => 'setDisplayedInstallmentOptions'
     ];
 
     /**
@@ -206,13 +176,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
      * @var string[]
      */
     protected static $getters = [
-        'auto_capture' => 'getAutoCapture',
-        'attempt3d_secure' => 'getAttempt3dSecure',
-        'shopper' => 'getShopper',
-        'plan_data' => 'getPlanData',
-        'billing_address' => 'getBillingAddress',
-        'redirect_urls' => 'getRedirectUrls',
-        'ux_settings' => 'getUxSettings'
+        'displayed_installment_options' => 'getDisplayedInstallmentOptions'
     ];
 
     /**
@@ -272,13 +236,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('auto_capture', $data ?? [], null);
-        $this->setIfExists('attempt3d_secure', $data ?? [], null);
-        $this->setIfExists('shopper', $data ?? [], null);
-        $this->setIfExists('plan_data', $data ?? [], null);
-        $this->setIfExists('billing_address', $data ?? [], null);
-        $this->setIfExists('redirect_urls', $data ?? [], null);
-        $this->setIfExists('ux_settings', $data ?? [], null);
+        $this->setIfExists('displayed_installment_options', $data ?? [], null);
     }
 
     /**
@@ -308,12 +266,6 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
     {
         $invalidProperties = [];
 
-        if ($this->container['auto_capture'] === null) {
-            $invalidProperties[] = "'auto_capture' can't be null";
-        }
-        if ($this->container['attempt3d_secure'] === null) {
-            $invalidProperties[] = "'attempt3d_secure' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -330,204 +282,30 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
 
 
     /**
-     * Gets auto_capture
+     * Gets displayed_installment_options
      *
-     * @return bool
+     * @return int[]|null
      */
-    public function getAutoCapture()
+    public function getDisplayedInstallmentOptions()
     {
-        return $this->container['auto_capture'];
+        return $this->container['displayed_installment_options'];
     }
 
     /**
-     * Sets auto_capture
+     * Sets displayed_installment_options
      *
-     * @param bool $auto_capture auto_capture
+     * @param int[]|null $displayed_installment_options displayed_installment_options
      *
      * @return self
      */
-    public function setAutoCapture($auto_capture)
+    public function setDisplayedInstallmentOptions($displayed_installment_options)
     {
 
-        if (is_null($auto_capture)) {
-            throw new \InvalidArgumentException('non-nullable auto_capture cannot be null');
+        if (is_null($displayed_installment_options)) {
+            throw new \InvalidArgumentException('non-nullable displayed_installment_options cannot be null');
         }
 
-        $this->container['auto_capture'] = $auto_capture;
-
-        return $this;
-    }
-
-    /**
-     * Gets attempt3d_secure
-     *
-     * @return bool
-     */
-    public function getAttempt3dSecure()
-    {
-        return $this->container['attempt3d_secure'];
-    }
-
-    /**
-     * Sets attempt3d_secure
-     *
-     * @param bool $attempt3d_secure attempt3d_secure
-     *
-     * @return self
-     */
-    public function setAttempt3dSecure($attempt3d_secure)
-    {
-
-        if (is_null($attempt3d_secure)) {
-            throw new \InvalidArgumentException('non-nullable attempt3d_secure cannot be null');
-        }
-
-        $this->container['attempt3d_secure'] = $attempt3d_secure;
-
-        return $this;
-    }
-
-    /**
-     * Gets shopper
-     *
-     * @return \Splitit\Model\ShopperData|null
-     */
-    public function getShopper()
-    {
-        return $this->container['shopper'];
-    }
-
-    /**
-     * Sets shopper
-     *
-     * @param \Splitit\Model\ShopperData|null $shopper shopper
-     *
-     * @return self
-     */
-    public function setShopper($shopper)
-    {
-
-        if (is_null($shopper)) {
-            throw new \InvalidArgumentException('non-nullable shopper cannot be null');
-        }
-
-        $this->container['shopper'] = $shopper;
-
-        return $this;
-    }
-
-    /**
-     * Gets plan_data
-     *
-     * @return \Splitit\Model\PlanDataModel|null
-     */
-    public function getPlanData()
-    {
-        return $this->container['plan_data'];
-    }
-
-    /**
-     * Sets plan_data
-     *
-     * @param \Splitit\Model\PlanDataModel|null $plan_data plan_data
-     *
-     * @return self
-     */
-    public function setPlanData($plan_data)
-    {
-
-        if (is_null($plan_data)) {
-            throw new \InvalidArgumentException('non-nullable plan_data cannot be null');
-        }
-
-        $this->container['plan_data'] = $plan_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets billing_address
-     *
-     * @return \Splitit\Model\AddressDataModel|null
-     */
-    public function getBillingAddress()
-    {
-        return $this->container['billing_address'];
-    }
-
-    /**
-     * Sets billing_address
-     *
-     * @param \Splitit\Model\AddressDataModel|null $billing_address billing_address
-     *
-     * @return self
-     */
-    public function setBillingAddress($billing_address)
-    {
-
-        if (is_null($billing_address)) {
-            throw new \InvalidArgumentException('non-nullable billing_address cannot be null');
-        }
-
-        $this->container['billing_address'] = $billing_address;
-
-        return $this;
-    }
-
-    /**
-     * Gets redirect_urls
-     *
-     * @return \Splitit\Model\InitiateRedirectionEndpointsModel|null
-     */
-    public function getRedirectUrls()
-    {
-        return $this->container['redirect_urls'];
-    }
-
-    /**
-     * Sets redirect_urls
-     *
-     * @param \Splitit\Model\InitiateRedirectionEndpointsModel|null $redirect_urls redirect_urls
-     *
-     * @return self
-     */
-    public function setRedirectUrls($redirect_urls)
-    {
-
-        if (is_null($redirect_urls)) {
-            throw new \InvalidArgumentException('non-nullable redirect_urls cannot be null');
-        }
-
-        $this->container['redirect_urls'] = $redirect_urls;
-
-        return $this;
-    }
-
-    /**
-     * Gets ux_settings
-     *
-     * @return \Splitit\Model\UxSettingsModel|null
-     */
-    public function getUxSettings()
-    {
-        return $this->container['ux_settings'];
-    }
-
-    /**
-     * Sets ux_settings
-     *
-     * @param \Splitit\Model\UxSettingsModel|null $ux_settings ux_settings
-     *
-     * @return self
-     */
-    public function setUxSettings($ux_settings)
-    {
-
-        if (is_null($ux_settings)) {
-            throw new \InvalidArgumentException('non-nullable ux_settings cannot be null');
-        }
-
-        $this->container['ux_settings'] = $ux_settings;
+        $this->container['displayed_installment_options'] = $displayed_installment_options;
 
         return $this;
     }

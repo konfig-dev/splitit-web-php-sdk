@@ -135,9 +135,27 @@ class PlanDataTest extends TestCase
     }
 
     /**
+     * Test attribute "allowed_installment_options"
+     */
+    public function testPropertyAllowedInstallmentOptions()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "tags"
      */
     public function testPropertyTags()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "first_installment_date"
+     */
+    public function testPropertyFirstInstallmentDate()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

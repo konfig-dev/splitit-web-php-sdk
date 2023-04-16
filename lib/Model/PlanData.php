@@ -56,7 +56,9 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         'number_of_installments' => 'int',
         'purchase_method' => '\Splitit\Model\PurchaseMethod',
         'ref_order_number' => 'string',
-        'tags' => 'array<string,string>'
+        'allowed_installment_options' => 'int[]',
+        'tags' => 'array<string,string>',
+        'first_installment_date' => '\DateTime'
     ];
 
     /**
@@ -74,7 +76,9 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         'number_of_installments' => 'int32',
         'purchase_method' => null,
         'ref_order_number' => null,
-        'tags' => null
+        'allowed_installment_options' => 'int32',
+        'tags' => null,
+        'first_installment_date' => 'date-time'
     ];
 
     /**
@@ -90,7 +94,9 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
 		'number_of_installments' => false,
 		'purchase_method' => false,
 		'ref_order_number' => false,
-		'tags' => false
+		'allowed_installment_options' => false,
+		'tags' => false,
+		'first_installment_date' => false
     ];
 
     /**
@@ -186,7 +192,9 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         'number_of_installments' => 'NumberOfInstallments',
         'purchase_method' => 'PurchaseMethod',
         'ref_order_number' => 'RefOrderNumber',
-        'tags' => 'Tags'
+        'allowed_installment_options' => 'AllowedInstallmentOptions',
+        'tags' => 'Tags',
+        'first_installment_date' => 'FirstInstallmentDate'
     ];
 
     /**
@@ -202,7 +210,9 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         'number_of_installments' => 'setNumberOfInstallments',
         'purchase_method' => 'setPurchaseMethod',
         'ref_order_number' => 'setRefOrderNumber',
-        'tags' => 'setTags'
+        'allowed_installment_options' => 'setAllowedInstallmentOptions',
+        'tags' => 'setTags',
+        'first_installment_date' => 'setFirstInstallmentDate'
     ];
 
     /**
@@ -218,7 +228,9 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         'number_of_installments' => 'getNumberOfInstallments',
         'purchase_method' => 'getPurchaseMethod',
         'ref_order_number' => 'getRefOrderNumber',
-        'tags' => 'getTags'
+        'allowed_installment_options' => 'getAllowedInstallmentOptions',
+        'tags' => 'getTags',
+        'first_installment_date' => 'getFirstInstallmentDate'
     ];
 
     /**
@@ -285,7 +297,9 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('number_of_installments', $data ?? [], null);
         $this->setIfExists('purchase_method', $data ?? [], null);
         $this->setIfExists('ref_order_number', $data ?? [], null);
+        $this->setIfExists('allowed_installment_options', $data ?? [], null);
         $this->setIfExists('tags', $data ?? [], null);
+        $this->setIfExists('first_installment_date', $data ?? [], null);
     }
 
     /**
@@ -543,6 +557,35 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets allowed_installment_options
+     *
+     * @return int[]|null
+     */
+    public function getAllowedInstallmentOptions()
+    {
+        return $this->container['allowed_installment_options'];
+    }
+
+    /**
+     * Sets allowed_installment_options
+     *
+     * @param int[]|null $allowed_installment_options allowed_installment_options
+     *
+     * @return self
+     */
+    public function setAllowedInstallmentOptions($allowed_installment_options)
+    {
+
+        if (is_null($allowed_installment_options)) {
+            throw new \InvalidArgumentException('non-nullable allowed_installment_options cannot be null');
+        }
+
+        $this->container['allowed_installment_options'] = $allowed_installment_options;
+
+        return $this;
+    }
+
+    /**
      * Gets tags
      *
      * @return array<string,string>|null
@@ -567,6 +610,35 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['tags'] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Gets first_installment_date
+     *
+     * @return \DateTime|null
+     */
+    public function getFirstInstallmentDate()
+    {
+        return $this->container['first_installment_date'];
+    }
+
+    /**
+     * Sets first_installment_date
+     *
+     * @param \DateTime|null $first_installment_date first_installment_date
+     *
+     * @return self
+     */
+    public function setFirstInstallmentDate($first_installment_date)
+    {
+
+        if (is_null($first_installment_date)) {
+            throw new \InvalidArgumentException('non-nullable first_installment_date cannot be null');
+        }
+
+        $this->container['first_installment_date'] = $first_installment_date;
 
         return $this;
     }
