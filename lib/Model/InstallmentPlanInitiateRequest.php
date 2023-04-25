@@ -311,9 +311,6 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
         if ($this->container['auto_capture'] === null) {
             $invalidProperties[] = "'auto_capture' can't be null";
         }
-        if ($this->container['attempt3d_secure'] === null) {
-            $invalidProperties[] = "'attempt3d_secure' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -361,7 +358,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
     /**
      * Gets attempt3d_secure
      *
-     * @return bool
+     * @return bool|null
      */
     public function getAttempt3dSecure()
     {
@@ -371,7 +368,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
     /**
      * Sets attempt3d_secure
      *
-     * @param bool $attempt3d_secure attempt3d_secure
+     * @param bool|null $attempt3d_secure attempt3d_secure
      *
      * @return self
      */

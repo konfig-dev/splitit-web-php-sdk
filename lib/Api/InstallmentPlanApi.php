@@ -156,8 +156,6 @@ class InstallmentPlanApi
     /**
      * Operation cancel
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key x_splitit_idempotency_key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancel'] to see the possible values for this operation
@@ -166,16 +164,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentPlanCancelResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function cancel($associative_array)
+    public function cancel($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['cancel'][0])
     {
-        list($response) = $this->cancelWithHttpInfo($associative_array);
+        list($response) = $this->cancelWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $contentType);
         return $response;
     }
 
     /**
      * Operation cancelWithHttpInfo
-     *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
      *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
@@ -185,11 +181,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanCancelResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function cancelWithHttpInfo($associative_array)
+    public function cancelWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['cancel'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->cancelRequest($associative_array);
-        $associative_array["requestOptions"] = $associative_array["requestOptions"] ?? new \Splitit\RequestOptions();
-        $requestOptions = $associative_array["requestOptions"];
+        $request = $this->cancelRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -201,8 +195,12 @@ class InstallmentPlanApi
                     !empty($this->getConfig()->getAccessToken()) &&
                     $requestOptions->shouldRetryOAuth()
                 ) {
-                    $requestOptions->setRetryOAuth(false);
-                    return $this->cancelWithHttpInfo($associative_array);
+                    return $this->cancelWithHttpInfo(
+                        $installment_plan_number,
+                        $x_splitit_idempotency_key,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
                 }
 
                 throw new ApiException(
@@ -379,8 +377,6 @@ class InstallmentPlanApi
     /**
      * Operation cancelAsync
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancel'] to see the possible values for this operation
@@ -388,9 +384,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelAsync($associative_array)
+    public function cancelAsync($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['cancel'][0])
     {
-        return $this->cancelAsyncWithHttpInfo($associative_array)
+        return $this->cancelAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -401,8 +397,6 @@ class InstallmentPlanApi
     /**
      * Operation cancelAsyncWithHttpInfo
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancel'] to see the possible values for this operation
@@ -410,10 +404,10 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelAsyncWithHttpInfo($associative_array)
+    public function cancelAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['cancel'][0])
     {
         $returnType = '\Splitit\Model\InstallmentPlanCancelResponse';
-        $request = $this->cancelRequest($associative_array);
+        $request = $this->cancelRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -454,8 +448,6 @@ class InstallmentPlanApi
     /**
      * Create request for operation 'cancel'
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancel'] to see the possible values for this operation
@@ -463,13 +455,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function cancelRequest($associative_array)
+    public function cancelRequest($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['cancel'][0])
     {
-        // unbox the parameters from the associative array
-        $installment_plan_number = array_key_exists('installment_plan_number', $associative_array) ? $associative_array['installment_plan_number'] : null;
-        $x_splitit_idempotency_key = array_key_exists('x_splitit_idempotency_key', $associative_array) ? $associative_array['x_splitit_idempotency_key'] : null;
-        $contentType = $associative_array['contentType'] ?? self::contentTypes['cancel'][0];
-        
+
+        // Check if $installment_plan_number is a string
+        if (!is_null($installment_plan_number) && !is_string($installment_plan_number)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($installment_plan_number, true), gettype($installment_plan_number)));
+        }
         // verify the required parameter 'installment_plan_number' is set
         if ($installment_plan_number === null || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
             throw new \InvalidArgumentException(
@@ -477,6 +469,10 @@ class InstallmentPlanApi
             );
         }
 
+        // Check if $x_splitit_idempotency_key is a string
+        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
+        }
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
@@ -569,8 +565,6 @@ class InstallmentPlanApi
     /**
      * Operation checkEligibility
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\CheckInstallmentsEligibilityRequest $check_installments_eligibility_request check_installments_eligibility_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['checkEligibility'] to see the possible values for this operation
@@ -579,16 +573,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentsEligibilityResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function checkEligibility($associative_array)
+    public function checkEligibility($x_splitit_idempotency_key, $check_installments_eligibility_request, string $contentType = self::contentTypes['checkEligibility'][0])
     {
-        list($response) = $this->checkEligibilityWithHttpInfo($associative_array);
+        list($response) = $this->checkEligibilityWithHttpInfo($x_splitit_idempotency_key, $check_installments_eligibility_request, $contentType);
         return $response;
     }
 
     /**
      * Operation checkEligibilityWithHttpInfo
-     *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
      *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\CheckInstallmentsEligibilityRequest $check_installments_eligibility_request (required)
@@ -598,11 +590,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentsEligibilityResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function checkEligibilityWithHttpInfo($associative_array)
+    public function checkEligibilityWithHttpInfo($x_splitit_idempotency_key, $check_installments_eligibility_request, string $contentType = self::contentTypes['checkEligibility'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->checkEligibilityRequest($associative_array);
-        $associative_array["requestOptions"] = $associative_array["requestOptions"] ?? new \Splitit\RequestOptions();
-        $requestOptions = $associative_array["requestOptions"];
+        $request = $this->checkEligibilityRequest($x_splitit_idempotency_key, $check_installments_eligibility_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -614,8 +604,12 @@ class InstallmentPlanApi
                     !empty($this->getConfig()->getAccessToken()) &&
                     $requestOptions->shouldRetryOAuth()
                 ) {
-                    $requestOptions->setRetryOAuth(false);
-                    return $this->checkEligibilityWithHttpInfo($associative_array);
+                    return $this->checkEligibilityWithHttpInfo(
+                        $x_splitit_idempotency_key,
+                        $check_installments_eligibility_request,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
                 }
 
                 throw new ApiException(
@@ -792,8 +786,6 @@ class InstallmentPlanApi
     /**
      * Operation checkEligibilityAsync
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\CheckInstallmentsEligibilityRequest $check_installments_eligibility_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['checkEligibility'] to see the possible values for this operation
@@ -801,9 +793,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function checkEligibilityAsync($associative_array)
+    public function checkEligibilityAsync($x_splitit_idempotency_key, $check_installments_eligibility_request, string $contentType = self::contentTypes['checkEligibility'][0])
     {
-        return $this->checkEligibilityAsyncWithHttpInfo($associative_array)
+        return $this->checkEligibilityAsyncWithHttpInfo($x_splitit_idempotency_key, $check_installments_eligibility_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -814,8 +806,6 @@ class InstallmentPlanApi
     /**
      * Operation checkEligibilityAsyncWithHttpInfo
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\CheckInstallmentsEligibilityRequest $check_installments_eligibility_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['checkEligibility'] to see the possible values for this operation
@@ -823,10 +813,10 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function checkEligibilityAsyncWithHttpInfo($associative_array)
+    public function checkEligibilityAsyncWithHttpInfo($x_splitit_idempotency_key, $check_installments_eligibility_request, string $contentType = self::contentTypes['checkEligibility'][0])
     {
         $returnType = '\Splitit\Model\InstallmentsEligibilityResponse';
-        $request = $this->checkEligibilityRequest($associative_array);
+        $request = $this->checkEligibilityRequest($x_splitit_idempotency_key, $check_installments_eligibility_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -867,8 +857,6 @@ class InstallmentPlanApi
     /**
      * Create request for operation 'checkEligibility'
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\CheckInstallmentsEligibilityRequest $check_installments_eligibility_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['checkEligibility'] to see the possible values for this operation
@@ -876,13 +864,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function checkEligibilityRequest($associative_array)
+    public function checkEligibilityRequest($x_splitit_idempotency_key, $check_installments_eligibility_request, string $contentType = self::contentTypes['checkEligibility'][0])
     {
-        // unbox the parameters from the associative array
-        $x_splitit_idempotency_key = array_key_exists('x_splitit_idempotency_key', $associative_array) ? $associative_array['x_splitit_idempotency_key'] : null;
-        $check_installments_eligibility_request = array_key_exists('check_installments_eligibility_request', $associative_array) ? $associative_array['check_installments_eligibility_request'] : null;
-        $contentType = $associative_array['contentType'] ?? self::contentTypes['checkEligibility'][0];
-        
+
+        // Check if $x_splitit_idempotency_key is a string
+        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
+        }
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
@@ -984,8 +972,6 @@ class InstallmentPlanApi
     /**
      * Operation get
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key x_splitit_idempotency_key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['get'] to see the possible values for this operation
@@ -994,16 +980,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentPlanGetResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function get($associative_array)
+    public function get($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['get'][0])
     {
-        list($response) = $this->getWithHttpInfo($associative_array);
+        list($response) = $this->getWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $contentType);
         return $response;
     }
 
     /**
      * Operation getWithHttpInfo
-     *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
      *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
@@ -1013,11 +997,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanGetResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getWithHttpInfo($associative_array)
+    public function getWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['get'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->getRequest($associative_array);
-        $associative_array["requestOptions"] = $associative_array["requestOptions"] ?? new \Splitit\RequestOptions();
-        $requestOptions = $associative_array["requestOptions"];
+        $request = $this->getRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1029,8 +1011,12 @@ class InstallmentPlanApi
                     !empty($this->getConfig()->getAccessToken()) &&
                     $requestOptions->shouldRetryOAuth()
                 ) {
-                    $requestOptions->setRetryOAuth(false);
-                    return $this->getWithHttpInfo($associative_array);
+                    return $this->getWithHttpInfo(
+                        $installment_plan_number,
+                        $x_splitit_idempotency_key,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
                 }
 
                 throw new ApiException(
@@ -1207,8 +1193,6 @@ class InstallmentPlanApi
     /**
      * Operation getAsync
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['get'] to see the possible values for this operation
@@ -1216,9 +1200,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAsync($associative_array)
+    public function getAsync($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['get'][0])
     {
-        return $this->getAsyncWithHttpInfo($associative_array)
+        return $this->getAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1229,8 +1213,6 @@ class InstallmentPlanApi
     /**
      * Operation getAsyncWithHttpInfo
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['get'] to see the possible values for this operation
@@ -1238,10 +1220,10 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAsyncWithHttpInfo($associative_array)
+    public function getAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['get'][0])
     {
         $returnType = '\Splitit\Model\InstallmentPlanGetResponse';
-        $request = $this->getRequest($associative_array);
+        $request = $this->getRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1282,8 +1264,6 @@ class InstallmentPlanApi
     /**
      * Create request for operation 'get'
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['get'] to see the possible values for this operation
@@ -1291,13 +1271,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getRequest($associative_array)
+    public function getRequest($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['get'][0])
     {
-        // unbox the parameters from the associative array
-        $installment_plan_number = array_key_exists('installment_plan_number', $associative_array) ? $associative_array['installment_plan_number'] : null;
-        $x_splitit_idempotency_key = array_key_exists('x_splitit_idempotency_key', $associative_array) ? $associative_array['x_splitit_idempotency_key'] : null;
-        $contentType = $associative_array['contentType'] ?? self::contentTypes['get'][0];
-        
+
+        // Check if $installment_plan_number is a string
+        if (!is_null($installment_plan_number) && !is_string($installment_plan_number)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($installment_plan_number, true), gettype($installment_plan_number)));
+        }
         // verify the required parameter 'installment_plan_number' is set
         if ($installment_plan_number === null || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
             throw new \InvalidArgumentException(
@@ -1305,6 +1285,10 @@ class InstallmentPlanApi
             );
         }
 
+        // Check if $x_splitit_idempotency_key is a string
+        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
+        }
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
@@ -1397,8 +1381,6 @@ class InstallmentPlanApi
     /**
      * Operation post
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanInitiateRequest $installment_plan_initiate_request installment_plan_initiate_request (required)
      * @param  string $x_splitit_test_mode x_splitit_test_mode (optional)
@@ -1408,16 +1390,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InitiatePlanResponse|\Splitit\Model\PlanErrorResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function post($associative_array)
+    public function post($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post'][0])
     {
-        list($response) = $this->postWithHttpInfo($associative_array);
+        list($response) = $this->postWithHttpInfo($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType);
         return $response;
     }
 
     /**
      * Operation postWithHttpInfo
-     *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
      *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanInitiateRequest $installment_plan_initiate_request (required)
@@ -1428,11 +1408,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InitiatePlanResponse|\Splitit\Model\PlanErrorResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postWithHttpInfo($associative_array)
+    public function postWithHttpInfo($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->postRequest($associative_array);
-        $associative_array["requestOptions"] = $associative_array["requestOptions"] ?? new \Splitit\RequestOptions();
-        $requestOptions = $associative_array["requestOptions"];
+        $request = $this->postRequest($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1444,8 +1422,13 @@ class InstallmentPlanApi
                     !empty($this->getConfig()->getAccessToken()) &&
                     $requestOptions->shouldRetryOAuth()
                 ) {
-                    $requestOptions->setRetryOAuth(false);
-                    return $this->postWithHttpInfo($associative_array);
+                    return $this->postWithHttpInfo(
+                        $x_splitit_idempotency_key,
+                        $installment_plan_initiate_request,
+                        $x_splitit_test_mode,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
                 }
 
                 throw new ApiException(
@@ -1645,8 +1628,6 @@ class InstallmentPlanApi
     /**
      * Operation postAsync
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanInitiateRequest $installment_plan_initiate_request (required)
      * @param  string $x_splitit_test_mode (optional)
@@ -1655,9 +1636,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAsync($associative_array)
+    public function postAsync($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post'][0])
     {
-        return $this->postAsyncWithHttpInfo($associative_array)
+        return $this->postAsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1668,8 +1649,6 @@ class InstallmentPlanApi
     /**
      * Operation postAsyncWithHttpInfo
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanInitiateRequest $installment_plan_initiate_request (required)
      * @param  string $x_splitit_test_mode (optional)
@@ -1678,10 +1657,10 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAsyncWithHttpInfo($associative_array)
+    public function postAsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post'][0])
     {
         $returnType = '\Splitit\Model\InitiatePlanResponse';
-        $request = $this->postRequest($associative_array);
+        $request = $this->postRequest($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1722,8 +1701,6 @@ class InstallmentPlanApi
     /**
      * Create request for operation 'post'
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanInitiateRequest $installment_plan_initiate_request (required)
      * @param  string $x_splitit_test_mode (optional)
@@ -1732,14 +1709,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postRequest($associative_array)
+    public function postRequest($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post'][0])
     {
-        // unbox the parameters from the associative array
-        $x_splitit_idempotency_key = array_key_exists('x_splitit_idempotency_key', $associative_array) ? $associative_array['x_splitit_idempotency_key'] : null;
-        $installment_plan_initiate_request = array_key_exists('installment_plan_initiate_request', $associative_array) ? $associative_array['installment_plan_initiate_request'] : null;
-        $x_splitit_test_mode = array_key_exists('x_splitit_test_mode', $associative_array) ? $associative_array['x_splitit_test_mode'] : null;
-        $contentType = $associative_array['contentType'] ?? self::contentTypes['post'][0];
-        
+
+        // Check if $x_splitit_idempotency_key is a string
+        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
+        }
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
@@ -1757,6 +1733,10 @@ class InstallmentPlanApi
             );
         }
 
+        // Check if $x_splitit_test_mode is a string
+        if (!is_null($x_splitit_test_mode) && !is_string($x_splitit_test_mode)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_test_mode, true), gettype($x_splitit_test_mode)));
+        }
 
 
         $resourcePath = '/api/installmentplans/initiate';
@@ -1846,8 +1826,6 @@ class InstallmentPlanApi
     /**
      * Operation post2
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanCreateRequest $installment_plan_create_request installment_plan_create_request (required)
      * @param  string $x_splitit_test_mode x_splitit_test_mode (optional)
@@ -1857,16 +1835,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentPlanCreateResponse|\Splitit\Model\PlanErrorResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function post2($associative_array)
+    public function post2($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post2'][0])
     {
-        list($response) = $this->post2WithHttpInfo($associative_array);
+        list($response) = $this->post2WithHttpInfo($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode, $contentType);
         return $response;
     }
 
     /**
      * Operation post2WithHttpInfo
-     *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
      *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanCreateRequest $installment_plan_create_request (required)
@@ -1877,11 +1853,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanCreateResponse|\Splitit\Model\PlanErrorResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function post2WithHttpInfo($associative_array)
+    public function post2WithHttpInfo($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post2'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->post2Request($associative_array);
-        $associative_array["requestOptions"] = $associative_array["requestOptions"] ?? new \Splitit\RequestOptions();
-        $requestOptions = $associative_array["requestOptions"];
+        $request = $this->post2Request($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1893,8 +1867,13 @@ class InstallmentPlanApi
                     !empty($this->getConfig()->getAccessToken()) &&
                     $requestOptions->shouldRetryOAuth()
                 ) {
-                    $requestOptions->setRetryOAuth(false);
-                    return $this->post2WithHttpInfo($associative_array);
+                    return $this->post2WithHttpInfo(
+                        $x_splitit_idempotency_key,
+                        $installment_plan_create_request,
+                        $x_splitit_test_mode,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
                 }
 
                 throw new ApiException(
@@ -2094,8 +2073,6 @@ class InstallmentPlanApi
     /**
      * Operation post2Async
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanCreateRequest $installment_plan_create_request (required)
      * @param  string $x_splitit_test_mode (optional)
@@ -2104,9 +2081,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function post2Async($associative_array)
+    public function post2Async($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post2'][0])
     {
-        return $this->post2AsyncWithHttpInfo($associative_array)
+        return $this->post2AsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2117,8 +2094,6 @@ class InstallmentPlanApi
     /**
      * Operation post2AsyncWithHttpInfo
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanCreateRequest $installment_plan_create_request (required)
      * @param  string $x_splitit_test_mode (optional)
@@ -2127,10 +2102,10 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function post2AsyncWithHttpInfo($associative_array)
+    public function post2AsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post2'][0])
     {
         $returnType = '\Splitit\Model\InstallmentPlanCreateResponse';
-        $request = $this->post2Request($associative_array);
+        $request = $this->post2Request($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2171,8 +2146,6 @@ class InstallmentPlanApi
     /**
      * Create request for operation 'post2'
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanCreateRequest $installment_plan_create_request (required)
      * @param  string $x_splitit_test_mode (optional)
@@ -2181,14 +2154,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function post2Request($associative_array)
+    public function post2Request($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post2'][0])
     {
-        // unbox the parameters from the associative array
-        $x_splitit_idempotency_key = array_key_exists('x_splitit_idempotency_key', $associative_array) ? $associative_array['x_splitit_idempotency_key'] : null;
-        $installment_plan_create_request = array_key_exists('installment_plan_create_request', $associative_array) ? $associative_array['installment_plan_create_request'] : null;
-        $x_splitit_test_mode = array_key_exists('x_splitit_test_mode', $associative_array) ? $associative_array['x_splitit_test_mode'] : null;
-        $contentType = $associative_array['contentType'] ?? self::contentTypes['post2'][0];
-        
+
+        // Check if $x_splitit_idempotency_key is a string
+        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
+        }
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
@@ -2206,6 +2178,10 @@ class InstallmentPlanApi
             );
         }
 
+        // Check if $x_splitit_test_mode is a string
+        if (!is_null($x_splitit_test_mode) && !is_string($x_splitit_test_mode)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_test_mode, true), gettype($x_splitit_test_mode)));
+        }
 
 
         $resourcePath = '/api/installmentplans';
@@ -2295,8 +2271,6 @@ class InstallmentPlanApi
     /**
      * Operation refund
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanRefundRequest $installment_plan_refund_request installment_plan_refund_request (required)
@@ -2306,16 +2280,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentPlanRefundResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function refund($associative_array)
+    public function refund($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, string $contentType = self::contentTypes['refund'][0])
     {
-        list($response) = $this->refundWithHttpInfo($associative_array);
+        list($response) = $this->refundWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, $contentType);
         return $response;
     }
 
     /**
      * Operation refundWithHttpInfo
-     *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
      *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
@@ -2326,11 +2298,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanRefundResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function refundWithHttpInfo($associative_array)
+    public function refundWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, string $contentType = self::contentTypes['refund'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->refundRequest($associative_array);
-        $associative_array["requestOptions"] = $associative_array["requestOptions"] ?? new \Splitit\RequestOptions();
-        $requestOptions = $associative_array["requestOptions"];
+        $request = $this->refundRequest($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2342,8 +2312,13 @@ class InstallmentPlanApi
                     !empty($this->getConfig()->getAccessToken()) &&
                     $requestOptions->shouldRetryOAuth()
                 ) {
-                    $requestOptions->setRetryOAuth(false);
-                    return $this->refundWithHttpInfo($associative_array);
+                    return $this->refundWithHttpInfo(
+                        $installment_plan_number,
+                        $x_splitit_idempotency_key,
+                        $installment_plan_refund_request,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
                 }
 
                 throw new ApiException(
@@ -2520,8 +2495,6 @@ class InstallmentPlanApi
     /**
      * Operation refundAsync
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanRefundRequest $installment_plan_refund_request (required)
@@ -2530,9 +2503,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function refundAsync($associative_array)
+    public function refundAsync($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, string $contentType = self::contentTypes['refund'][0])
     {
-        return $this->refundAsyncWithHttpInfo($associative_array)
+        return $this->refundAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2543,8 +2516,6 @@ class InstallmentPlanApi
     /**
      * Operation refundAsyncWithHttpInfo
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanRefundRequest $installment_plan_refund_request (required)
@@ -2553,10 +2524,10 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function refundAsyncWithHttpInfo($associative_array)
+    public function refundAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, string $contentType = self::contentTypes['refund'][0])
     {
         $returnType = '\Splitit\Model\InstallmentPlanRefundResponse';
-        $request = $this->refundRequest($associative_array);
+        $request = $this->refundRequest($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2597,8 +2568,6 @@ class InstallmentPlanApi
     /**
      * Create request for operation 'refund'
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanRefundRequest $installment_plan_refund_request (required)
@@ -2607,14 +2576,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function refundRequest($associative_array)
+    public function refundRequest($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, string $contentType = self::contentTypes['refund'][0])
     {
-        // unbox the parameters from the associative array
-        $installment_plan_number = array_key_exists('installment_plan_number', $associative_array) ? $associative_array['installment_plan_number'] : null;
-        $x_splitit_idempotency_key = array_key_exists('x_splitit_idempotency_key', $associative_array) ? $associative_array['x_splitit_idempotency_key'] : null;
-        $installment_plan_refund_request = array_key_exists('installment_plan_refund_request', $associative_array) ? $associative_array['installment_plan_refund_request'] : null;
-        $contentType = $associative_array['contentType'] ?? self::contentTypes['refund'][0];
-        
+
+        // Check if $installment_plan_number is a string
+        if (!is_null($installment_plan_number) && !is_string($installment_plan_number)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($installment_plan_number, true), gettype($installment_plan_number)));
+        }
         // verify the required parameter 'installment_plan_number' is set
         if ($installment_plan_number === null || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
             throw new \InvalidArgumentException(
@@ -2622,6 +2590,10 @@ class InstallmentPlanApi
             );
         }
 
+        // Check if $x_splitit_idempotency_key is a string
+        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
+        }
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
@@ -2731,8 +2703,6 @@ class InstallmentPlanApi
     /**
      * Operation search
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key x_splitit_idempotency_key (required)
      * @param  string $installment_plan_number installment_plan_number (optional)
      * @param  string $ref_order_number ref_order_number (optional)
@@ -2743,16 +2713,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentPlanSearchResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function search($associative_array)
+    public function search($x_splitit_idempotency_key, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = self::contentTypes['search'][0])
     {
-        list($response) = $this->searchWithHttpInfo($associative_array);
+        list($response) = $this->searchWithHttpInfo($x_splitit_idempotency_key, $installment_plan_number, $ref_order_number, $extended_params, $contentType);
         return $response;
     }
 
     /**
      * Operation searchWithHttpInfo
-     *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
      *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $installment_plan_number (optional)
@@ -2764,11 +2732,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanSearchResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function searchWithHttpInfo($associative_array)
+    public function searchWithHttpInfo($x_splitit_idempotency_key, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = self::contentTypes['search'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->searchRequest($associative_array);
-        $associative_array["requestOptions"] = $associative_array["requestOptions"] ?? new \Splitit\RequestOptions();
-        $requestOptions = $associative_array["requestOptions"];
+        $request = $this->searchRequest($x_splitit_idempotency_key, $installment_plan_number, $ref_order_number, $extended_params, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2780,8 +2746,14 @@ class InstallmentPlanApi
                     !empty($this->getConfig()->getAccessToken()) &&
                     $requestOptions->shouldRetryOAuth()
                 ) {
-                    $requestOptions->setRetryOAuth(false);
-                    return $this->searchWithHttpInfo($associative_array);
+                    return $this->searchWithHttpInfo(
+                        $x_splitit_idempotency_key,
+                        $installment_plan_number,
+                        $ref_order_number,
+                        $extended_params,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
                 }
 
                 throw new ApiException(
@@ -2958,8 +2930,6 @@ class InstallmentPlanApi
     /**
      * Operation searchAsync
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $installment_plan_number (optional)
      * @param  string $ref_order_number (optional)
@@ -2969,9 +2939,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function searchAsync($associative_array)
+    public function searchAsync($x_splitit_idempotency_key, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = self::contentTypes['search'][0])
     {
-        return $this->searchAsyncWithHttpInfo($associative_array)
+        return $this->searchAsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_number, $ref_order_number, $extended_params, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2982,8 +2952,6 @@ class InstallmentPlanApi
     /**
      * Operation searchAsyncWithHttpInfo
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $installment_plan_number (optional)
      * @param  string $ref_order_number (optional)
@@ -2993,10 +2961,10 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function searchAsyncWithHttpInfo($associative_array)
+    public function searchAsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = self::contentTypes['search'][0])
     {
         $returnType = '\Splitit\Model\InstallmentPlanSearchResponse';
-        $request = $this->searchRequest($associative_array);
+        $request = $this->searchRequest($x_splitit_idempotency_key, $installment_plan_number, $ref_order_number, $extended_params, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3037,8 +3005,6 @@ class InstallmentPlanApi
     /**
      * Create request for operation 'search'
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $installment_plan_number (optional)
      * @param  string $ref_order_number (optional)
@@ -3048,15 +3014,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function searchRequest($associative_array)
+    public function searchRequest($x_splitit_idempotency_key, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = self::contentTypes['search'][0])
     {
-        // unbox the parameters from the associative array
-        $x_splitit_idempotency_key = array_key_exists('x_splitit_idempotency_key', $associative_array) ? $associative_array['x_splitit_idempotency_key'] : null;
-        $installment_plan_number = array_key_exists('installment_plan_number', $associative_array) ? $associative_array['installment_plan_number'] : null;
-        $ref_order_number = array_key_exists('ref_order_number', $associative_array) ? $associative_array['ref_order_number'] : null;
-        $extended_params = array_key_exists('extended_params', $associative_array) ? $associative_array['extended_params'] : null;
-        $contentType = $associative_array['contentType'] ?? self::contentTypes['search'][0];
-        
+
+        // Check if $x_splitit_idempotency_key is a string
+        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
+        }
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
@@ -3064,7 +3028,15 @@ class InstallmentPlanApi
             );
         }
 
+        // Check if $installment_plan_number is a string
+        if (!is_null($installment_plan_number) && !is_string($installment_plan_number)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($installment_plan_number, true), gettype($installment_plan_number)));
+        }
 
+        // Check if $ref_order_number is a string
+        if (!is_null($ref_order_number) && !is_string($ref_order_number)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($ref_order_number, true), gettype($ref_order_number)));
+        }
 
 
 
@@ -3171,8 +3143,6 @@ class InstallmentPlanApi
     /**
      * Operation updateOrder
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\UpdateOrderRequest $update_order_request update_order_request (required)
@@ -3182,16 +3152,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentPlanUpdateResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function updateOrder($associative_array)
+    public function updateOrder($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0])
     {
-        list($response) = $this->updateOrderWithHttpInfo($associative_array);
+        list($response) = $this->updateOrderWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, $contentType);
         return $response;
     }
 
     /**
      * Operation updateOrderWithHttpInfo
-     *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
      *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
@@ -3202,11 +3170,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanUpdateResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateOrderWithHttpInfo($associative_array)
+    public function updateOrderWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->updateOrderRequest($associative_array);
-        $associative_array["requestOptions"] = $associative_array["requestOptions"] ?? new \Splitit\RequestOptions();
-        $requestOptions = $associative_array["requestOptions"];
+        $request = $this->updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3218,8 +3184,13 @@ class InstallmentPlanApi
                     !empty($this->getConfig()->getAccessToken()) &&
                     $requestOptions->shouldRetryOAuth()
                 ) {
-                    $requestOptions->setRetryOAuth(false);
-                    return $this->updateOrderWithHttpInfo($associative_array);
+                    return $this->updateOrderWithHttpInfo(
+                        $installment_plan_number,
+                        $x_splitit_idempotency_key,
+                        $update_order_request,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
                 }
 
                 throw new ApiException(
@@ -3396,8 +3367,6 @@ class InstallmentPlanApi
     /**
      * Operation updateOrderAsync
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\UpdateOrderRequest $update_order_request (required)
@@ -3406,9 +3375,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateOrderAsync($associative_array)
+    public function updateOrderAsync($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0])
     {
-        return $this->updateOrderAsyncWithHttpInfo($associative_array)
+        return $this->updateOrderAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3419,8 +3388,6 @@ class InstallmentPlanApi
     /**
      * Operation updateOrderAsyncWithHttpInfo
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\UpdateOrderRequest $update_order_request (required)
@@ -3429,10 +3396,10 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateOrderAsyncWithHttpInfo($associative_array)
+    public function updateOrderAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0])
     {
         $returnType = '\Splitit\Model\InstallmentPlanUpdateResponse';
-        $request = $this->updateOrderRequest($associative_array);
+        $request = $this->updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3473,8 +3440,6 @@ class InstallmentPlanApi
     /**
      * Create request for operation 'updateOrder'
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\UpdateOrderRequest $update_order_request (required)
@@ -3483,14 +3448,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function updateOrderRequest($associative_array)
+    public function updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0])
     {
-        // unbox the parameters from the associative array
-        $installment_plan_number = array_key_exists('installment_plan_number', $associative_array) ? $associative_array['installment_plan_number'] : null;
-        $x_splitit_idempotency_key = array_key_exists('x_splitit_idempotency_key', $associative_array) ? $associative_array['x_splitit_idempotency_key'] : null;
-        $update_order_request = array_key_exists('update_order_request', $associative_array) ? $associative_array['update_order_request'] : null;
-        $contentType = $associative_array['contentType'] ?? self::contentTypes['updateOrder'][0];
-        
+
+        // Check if $installment_plan_number is a string
+        if (!is_null($installment_plan_number) && !is_string($installment_plan_number)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($installment_plan_number, true), gettype($installment_plan_number)));
+        }
         // verify the required parameter 'installment_plan_number' is set
         if ($installment_plan_number === null || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
             throw new \InvalidArgumentException(
@@ -3498,6 +3462,10 @@ class InstallmentPlanApi
             );
         }
 
+        // Check if $x_splitit_idempotency_key is a string
+        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
+        }
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
@@ -3607,8 +3575,6 @@ class InstallmentPlanApi
     /**
      * Operation updateOrder2
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanUpdateRequestByIdentifier $installment_plan_update_request_by_identifier installment_plan_update_request_by_identifier (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOrder2'] to see the possible values for this operation
@@ -3617,16 +3583,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentPlanUpdateResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function updateOrder2($associative_array)
+    public function updateOrder2($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, string $contentType = self::contentTypes['updateOrder2'][0])
     {
-        list($response) = $this->updateOrder2WithHttpInfo($associative_array);
+        list($response) = $this->updateOrder2WithHttpInfo($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, $contentType);
         return $response;
     }
 
     /**
      * Operation updateOrder2WithHttpInfo
-     *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
      *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanUpdateRequestByIdentifier $installment_plan_update_request_by_identifier (required)
@@ -3636,11 +3600,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanUpdateResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateOrder2WithHttpInfo($associative_array)
+    public function updateOrder2WithHttpInfo($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, string $contentType = self::contentTypes['updateOrder2'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->updateOrder2Request($associative_array);
-        $associative_array["requestOptions"] = $associative_array["requestOptions"] ?? new \Splitit\RequestOptions();
-        $requestOptions = $associative_array["requestOptions"];
+        $request = $this->updateOrder2Request($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3652,8 +3614,12 @@ class InstallmentPlanApi
                     !empty($this->getConfig()->getAccessToken()) &&
                     $requestOptions->shouldRetryOAuth()
                 ) {
-                    $requestOptions->setRetryOAuth(false);
-                    return $this->updateOrder2WithHttpInfo($associative_array);
+                    return $this->updateOrder2WithHttpInfo(
+                        $x_splitit_idempotency_key,
+                        $installment_plan_update_request_by_identifier,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
                 }
 
                 throw new ApiException(
@@ -3830,8 +3796,6 @@ class InstallmentPlanApi
     /**
      * Operation updateOrder2Async
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanUpdateRequestByIdentifier $installment_plan_update_request_by_identifier (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOrder2'] to see the possible values for this operation
@@ -3839,9 +3803,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateOrder2Async($associative_array)
+    public function updateOrder2Async($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, string $contentType = self::contentTypes['updateOrder2'][0])
     {
-        return $this->updateOrder2AsyncWithHttpInfo($associative_array)
+        return $this->updateOrder2AsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3852,8 +3816,6 @@ class InstallmentPlanApi
     /**
      * Operation updateOrder2AsyncWithHttpInfo
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanUpdateRequestByIdentifier $installment_plan_update_request_by_identifier (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOrder2'] to see the possible values for this operation
@@ -3861,10 +3823,10 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateOrder2AsyncWithHttpInfo($associative_array)
+    public function updateOrder2AsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, string $contentType = self::contentTypes['updateOrder2'][0])
     {
         $returnType = '\Splitit\Model\InstallmentPlanUpdateResponse';
-        $request = $this->updateOrder2Request($associative_array);
+        $request = $this->updateOrder2Request($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3905,8 +3867,6 @@ class InstallmentPlanApi
     /**
      * Create request for operation 'updateOrder2'
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $x_splitit_idempotency_key (required)
      * @param  \Splitit\Model\InstallmentPlanUpdateRequestByIdentifier $installment_plan_update_request_by_identifier (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOrder2'] to see the possible values for this operation
@@ -3914,13 +3874,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function updateOrder2Request($associative_array)
+    public function updateOrder2Request($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, string $contentType = self::contentTypes['updateOrder2'][0])
     {
-        // unbox the parameters from the associative array
-        $x_splitit_idempotency_key = array_key_exists('x_splitit_idempotency_key', $associative_array) ? $associative_array['x_splitit_idempotency_key'] : null;
-        $installment_plan_update_request_by_identifier = array_key_exists('installment_plan_update_request_by_identifier', $associative_array) ? $associative_array['installment_plan_update_request_by_identifier'] : null;
-        $contentType = $associative_array['contentType'] ?? self::contentTypes['updateOrder2'][0];
-        
+
+        // Check if $x_splitit_idempotency_key is a string
+        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
+        }
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
@@ -4022,8 +3982,6 @@ class InstallmentPlanApi
     /**
      * Operation verifyAuthorization
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key x_splitit_idempotency_key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['verifyAuthorization'] to see the possible values for this operation
@@ -4032,16 +3990,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\VerifyAuthorizationResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function verifyAuthorization($associative_array)
+    public function verifyAuthorization($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['verifyAuthorization'][0])
     {
-        list($response) = $this->verifyAuthorizationWithHttpInfo($associative_array);
+        list($response) = $this->verifyAuthorizationWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $contentType);
         return $response;
     }
 
     /**
      * Operation verifyAuthorizationWithHttpInfo
-     *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
      *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
@@ -4051,11 +4007,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\VerifyAuthorizationResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function verifyAuthorizationWithHttpInfo($associative_array)
+    public function verifyAuthorizationWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['verifyAuthorization'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->verifyAuthorizationRequest($associative_array);
-        $associative_array["requestOptions"] = $associative_array["requestOptions"] ?? new \Splitit\RequestOptions();
-        $requestOptions = $associative_array["requestOptions"];
+        $request = $this->verifyAuthorizationRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4067,8 +4021,12 @@ class InstallmentPlanApi
                     !empty($this->getConfig()->getAccessToken()) &&
                     $requestOptions->shouldRetryOAuth()
                 ) {
-                    $requestOptions->setRetryOAuth(false);
-                    return $this->verifyAuthorizationWithHttpInfo($associative_array);
+                    return $this->verifyAuthorizationWithHttpInfo(
+                        $installment_plan_number,
+                        $x_splitit_idempotency_key,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
                 }
 
                 throw new ApiException(
@@ -4245,8 +4203,6 @@ class InstallmentPlanApi
     /**
      * Operation verifyAuthorizationAsync
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['verifyAuthorization'] to see the possible values for this operation
@@ -4254,9 +4210,9 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function verifyAuthorizationAsync($associative_array)
+    public function verifyAuthorizationAsync($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['verifyAuthorization'][0])
     {
-        return $this->verifyAuthorizationAsyncWithHttpInfo($associative_array)
+        return $this->verifyAuthorizationAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4267,8 +4223,6 @@ class InstallmentPlanApi
     /**
      * Operation verifyAuthorizationAsyncWithHttpInfo
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['verifyAuthorization'] to see the possible values for this operation
@@ -4276,10 +4230,10 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function verifyAuthorizationAsyncWithHttpInfo($associative_array)
+    public function verifyAuthorizationAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['verifyAuthorization'][0])
     {
         $returnType = '\Splitit\Model\VerifyAuthorizationResponse';
-        $request = $this->verifyAuthorizationRequest($associative_array);
+        $request = $this->verifyAuthorizationRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4320,8 +4274,6 @@ class InstallmentPlanApi
     /**
      * Create request for operation 'verifyAuthorization'
      *
-     * Note: the input parameter is an associative array with the keys listed as the parameter name below
-     *
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['verifyAuthorization'] to see the possible values for this operation
@@ -4329,13 +4281,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function verifyAuthorizationRequest($associative_array)
+    public function verifyAuthorizationRequest($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['verifyAuthorization'][0])
     {
-        // unbox the parameters from the associative array
-        $installment_plan_number = array_key_exists('installment_plan_number', $associative_array) ? $associative_array['installment_plan_number'] : null;
-        $x_splitit_idempotency_key = array_key_exists('x_splitit_idempotency_key', $associative_array) ? $associative_array['x_splitit_idempotency_key'] : null;
-        $contentType = $associative_array['contentType'] ?? self::contentTypes['verifyAuthorization'][0];
-        
+
+        // Check if $installment_plan_number is a string
+        if (!is_null($installment_plan_number) && !is_string($installment_plan_number)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($installment_plan_number, true), gettype($installment_plan_number)));
+        }
         // verify the required parameter 'installment_plan_number' is set
         if ($installment_plan_number === null || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
             throw new \InvalidArgumentException(
@@ -4343,6 +4295,10 @@ class InstallmentPlanApi
             );
         }
 
+        // Check if $x_splitit_idempotency_key is a string
+        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
+        }
         // verify the required parameter 'x_splitit_idempotency_key' is set
         if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(

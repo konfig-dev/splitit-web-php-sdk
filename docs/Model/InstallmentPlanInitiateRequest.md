@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **auto_capture** | **bool** |  |
-**attempt3d_secure** | **bool** |  |
+**attempt3d_secure** | **bool** |  | [optional]
 **shopper** | [**\Splitit\Model\ShopperData**](ShopperData.md) |  | [optional]
 **plan_data** | [**\Splitit\Model\PlanDataModel**](PlanDataModel.md) |  | [optional]
 **billing_address** | [**\Splitit\Model\AddressDataModel**](AddressDataModel.md) |  | [optional]
