@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Configuration
  * PHP version 7.4
@@ -55,6 +56,13 @@ class Configuration
     protected $accessToken = '';
 
     /**
+     * Token url for OAuth/Application authentication
+     *
+     * @var string
+     */
+    protected string $tokenUrl = "https://id.production.splitit.com/connect/token";
+
+    /**
      * Access token for OAuth/Application authentication
      *
      * @var string
@@ -94,7 +102,7 @@ class Configuration
      *
      * @var string
      */
-    protected $host = 'https://web-api-v3.sandbox.splitit.com';
+    protected $host = 'https://web-api-v3.production.splitit.com';
 
     /**
      * User agent of the HTTP request, set to "Konfig/{version}/PHP" by default
@@ -275,6 +283,29 @@ class Configuration
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Sets the tokenUrl for OAuth
+     *
+     * @param string $tokenUrl
+     *
+     * @return $this
+     */
+    public function setTokenUrl($tokenUrl)
+    {
+        $this->tokenUrl = $tokenUrl;
+        return $this;
+    }
+
+    /**
+     * Gets the tokenUrl for OAuth
+     *
+     * @return string $tokenUrl
+     */
+    public function getTokenUrl()
+    {
+        return $this->tokenUrl;
     }
 
     /**
@@ -474,20 +505,20 @@ class Configuration
     {
         return [
             [
-                "url" => "https://web-api-v3.sandbox.splitit.com",
+                "url" => "https://web-api-v3.production.splitit.com",
                 "description" => "No description provided",
             ]
         ];
     }
 
     /**
-    * Returns URL based on host settings, index and variables
-    *
-    * @param array      $hostSettings array of host settings, generated from getHostSettings() or equivalent from the API clients
-    * @param int        $hostIndex    index of the host settings
-    * @param array|null $variables    hash of variable and the corresponding value (optional)
-    * @return string URL based on host settings
-    */
+     * Returns URL based on host settings, index and variables
+     *
+     * @param array      $hostSettings array of host settings, generated from getHostSettings() or equivalent from the API clients
+     * @param int        $hostIndex    index of the host settings
+     * @param array|null $variables    hash of variable and the corresponding value (optional)
+     * @return string URL based on host settings
+     */
     public static function getHostString(array $hostsSettings, $hostIndex, array $variables = null)
     {
         if (null === $variables) {
@@ -496,7 +527,7 @@ class Configuration
 
         // check array index out of bound
         if ($hostIndex < 0 || $hostIndex >= count($hostsSettings)) {
-            throw new \InvalidArgumentException("Invalid index $hostIndex when selecting the host. Must be less than ".count($hostsSettings));
+            throw new \InvalidArgumentException("Invalid index $hostIndex when selecting the host. Must be less than " . count($hostsSettings));
         }
 
         $host = $hostsSettings[$hostIndex];
@@ -506,13 +537,13 @@ class Configuration
         foreach ($host["variables"] ?? [] as $name => $variable) {
             if (array_key_exists($name, $variables)) { // check to see if it's in the variables provided by the user
                 if (!isset($variable['enum_values']) || in_array($variables[$name], $variable["enum_values"], true)) { // check to see if the value is in the enum
-                    $url = str_replace("{".$name."}", $variables[$name], $url);
+                    $url = str_replace("{" . $name . "}", $variables[$name], $url);
                 } else {
-                    throw new \InvalidArgumentException("The variable `$name` in the host URL has invalid value ".$variables[$name].". Must be ".join(',', $variable["enum_values"]).".");
+                    throw new \InvalidArgumentException("The variable `$name` in the host URL has invalid value " . $variables[$name] . ". Must be " . join(',', $variable["enum_values"]) . ".");
                 }
             } else {
                 // use default value
-                $url = str_replace("{".$name."}", $variable["default_value"], $url);
+                $url = str_replace("{" . $name . "}", $variable["default_value"], $url);
             }
         }
 
@@ -548,7 +579,7 @@ class Configuration
         if (empty($this->clientId) || empty($this->clientSecret)) return;
         $client = new Client();
 
-        $url = "https://id.sandbox.splitit.com/connect/token";
+        $url = $this->tokenUrl;
 
         $params = [
             'form_params' => [

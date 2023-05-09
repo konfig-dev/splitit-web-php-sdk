@@ -1,6 +1,6 @@
 # Splitit\InstallmentPlanApi
 
-All URIs are relative to https://web-api-v3.sandbox.splitit.com, except if the operation defines another base path.
+All URIs are relative to https://web-api-v3.production.splitit.com, except if the operation defines another base path.
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
@@ -33,8 +33,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 // Configure OAuth2 access token for authorization: oauth
 $config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
-// Setting host path is optional and defaults to https://web-api-v3.sandbox.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.sandbox.splitit.com");
+// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
+// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
 
 $apiInstance = new Splitit\Api\InstallmentPlanApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -98,8 +98,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 // Configure OAuth2 access token for authorization: oauth
 $config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
-// Setting host path is optional and defaults to https://web-api-v3.sandbox.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.sandbox.splitit.com");
+// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
+// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
 
 $apiInstance = new Splitit\Api\InstallmentPlanApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -164,8 +164,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 // Configure OAuth2 access token for authorization: oauth
 $config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
-// Setting host path is optional and defaults to https://web-api-v3.sandbox.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.sandbox.splitit.com");
+// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
+// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
 
 $apiInstance = new Splitit\Api\InstallmentPlanApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -244,8 +244,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 // Configure OAuth2 access token for authorization: oauth
 $config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
-// Setting host path is optional and defaults to https://web-api-v3.sandbox.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.sandbox.splitit.com");
+// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
+// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
 
 $apiInstance = new Splitit\Api\InstallmentPlanApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -323,8 +323,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 // Configure OAuth2 access token for authorization: oauth
 $config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
-// Setting host path is optional and defaults to https://web-api-v3.sandbox.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.sandbox.splitit.com");
+// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
+// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
 
 $apiInstance = new Splitit\Api\InstallmentPlanApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -408,8 +408,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 // Configure OAuth2 access token for authorization: oauth
 $config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
-// Setting host path is optional and defaults to https://web-api-v3.sandbox.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.sandbox.splitit.com");
+// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
+// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
 
 $apiInstance = new Splitit\Api\InstallmentPlanApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -484,8 +484,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 // Configure OAuth2 access token for authorization: oauth
 $config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
-// Setting host path is optional and defaults to https://web-api-v3.sandbox.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.sandbox.splitit.com");
+// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
+// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
 
 $apiInstance = new Splitit\Api\InstallmentPlanApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -557,8 +557,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 // Configure OAuth2 access token for authorization: oauth
 $config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
-// Setting host path is optional and defaults to https://web-api-v3.sandbox.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.sandbox.splitit.com");
+// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
+// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
 
 $apiInstance = new Splitit\Api\InstallmentPlanApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -630,8 +630,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 // Configure OAuth2 access token for authorization: oauth
 $config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
-// Setting host path is optional and defaults to https://web-api-v3.sandbox.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.sandbox.splitit.com");
+// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
+// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
 
 $apiInstance = new Splitit\Api\InstallmentPlanApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -698,8 +698,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 // Configure OAuth2 access token for authorization: oauth
 $config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
-// Setting host path is optional and defaults to https://web-api-v3.sandbox.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.sandbox.splitit.com");
+// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
+// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
 
 $apiInstance = new Splitit\Api\InstallmentPlanApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.

@@ -46,6 +46,8 @@ class InstallmentPlanApiTest extends TestCase
     public function setUp(): void
     {
         $config = \Splitit\Configuration::getDefaultConfiguration();
+        \Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.sandbox.splitit.com");
+        \Splitit\Configuration::getDefaultConfiguration()->setTokenUrl("https://id.sandbox.splitit.com/connect/token");
         $clientId = getenv("SPLITIT_CLIENT_ID");
         $clientSecret = getenv("SPLITIT_CLIENT_SECRET");
         $config->setClientId($clientId);
