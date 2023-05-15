@@ -31,7 +31,7 @@ use Splitit\Model\PurchaseMethod;
 class InstallmentPlanApiTest extends TestCase
 {
 
-    protected \Splitit\Api\InstallmentPlanApi $api;
+    protected \Splitit\Client $splitit;
 
     /**
      * Setup before running any test cases
@@ -45,14 +45,12 @@ class InstallmentPlanApiTest extends TestCase
      */
     public function setUp(): void
     {
-        $config = \Splitit\Configuration::getDefaultConfiguration();
-        \Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.sandbox.splitit.com");
-        \Splitit\Configuration::getDefaultConfiguration()->setTokenUrl("https://id.sandbox.splitit.com/connect/token");
-        $clientId = getenv("SPLITIT_CLIENT_ID");
-        $clientSecret = getenv("SPLITIT_CLIENT_SECRET");
-        $config->setClientId($clientId);
-        $config->setClientSecret($clientSecret);
-        $this->api = new \Splitit\Api\InstallmentPlanApi($config);
+        $this->splitit = new \Splitit\Client(
+            host: "https://web-api-v3.sandbox.splitit.com",
+            tokenUrl: "https://id.sandbox.splitit.com/connect/token",
+            clientId: getenv("SPLITIT_CLIENT_ID"),
+            clientSecret: getenv("SPLITIT_CLIENT_SECRET"),
+        );
     }
 
     /**
@@ -113,31 +111,27 @@ class InstallmentPlanApiTest extends TestCase
      */
     public function testPost()
     {
-        $installment_plan_initiate_request = new \Splitit\Model\InstallmentPlanInitiateRequest([
-            'auto_capture' => true,
-            'attempt_3d_secure' => true,
-            'shopper' => [
+        $response = $this->splitit->installmentPlan->post(
+            x_splitit_idempotency_key: date("c"),
+            auto_capture: true,
+            attempt3d_secure: true,
+            shopper: [
                 'email' => 'fake@email.com',
             ],
-            'plan_data' => [
+            plan_data: [
                 'total_amount' => 10,
                 'number_of_installments' => 10,
                 'currency' => 'USD',
-                'purchase_method' => PurchaseMethod::IN_STORE,
+                'purchase_method' => "InStore",
             ],
-            'billing_address' => [
+            billing_address: [
                 'address_line1' => '144 Union St',
                 'city' => 'Brooklyn',
                 'state' => 'North Dakota',
                 'zip' => '11231',
                 'country' => 'United States',
             ],
-            'redirect_urls' => [],
-        ]);
-
-        $response = $this->api->post(
-            x_splitit_idempotency_key: date("c"),
-            installment_plan_initiate_request: $installment_plan_initiate_request
+            redirect_urls: [],
         );
         $this->assertNotNull(
             $response,
