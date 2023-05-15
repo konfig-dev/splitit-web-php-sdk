@@ -4156,7 +4156,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function updateOrder2Async(
-        $body,
         $x_splitit_idempotency_key,
         $ref_order_number = SENTINEL_VALUE,
         $tracking_number = SENTINEL_VALUE,
@@ -4167,7 +4166,13 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
     )
     {
-        $installment_plan_update_request_by_identifier = $body === SENTINEL_VALUE ? null : $body;
+        $_body = [];
+        $this->setRequestBodyProperty($_body, "ref_order_number", $ref_order_number);
+        $this->setRequestBodyProperty($_body, "tracking_number", $tracking_number);
+        $this->setRequestBodyProperty($_body, "capture", $capture);
+        $this->setRequestBodyProperty($_body, "shipping_status", $shipping_status);
+        $this->setRequestBodyProperty($_body, "identifier", $identifier);
+        $installment_plan_update_request_by_identifier = $_body;
 
         return $this->updateOrder2AsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, $contentType)
             ->then(

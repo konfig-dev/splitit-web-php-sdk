@@ -628,7 +628,6 @@ $identifier = [
 
 try {
     $result = $splitit->installmentPlan->updateOrder2(
-        body: None,
         x_splitit_idempotency_key: $x_splitit_idempotency_key, 
         ref_order_number: $ref_order_number, 
         tracking_number: $tracking_number, 
