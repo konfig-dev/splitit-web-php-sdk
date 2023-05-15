@@ -30,24 +30,16 @@ cancel($installment_plan_number, $x_splitit_idempotency_key): \Splitit\Model\Ins
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure OAuth2 access token for authorization: oauth
-$config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
-
-$apiInstance = new Splitit\Api\InstallmentPlanApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    // new GuzzleHttp\Client(),
-    $config
+$splitit = new \Splitit\Client(
+    clientId: "YOUR_CLIENT_ID",
+    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $installment_plan_number = "installmentPlanNumber_example";
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
 
 try {
-    $result = $apiInstance->cancel(
+    $result = $splitit->installmentPlan->cancel(
         installment_plan_number: $installment_plan_number, 
         x_splitit_idempotency_key: $x_splitit_idempotency_key
     );
@@ -95,27 +87,30 @@ checkEligibility($x_splitit_idempotency_key, $check_installments_eligibility_req
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure OAuth2 access token for authorization: oauth
-$config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
-
-$apiInstance = new Splitit\Api\InstallmentPlanApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    // new GuzzleHttp\Client(),
-    $config
+$splitit = new \Splitit\Client(
+    clientId: "YOUR_CLIENT_ID",
+    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
-$check_installments_eligibility_request = new \Splitit\Model\CheckInstallmentsEligibilityRequest([
-    ]);
+$plan_data = [
+        "total_amount" => 3.14,
+        "number_of_installments" => 1,
+        "purchase_method" => "InStore",
+    ];
+$card_details = [
+        "card_brand" => "Mastercard",
+        "card_type" => "Credit",
+    ];
+$billing_address = [
+    ];
 
 try {
-    $result = $apiInstance->checkEligibility(
+    $result = $splitit->installmentPlan->checkEligibility(
         x_splitit_idempotency_key: $x_splitit_idempotency_key, 
-        check_installments_eligibility_request: $check_installments_eligibility_request
+        plan_data: $plan_data, 
+        card_details: $card_details, 
+        billing_address: $billing_address
     );
     print_r($result->$getPaymentPlanOptions());
 } catch (\Exception $e) {
@@ -161,24 +156,16 @@ get($installment_plan_number, $x_splitit_idempotency_key): \Splitit\Model\Instal
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure OAuth2 access token for authorization: oauth
-$config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
-
-$apiInstance = new Splitit\Api\InstallmentPlanApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    // new GuzzleHttp\Client(),
-    $config
+$splitit = new \Splitit\Client(
+    clientId: "YOUR_CLIENT_ID",
+    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $installment_plan_number = "installmentPlanNumber_example";
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
 
 try {
-    $result = $apiInstance->get(
+    $result = $splitit->installmentPlan->get(
         installment_plan_number: $installment_plan_number, 
         x_splitit_idempotency_key: $x_splitit_idempotency_key
     );
@@ -241,29 +228,38 @@ post($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure OAuth2 access token for authorization: oauth
-$config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
-
-$apiInstance = new Splitit\Api\InstallmentPlanApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    // new GuzzleHttp\Client(),
-    $config
+$splitit = new \Splitit\Client(
+    clientId: "YOUR_CLIENT_ID",
+    clientSecret: "YOUR_CLIENT_ID",
 );
 
+$auto_capture = True;
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
-$installment_plan_initiate_request = new \Splitit\Model\InstallmentPlanInitiateRequest([
-        "auto_capture" => True,
-    ]);
+$attempt3d_secure = True;
+$shopper = [
+    ];
+$plan_data = [
+        "total_amount" => 3.14,
+        "purchase_method" => "InStore",
+    ];
+$billing_address = [
+    ];
+$redirect_urls = [
+    ];
+$ux_settings = [
+    ];
 $x_splitit_test_mode = "None";
 
 try {
-    $result = $apiInstance->post(
+    $result = $splitit->installmentPlan->post(
+        auto_capture: $auto_capture, 
         x_splitit_idempotency_key: $x_splitit_idempotency_key, 
-        installment_plan_initiate_request: $installment_plan_initiate_request, 
+        attempt3d_secure: $attempt3d_secure, 
+        shopper: $shopper, 
+        plan_data: $plan_data, 
+        billing_address: $billing_address, 
+        redirect_urls: $redirect_urls, 
+        ux_settings: $ux_settings, 
         x_splitit_test_mode: $x_splitit_test_mode
     );
     print_r($result->$getInstallmentPlanNumber());
@@ -320,30 +316,41 @@ post2($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_t
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure OAuth2 access token for authorization: oauth
-$config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
-
-$apiInstance = new Splitit\Api\InstallmentPlanApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    // new GuzzleHttp\Client(),
-    $config
+$splitit = new \Splitit\Client(
+    clientId: "YOUR_CLIENT_ID",
+    clientSecret: "YOUR_CLIENT_ID",
 );
 
+$auto_capture = True;
+$terms_and_conditions_accepted = True;
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
-$installment_plan_create_request = new \Splitit\Model\InstallmentPlanCreateRequest([
-        "auto_capture" => True,
-        "terms_and_conditions_accepted" => True,
-    ]);
+$attempt3d_secure = True;
+$shopper = [
+    ];
+$plan_data = [
+        "total_amount" => 3.14,
+        "purchase_method" => "InStore",
+    ];
+$billing_address = [
+    ];
+$payment_method = [
+        "type" => "Card",
+    ];
+$redirect_urls = [
+    ];
 $x_splitit_test_mode = "None";
 
 try {
-    $result = $apiInstance->post2(
+    $result = $splitit->installmentPlan->post2(
+        auto_capture: $auto_capture, 
+        terms_and_conditions_accepted: $terms_and_conditions_accepted, 
         x_splitit_idempotency_key: $x_splitit_idempotency_key, 
-        installment_plan_create_request: $installment_plan_create_request, 
+        attempt3d_secure: $attempt3d_secure, 
+        shopper: $shopper, 
+        plan_data: $plan_data, 
+        billing_address: $billing_address, 
+        payment_method: $payment_method, 
+        redirect_urls: $redirect_urls, 
         x_splitit_test_mode: $x_splitit_test_mode
     );
     print_r($result->$getInstallmentPlanNumber());
@@ -405,31 +412,22 @@ refund($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_r
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure OAuth2 access token for authorization: oauth
-$config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
-
-$apiInstance = new Splitit\Api\InstallmentPlanApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    // new GuzzleHttp\Client(),
-    $config
+$splitit = new \Splitit\Client(
+    clientId: "YOUR_CLIENT_ID",
+    clientSecret: "YOUR_CLIENT_ID",
 );
 
+$amount = 3.14;
 $installment_plan_number = "installmentPlanNumber_example";
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
-$installment_plan_refund_request = new \Splitit\Model\InstallmentPlanRefundRequest([
-        "amount" => 3.14,
-        "refund_strategy" => "FutureInstallmentsFirst",
-    ]);
+$refund_strategy = "FutureInstallmentsFirst";
 
 try {
-    $result = $apiInstance->refund(
+    $result = $splitit->installmentPlan->refund(
+        amount: $amount, 
         installment_plan_number: $installment_plan_number, 
         x_splitit_idempotency_key: $x_splitit_idempotency_key, 
-        installment_plan_refund_request: $installment_plan_refund_request
+        refund_strategy: $refund_strategy
     );
     print_r($result->$getRefundId());
     print_r($result->$getInstallmentPlanNumber());
@@ -481,17 +479,9 @@ search($x_splitit_idempotency_key, $installment_plan_number, $ref_order_number, 
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure OAuth2 access token for authorization: oauth
-$config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
-
-$apiInstance = new Splitit\Api\InstallmentPlanApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    // new GuzzleHttp\Client(),
-    $config
+$splitit = new \Splitit\Client(
+    clientId: "YOUR_CLIENT_ID",
+    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
@@ -502,7 +492,7 @@ $extended_params = [
     ];
 
 try {
-    $result = $apiInstance->search(
+    $result = $splitit->installmentPlan->search(
         x_splitit_idempotency_key: $x_splitit_idempotency_key, 
         installment_plan_number: $installment_plan_number, 
         ref_order_number: $ref_order_number, 
@@ -554,30 +544,26 @@ updateOrder($installment_plan_number, $x_splitit_idempotency_key, $update_order_
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure OAuth2 access token for authorization: oauth
-$config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
-
-$apiInstance = new Splitit\Api\InstallmentPlanApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    // new GuzzleHttp\Client(),
-    $config
+$splitit = new \Splitit\Client(
+    clientId: "YOUR_CLIENT_ID",
+    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $installment_plan_number = "installmentPlanNumber_example";
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
-$update_order_request = new \Splitit\Model\UpdateOrderRequest([
-        "shipping_status" => "Pending",
-    ]);
+$tracking_number = "string_example";
+$ref_order_number = "string_example";
+$shipping_status = "Pending";
+$capture = True;
 
 try {
-    $result = $apiInstance->updateOrder(
+    $result = $splitit->installmentPlan->updateOrder(
         installment_plan_number: $installment_plan_number, 
         x_splitit_idempotency_key: $x_splitit_idempotency_key, 
-        update_order_request: $update_order_request
+        tracking_number: $tracking_number, 
+        ref_order_number: $ref_order_number, 
+        shipping_status: $shipping_status, 
+        capture: $capture
     );
     print_r($result->$getRefOrderNumber());
     print_r($result->$getInstallmentPlanNumber());
@@ -627,26 +613,28 @@ updateOrder2($x_splitit_idempotency_key, $installment_plan_update_request_by_ide
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure OAuth2 access token for authorization: oauth
-$config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
-
-$apiInstance = new Splitit\Api\InstallmentPlanApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    // new GuzzleHttp\Client(),
-    $config
+$splitit = new \Splitit\Client(
+    clientId: "YOUR_CLIENT_ID",
+    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
-$installment_plan_update_request_by_identifier = new \Splitit\Model\InstallmentPlanUpdateRequestByIdentifier(None);
+$ref_order_number = "string_example";
+$tracking_number = "string_example";
+$capture = True;
+$shipping_status = "Shipped";
+$identifier = [
+    ];
 
 try {
-    $result = $apiInstance->updateOrder2(
+    $result = $splitit->installmentPlan->updateOrder2(
+        body: None,
         x_splitit_idempotency_key: $x_splitit_idempotency_key, 
-        installment_plan_update_request_by_identifier: $installment_plan_update_request_by_identifier
+        ref_order_number: $ref_order_number, 
+        tracking_number: $tracking_number, 
+        capture: $capture, 
+        shipping_status: $shipping_status, 
+        identifier: $identifier
     );
     print_r($result->$getRefOrderNumber());
     print_r($result->$getInstallmentPlanNumber());
@@ -695,24 +683,16 @@ verifyAuthorization($installment_plan_number, $x_splitit_idempotency_key): \Spli
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure OAuth2 access token for authorization: oauth
-$config = Splitit\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Setting host path is optional and defaults to https://web-api-v3.production.splitit.com
-// Splitit\Configuration::getDefaultConfiguration()->setHost("https://web-api-v3.production.splitit.com");
-
-$apiInstance = new Splitit\Api\InstallmentPlanApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    // new GuzzleHttp\Client(),
-    $config
+$splitit = new \Splitit\Client(
+    clientId: "YOUR_CLIENT_ID",
+    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $installment_plan_number = "installmentPlanNumber_example";
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
 
 try {
-    $result = $apiInstance->verifyAuthorization(
+    $result = $splitit->installmentPlan->verifyAuthorization(
         installment_plan_number: $installment_plan_number, 
         x_splitit_idempotency_key: $x_splitit_idempotency_key
     );

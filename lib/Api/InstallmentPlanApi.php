@@ -33,7 +33,7 @@ use Splitit\Configuration;
 use Splitit\HeaderSelector;
 use Splitit\ObjectSerializer;
 
-class InstallmentPlanApi
+class InstallmentPlanApi extends \Splitit\CustomApi
 {
     /**
      * @var ClientInterface
@@ -154,6 +154,16 @@ class InstallmentPlanApi
     }
 
     /**
+     * For initializing request body parameter
+     */
+    private function setRequestBodyProperty(&$body, $property, $value) {
+        if ($body === null) $body = [];
+        // user did not pass in a value for this parameter
+        if ($value === SENTINEL_VALUE) return;
+        $body[$property] = $value;
+    }
+
+    /**
      * Operation cancel
      *
      * @param  string $installment_plan_number installment_plan_number (required)
@@ -164,8 +174,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentPlanCancelResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function cancel($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['cancel'][0])
+    public function cancel(
+        $installment_plan_number,
+        $x_splitit_idempotency_key,
+        string $contentType = self::contentTypes['cancel'][0]
+
+    )
     {
+
         list($response) = $this->cancelWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $contentType);
         return $response;
     }
@@ -183,7 +199,10 @@ class InstallmentPlanApi
      */
     public function cancelWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['cancel'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->cancelRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->cancelRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config);
 
         try {
             $options = $this->createHttpClientOption();
@@ -384,8 +403,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelAsync($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['cancel'][0])
+    public function cancelAsync(
+        $installment_plan_number,
+        $x_splitit_idempotency_key,
+        string $contentType = self::contentTypes['cancel'][0]
+
+    )
     {
+
         return $this->cancelAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $contentType)
             ->then(
                 function ($response) {
@@ -404,10 +429,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['cancel'][0])
+    public function cancelAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['cancel'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $returnType = '\Splitit\Model\InstallmentPlanCancelResponse';
-        $request = $this->cancelRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->cancelRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -459,22 +487,21 @@ class InstallmentPlanApi
     {
 
         // Check if $installment_plan_number is a string
-        if (!is_null($installment_plan_number) && !is_string($installment_plan_number)) {
+        if ($installment_plan_number !== SENTINEL_VALUE && !is_string($installment_plan_number)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($installment_plan_number, true), gettype($installment_plan_number)));
         }
         // verify the required parameter 'installment_plan_number' is set
-        if ($installment_plan_number === null || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
+        if ($installment_plan_number === SENTINEL_VALUE || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter installment_plan_number when calling cancel'
             );
         }
-
         // Check if $x_splitit_idempotency_key is a string
-        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE && !is_string($x_splitit_idempotency_key)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
         }
         // verify the required parameter 'x_splitit_idempotency_key' is set
-        if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
+        if ($x_splitit_idempotency_key === SENTINEL_VALUE || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter x_splitit_idempotency_key when calling cancel'
             );
@@ -490,12 +517,12 @@ class InstallmentPlanApi
 
 
         // header params
-        if ($x_splitit_idempotency_key !== null) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE) {
             $headerParams['X-Splitit-IdempotencyKey'] = ObjectSerializer::toHeaderValue($x_splitit_idempotency_key);
         }
 
         // path params
-        if ($installment_plan_number !== null) {
+        if ($installment_plan_number !== SENTINEL_VALUE) {
             $resourcePath = str_replace(
                 '{' . 'installmentPlanNumber' . '}',
                 ObjectSerializer::toPathValue($installment_plan_number),
@@ -552,14 +579,20 @@ class InstallmentPlanApi
             $headers
         );
 
+        $method = 'POST';
+        $this->beforeCreateRequestHook($method, $resourcePath, $queryParams, $headers, $httpBody);
+
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return [
+            "request" => new Request(
+                $method,
+                $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+                $headers,
+                $httpBody
+            ),
+            "serializedBody" => $httpBody
+        ];
     }
 
     /**
@@ -573,8 +606,21 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentsEligibilityResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function checkEligibility($x_splitit_idempotency_key, $check_installments_eligibility_request, string $contentType = self::contentTypes['checkEligibility'][0])
+    public function checkEligibility(
+        $x_splitit_idempotency_key,
+        $plan_data = SENTINEL_VALUE,
+        $card_details = SENTINEL_VALUE,
+        $billing_address = SENTINEL_VALUE,
+        string $contentType = self::contentTypes['checkEligibility'][0]
+
+    )
     {
+        $_body = [];
+        $this->setRequestBodyProperty($_body, "plan_data", $plan_data);
+        $this->setRequestBodyProperty($_body, "card_details", $card_details);
+        $this->setRequestBodyProperty($_body, "billing_address", $billing_address);
+        $check_installments_eligibility_request = $_body;
+
         list($response) = $this->checkEligibilityWithHttpInfo($x_splitit_idempotency_key, $check_installments_eligibility_request, $contentType);
         return $response;
     }
@@ -592,7 +638,10 @@ class InstallmentPlanApi
      */
     public function checkEligibilityWithHttpInfo($x_splitit_idempotency_key, $check_installments_eligibility_request, string $contentType = self::contentTypes['checkEligibility'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->checkEligibilityRequest($x_splitit_idempotency_key, $check_installments_eligibility_request, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->checkEligibilityRequest($x_splitit_idempotency_key, $check_installments_eligibility_request, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
 
         try {
             $options = $this->createHttpClientOption();
@@ -793,8 +842,21 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function checkEligibilityAsync($x_splitit_idempotency_key, $check_installments_eligibility_request, string $contentType = self::contentTypes['checkEligibility'][0])
+    public function checkEligibilityAsync(
+        $x_splitit_idempotency_key,
+        $plan_data = SENTINEL_VALUE,
+        $card_details = SENTINEL_VALUE,
+        $billing_address = SENTINEL_VALUE,
+        string $contentType = self::contentTypes['checkEligibility'][0]
+
+    )
     {
+        $_body = [];
+        $this->setRequestBodyProperty($_body, "plan_data", $plan_data);
+        $this->setRequestBodyProperty($_body, "card_details", $card_details);
+        $this->setRequestBodyProperty($_body, "billing_address", $billing_address);
+        $check_installments_eligibility_request = $_body;
+
         return $this->checkEligibilityAsyncWithHttpInfo($x_splitit_idempotency_key, $check_installments_eligibility_request, $contentType)
             ->then(
                 function ($response) {
@@ -813,10 +875,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function checkEligibilityAsyncWithHttpInfo($x_splitit_idempotency_key, $check_installments_eligibility_request, string $contentType = self::contentTypes['checkEligibility'][0])
+    public function checkEligibilityAsyncWithHttpInfo($x_splitit_idempotency_key, $check_installments_eligibility_request, string $contentType = self::contentTypes['checkEligibility'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $returnType = '\Splitit\Model\InstallmentsEligibilityResponse';
-        $request = $this->checkEligibilityRequest($x_splitit_idempotency_key, $check_installments_eligibility_request, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->checkEligibilityRequest($x_splitit_idempotency_key, $check_installments_eligibility_request, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -868,21 +933,25 @@ class InstallmentPlanApi
     {
 
         // Check if $x_splitit_idempotency_key is a string
-        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE && !is_string($x_splitit_idempotency_key)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
         }
         // verify the required parameter 'x_splitit_idempotency_key' is set
-        if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
+        if ($x_splitit_idempotency_key === SENTINEL_VALUE || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter x_splitit_idempotency_key when calling checkEligibility'
             );
         }
-
-        if (!($check_installments_eligibility_request instanceof \Splitit\Model\CheckInstallmentsEligibilityRequest)) {
-            throw new \InvalidArgumentException('"check_installments_eligibility_request" must be instance of "\Splitit\Model\CheckInstallmentsEligibilityRequest" when calling InstallmentPlanApi.checkEligibility.');
+        if ($check_installments_eligibility_request !== SENTINEL_VALUE) {
+            if (!($check_installments_eligibility_request instanceof \Splitit\Model\CheckInstallmentsEligibilityRequest)) {
+                if (!is_array($check_installments_eligibility_request))
+                    throw new \InvalidArgumentException('"check_installments_eligibility_request" must be associative array or an instance of \Splitit\Model\CheckInstallmentsEligibilityRequest InstallmentPlanApi.checkEligibility.');
+                else
+                    $check_installments_eligibility_request = new \Splitit\Model\CheckInstallmentsEligibilityRequest($check_installments_eligibility_request);
+            }
         }
         // verify the required parameter 'check_installments_eligibility_request' is set
-        if ($check_installments_eligibility_request === null || (is_array($check_installments_eligibility_request) && count($check_installments_eligibility_request) === 0)) {
+        if ($check_installments_eligibility_request === SENTINEL_VALUE || (is_array($check_installments_eligibility_request) && count($check_installments_eligibility_request) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter check_installments_eligibility_request when calling checkEligibility'
             );
@@ -898,7 +967,7 @@ class InstallmentPlanApi
 
 
         // header params
-        if ($x_splitit_idempotency_key !== null) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE) {
             $headerParams['X-Splitit-IdempotencyKey'] = ObjectSerializer::toHeaderValue($x_splitit_idempotency_key);
         }
 
@@ -959,14 +1028,20 @@ class InstallmentPlanApi
             $headers
         );
 
+        $method = 'POST';
+        $this->beforeCreateRequestHook($method, $resourcePath, $queryParams, $headers, $httpBody);
+
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return [
+            "request" => new Request(
+                $method,
+                $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+                $headers,
+                $httpBody
+            ),
+            "serializedBody" => $httpBody
+        ];
     }
 
     /**
@@ -980,8 +1055,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentPlanGetResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function get($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['get'][0])
+    public function get(
+        $installment_plan_number,
+        $x_splitit_idempotency_key,
+        string $contentType = self::contentTypes['get'][0]
+
+    )
     {
+
         list($response) = $this->getWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $contentType);
         return $response;
     }
@@ -999,7 +1080,10 @@ class InstallmentPlanApi
      */
     public function getWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['get'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->getRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->getRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1200,8 +1284,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAsync($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['get'][0])
+    public function getAsync(
+        $installment_plan_number,
+        $x_splitit_idempotency_key,
+        string $contentType = self::contentTypes['get'][0]
+
+    )
     {
+
         return $this->getAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $contentType)
             ->then(
                 function ($response) {
@@ -1220,10 +1310,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['get'][0])
+    public function getAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['get'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $returnType = '\Splitit\Model\InstallmentPlanGetResponse';
-        $request = $this->getRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->getRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1275,22 +1368,21 @@ class InstallmentPlanApi
     {
 
         // Check if $installment_plan_number is a string
-        if (!is_null($installment_plan_number) && !is_string($installment_plan_number)) {
+        if ($installment_plan_number !== SENTINEL_VALUE && !is_string($installment_plan_number)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($installment_plan_number, true), gettype($installment_plan_number)));
         }
         // verify the required parameter 'installment_plan_number' is set
-        if ($installment_plan_number === null || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
+        if ($installment_plan_number === SENTINEL_VALUE || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter installment_plan_number when calling get'
             );
         }
-
         // Check if $x_splitit_idempotency_key is a string
-        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE && !is_string($x_splitit_idempotency_key)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
         }
         // verify the required parameter 'x_splitit_idempotency_key' is set
-        if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
+        if ($x_splitit_idempotency_key === SENTINEL_VALUE || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter x_splitit_idempotency_key when calling get'
             );
@@ -1306,12 +1398,12 @@ class InstallmentPlanApi
 
 
         // header params
-        if ($x_splitit_idempotency_key !== null) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE) {
             $headerParams['X-Splitit-IdempotencyKey'] = ObjectSerializer::toHeaderValue($x_splitit_idempotency_key);
         }
 
         // path params
-        if ($installment_plan_number !== null) {
+        if ($installment_plan_number !== SENTINEL_VALUE) {
             $resourcePath = str_replace(
                 '{' . 'installmentPlanNumber' . '}',
                 ObjectSerializer::toPathValue($installment_plan_number),
@@ -1368,14 +1460,20 @@ class InstallmentPlanApi
             $headers
         );
 
+        $method = 'GET';
+        $this->beforeCreateRequestHook($method, $resourcePath, $queryParams, $headers, $httpBody);
+
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return [
+            "request" => new Request(
+                $method,
+                $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+                $headers,
+                $httpBody
+            ),
+            "serializedBody" => $httpBody
+        ];
     }
 
     /**
@@ -1390,8 +1488,30 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InitiatePlanResponse|\Splitit\Model\PlanErrorResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function post($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post'][0])
+    public function post(
+        $auto_capture,
+        $x_splitit_idempotency_key,
+        $attempt3d_secure = SENTINEL_VALUE,
+        $shopper = SENTINEL_VALUE,
+        $plan_data = SENTINEL_VALUE,
+        $billing_address = SENTINEL_VALUE,
+        $redirect_urls = SENTINEL_VALUE,
+        $ux_settings = SENTINEL_VALUE,
+        $x_splitit_test_mode = SENTINEL_VALUE,
+        string $contentType = self::contentTypes['post'][0]
+
+    )
     {
+        $_body = [];
+        $this->setRequestBodyProperty($_body, "auto_capture", $auto_capture);
+        $this->setRequestBodyProperty($_body, "attempt3d_secure", $attempt3d_secure);
+        $this->setRequestBodyProperty($_body, "shopper", $shopper);
+        $this->setRequestBodyProperty($_body, "plan_data", $plan_data);
+        $this->setRequestBodyProperty($_body, "billing_address", $billing_address);
+        $this->setRequestBodyProperty($_body, "redirect_urls", $redirect_urls);
+        $this->setRequestBodyProperty($_body, "ux_settings", $ux_settings);
+        $installment_plan_initiate_request = $_body;
+
         list($response) = $this->postWithHttpInfo($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType);
         return $response;
     }
@@ -1410,7 +1530,10 @@ class InstallmentPlanApi
      */
     public function postWithHttpInfo($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->postRequest($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->postRequest($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1636,8 +1759,30 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAsync($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post'][0])
+    public function postAsync(
+        $auto_capture,
+        $x_splitit_idempotency_key,
+        $attempt3d_secure = SENTINEL_VALUE,
+        $shopper = SENTINEL_VALUE,
+        $plan_data = SENTINEL_VALUE,
+        $billing_address = SENTINEL_VALUE,
+        $redirect_urls = SENTINEL_VALUE,
+        $ux_settings = SENTINEL_VALUE,
+        $x_splitit_test_mode = SENTINEL_VALUE,
+        string $contentType = self::contentTypes['post'][0]
+
+    )
     {
+        $_body = [];
+        $this->setRequestBodyProperty($_body, "auto_capture", $auto_capture);
+        $this->setRequestBodyProperty($_body, "attempt3d_secure", $attempt3d_secure);
+        $this->setRequestBodyProperty($_body, "shopper", $shopper);
+        $this->setRequestBodyProperty($_body, "plan_data", $plan_data);
+        $this->setRequestBodyProperty($_body, "billing_address", $billing_address);
+        $this->setRequestBodyProperty($_body, "redirect_urls", $redirect_urls);
+        $this->setRequestBodyProperty($_body, "ux_settings", $ux_settings);
+        $installment_plan_initiate_request = $_body;
+
         return $this->postAsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType)
             ->then(
                 function ($response) {
@@ -1657,10 +1802,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post'][0])
+    public function postAsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $returnType = '\Splitit\Model\InitiatePlanResponse';
-        $request = $this->postRequest($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->postRequest($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1709,32 +1857,35 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postRequest($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post'][0])
+    public function postRequest($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode = SENTINEL_VALUE, string $contentType = self::contentTypes['post'][0])
     {
 
         // Check if $x_splitit_idempotency_key is a string
-        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE && !is_string($x_splitit_idempotency_key)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
         }
         // verify the required parameter 'x_splitit_idempotency_key' is set
-        if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
+        if ($x_splitit_idempotency_key === SENTINEL_VALUE || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter x_splitit_idempotency_key when calling post'
             );
         }
-
-        if (!($installment_plan_initiate_request instanceof \Splitit\Model\InstallmentPlanInitiateRequest)) {
-            throw new \InvalidArgumentException('"installment_plan_initiate_request" must be instance of "\Splitit\Model\InstallmentPlanInitiateRequest" when calling InstallmentPlanApi.post.');
+        if ($installment_plan_initiate_request !== SENTINEL_VALUE) {
+            if (!($installment_plan_initiate_request instanceof \Splitit\Model\InstallmentPlanInitiateRequest)) {
+                if (!is_array($installment_plan_initiate_request))
+                    throw new \InvalidArgumentException('"installment_plan_initiate_request" must be associative array or an instance of \Splitit\Model\InstallmentPlanInitiateRequest InstallmentPlanApi.post.');
+                else
+                    $installment_plan_initiate_request = new \Splitit\Model\InstallmentPlanInitiateRequest($installment_plan_initiate_request);
+            }
         }
         // verify the required parameter 'installment_plan_initiate_request' is set
-        if ($installment_plan_initiate_request === null || (is_array($installment_plan_initiate_request) && count($installment_plan_initiate_request) === 0)) {
+        if ($installment_plan_initiate_request === SENTINEL_VALUE || (is_array($installment_plan_initiate_request) && count($installment_plan_initiate_request) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter installment_plan_initiate_request when calling post'
             );
         }
-
         // Check if $x_splitit_test_mode is a string
-        if (!is_null($x_splitit_test_mode) && !is_string($x_splitit_test_mode)) {
+        if ($x_splitit_test_mode !== SENTINEL_VALUE && !is_string($x_splitit_test_mode)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_test_mode, true), gettype($x_splitit_test_mode)));
         }
 
@@ -1748,11 +1899,11 @@ class InstallmentPlanApi
 
 
         // header params
-        if ($x_splitit_test_mode !== null) {
+        if ($x_splitit_test_mode !== SENTINEL_VALUE) {
             $headerParams['X-Splitit-TestMode'] = ObjectSerializer::toHeaderValue($x_splitit_test_mode);
         }
         // header params
-        if ($x_splitit_idempotency_key !== null) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE) {
             $headerParams['X-Splitit-IdempotencyKey'] = ObjectSerializer::toHeaderValue($x_splitit_idempotency_key);
         }
 
@@ -1813,14 +1964,20 @@ class InstallmentPlanApi
             $headers
         );
 
+        $method = 'POST';
+        $this->beforeCreateRequestHook($method, $resourcePath, $queryParams, $headers, $httpBody);
+
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return [
+            "request" => new Request(
+                $method,
+                $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+                $headers,
+                $httpBody
+            ),
+            "serializedBody" => $httpBody
+        ];
     }
 
     /**
@@ -1835,8 +1992,32 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentPlanCreateResponse|\Splitit\Model\PlanErrorResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function post2($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post2'][0])
+    public function post2(
+        $auto_capture,
+        $terms_and_conditions_accepted,
+        $x_splitit_idempotency_key,
+        $attempt3d_secure = SENTINEL_VALUE,
+        $shopper = SENTINEL_VALUE,
+        $plan_data = SENTINEL_VALUE,
+        $billing_address = SENTINEL_VALUE,
+        $payment_method = SENTINEL_VALUE,
+        $redirect_urls = SENTINEL_VALUE,
+        $x_splitit_test_mode = SENTINEL_VALUE,
+        string $contentType = self::contentTypes['post2'][0]
+
+    )
     {
+        $_body = [];
+        $this->setRequestBodyProperty($_body, "auto_capture", $auto_capture);
+        $this->setRequestBodyProperty($_body, "attempt3d_secure", $attempt3d_secure);
+        $this->setRequestBodyProperty($_body, "terms_and_conditions_accepted", $terms_and_conditions_accepted);
+        $this->setRequestBodyProperty($_body, "shopper", $shopper);
+        $this->setRequestBodyProperty($_body, "plan_data", $plan_data);
+        $this->setRequestBodyProperty($_body, "billing_address", $billing_address);
+        $this->setRequestBodyProperty($_body, "payment_method", $payment_method);
+        $this->setRequestBodyProperty($_body, "redirect_urls", $redirect_urls);
+        $installment_plan_create_request = $_body;
+
         list($response) = $this->post2WithHttpInfo($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode, $contentType);
         return $response;
     }
@@ -1855,7 +2036,10 @@ class InstallmentPlanApi
      */
     public function post2WithHttpInfo($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post2'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->post2Request($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->post2Request($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2081,8 +2265,32 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function post2Async($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post2'][0])
+    public function post2Async(
+        $auto_capture,
+        $terms_and_conditions_accepted,
+        $x_splitit_idempotency_key,
+        $attempt3d_secure = SENTINEL_VALUE,
+        $shopper = SENTINEL_VALUE,
+        $plan_data = SENTINEL_VALUE,
+        $billing_address = SENTINEL_VALUE,
+        $payment_method = SENTINEL_VALUE,
+        $redirect_urls = SENTINEL_VALUE,
+        $x_splitit_test_mode = SENTINEL_VALUE,
+        string $contentType = self::contentTypes['post2'][0]
+
+    )
     {
+        $_body = [];
+        $this->setRequestBodyProperty($_body, "auto_capture", $auto_capture);
+        $this->setRequestBodyProperty($_body, "attempt3d_secure", $attempt3d_secure);
+        $this->setRequestBodyProperty($_body, "terms_and_conditions_accepted", $terms_and_conditions_accepted);
+        $this->setRequestBodyProperty($_body, "shopper", $shopper);
+        $this->setRequestBodyProperty($_body, "plan_data", $plan_data);
+        $this->setRequestBodyProperty($_body, "billing_address", $billing_address);
+        $this->setRequestBodyProperty($_body, "payment_method", $payment_method);
+        $this->setRequestBodyProperty($_body, "redirect_urls", $redirect_urls);
+        $installment_plan_create_request = $_body;
+
         return $this->post2AsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode, $contentType)
             ->then(
                 function ($response) {
@@ -2102,10 +2310,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function post2AsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post2'][0])
+    public function post2AsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post2'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $returnType = '\Splitit\Model\InstallmentPlanCreateResponse';
-        $request = $this->post2Request($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->post2Request($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2154,32 +2365,35 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function post2Request($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post2'][0])
+    public function post2Request($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode = SENTINEL_VALUE, string $contentType = self::contentTypes['post2'][0])
     {
 
         // Check if $x_splitit_idempotency_key is a string
-        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE && !is_string($x_splitit_idempotency_key)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
         }
         // verify the required parameter 'x_splitit_idempotency_key' is set
-        if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
+        if ($x_splitit_idempotency_key === SENTINEL_VALUE || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter x_splitit_idempotency_key when calling post2'
             );
         }
-
-        if (!($installment_plan_create_request instanceof \Splitit\Model\InstallmentPlanCreateRequest)) {
-            throw new \InvalidArgumentException('"installment_plan_create_request" must be instance of "\Splitit\Model\InstallmentPlanCreateRequest" when calling InstallmentPlanApi.post2.');
+        if ($installment_plan_create_request !== SENTINEL_VALUE) {
+            if (!($installment_plan_create_request instanceof \Splitit\Model\InstallmentPlanCreateRequest)) {
+                if (!is_array($installment_plan_create_request))
+                    throw new \InvalidArgumentException('"installment_plan_create_request" must be associative array or an instance of \Splitit\Model\InstallmentPlanCreateRequest InstallmentPlanApi.post2.');
+                else
+                    $installment_plan_create_request = new \Splitit\Model\InstallmentPlanCreateRequest($installment_plan_create_request);
+            }
         }
         // verify the required parameter 'installment_plan_create_request' is set
-        if ($installment_plan_create_request === null || (is_array($installment_plan_create_request) && count($installment_plan_create_request) === 0)) {
+        if ($installment_plan_create_request === SENTINEL_VALUE || (is_array($installment_plan_create_request) && count($installment_plan_create_request) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter installment_plan_create_request when calling post2'
             );
         }
-
         // Check if $x_splitit_test_mode is a string
-        if (!is_null($x_splitit_test_mode) && !is_string($x_splitit_test_mode)) {
+        if ($x_splitit_test_mode !== SENTINEL_VALUE && !is_string($x_splitit_test_mode)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_test_mode, true), gettype($x_splitit_test_mode)));
         }
 
@@ -2193,11 +2407,11 @@ class InstallmentPlanApi
 
 
         // header params
-        if ($x_splitit_test_mode !== null) {
+        if ($x_splitit_test_mode !== SENTINEL_VALUE) {
             $headerParams['X-Splitit-TestMode'] = ObjectSerializer::toHeaderValue($x_splitit_test_mode);
         }
         // header params
-        if ($x_splitit_idempotency_key !== null) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE) {
             $headerParams['X-Splitit-IdempotencyKey'] = ObjectSerializer::toHeaderValue($x_splitit_idempotency_key);
         }
 
@@ -2258,14 +2472,20 @@ class InstallmentPlanApi
             $headers
         );
 
+        $method = 'POST';
+        $this->beforeCreateRequestHook($method, $resourcePath, $queryParams, $headers, $httpBody);
+
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return [
+            "request" => new Request(
+                $method,
+                $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+                $headers,
+                $httpBody
+            ),
+            "serializedBody" => $httpBody
+        ];
     }
 
     /**
@@ -2280,8 +2500,20 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentPlanRefundResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function refund($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, string $contentType = self::contentTypes['refund'][0])
+    public function refund(
+        $amount,
+        $installment_plan_number,
+        $x_splitit_idempotency_key,
+        $refund_strategy = SENTINEL_VALUE,
+        string $contentType = self::contentTypes['refund'][0]
+
+    )
     {
+        $_body = [];
+        $this->setRequestBodyProperty($_body, "amount", $amount);
+        $this->setRequestBodyProperty($_body, "refund_strategy", $refund_strategy);
+        $installment_plan_refund_request = $_body;
+
         list($response) = $this->refundWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, $contentType);
         return $response;
     }
@@ -2300,7 +2532,10 @@ class InstallmentPlanApi
      */
     public function refundWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, string $contentType = self::contentTypes['refund'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->refundRequest($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->refundRequest($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2503,8 +2738,20 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function refundAsync($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, string $contentType = self::contentTypes['refund'][0])
+    public function refundAsync(
+        $amount,
+        $installment_plan_number,
+        $x_splitit_idempotency_key,
+        $refund_strategy = SENTINEL_VALUE,
+        string $contentType = self::contentTypes['refund'][0]
+
+    )
     {
+        $_body = [];
+        $this->setRequestBodyProperty($_body, "amount", $amount);
+        $this->setRequestBodyProperty($_body, "refund_strategy", $refund_strategy);
+        $installment_plan_refund_request = $_body;
+
         return $this->refundAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, $contentType)
             ->then(
                 function ($response) {
@@ -2524,10 +2771,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function refundAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, string $contentType = self::contentTypes['refund'][0])
+    public function refundAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, string $contentType = self::contentTypes['refund'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $returnType = '\Splitit\Model\InstallmentPlanRefundResponse';
-        $request = $this->refundRequest($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->refundRequest($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2580,32 +2830,35 @@ class InstallmentPlanApi
     {
 
         // Check if $installment_plan_number is a string
-        if (!is_null($installment_plan_number) && !is_string($installment_plan_number)) {
+        if ($installment_plan_number !== SENTINEL_VALUE && !is_string($installment_plan_number)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($installment_plan_number, true), gettype($installment_plan_number)));
         }
         // verify the required parameter 'installment_plan_number' is set
-        if ($installment_plan_number === null || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
+        if ($installment_plan_number === SENTINEL_VALUE || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter installment_plan_number when calling refund'
             );
         }
-
         // Check if $x_splitit_idempotency_key is a string
-        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE && !is_string($x_splitit_idempotency_key)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
         }
         // verify the required parameter 'x_splitit_idempotency_key' is set
-        if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
+        if ($x_splitit_idempotency_key === SENTINEL_VALUE || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter x_splitit_idempotency_key when calling refund'
             );
         }
-
-        if (!($installment_plan_refund_request instanceof \Splitit\Model\InstallmentPlanRefundRequest)) {
-            throw new \InvalidArgumentException('"installment_plan_refund_request" must be instance of "\Splitit\Model\InstallmentPlanRefundRequest" when calling InstallmentPlanApi.refund.');
+        if ($installment_plan_refund_request !== SENTINEL_VALUE) {
+            if (!($installment_plan_refund_request instanceof \Splitit\Model\InstallmentPlanRefundRequest)) {
+                if (!is_array($installment_plan_refund_request))
+                    throw new \InvalidArgumentException('"installment_plan_refund_request" must be associative array or an instance of \Splitit\Model\InstallmentPlanRefundRequest InstallmentPlanApi.refund.');
+                else
+                    $installment_plan_refund_request = new \Splitit\Model\InstallmentPlanRefundRequest($installment_plan_refund_request);
+            }
         }
         // verify the required parameter 'installment_plan_refund_request' is set
-        if ($installment_plan_refund_request === null || (is_array($installment_plan_refund_request) && count($installment_plan_refund_request) === 0)) {
+        if ($installment_plan_refund_request === SENTINEL_VALUE || (is_array($installment_plan_refund_request) && count($installment_plan_refund_request) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter installment_plan_refund_request when calling refund'
             );
@@ -2621,12 +2874,12 @@ class InstallmentPlanApi
 
 
         // header params
-        if ($x_splitit_idempotency_key !== null) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE) {
             $headerParams['X-Splitit-IdempotencyKey'] = ObjectSerializer::toHeaderValue($x_splitit_idempotency_key);
         }
 
         // path params
-        if ($installment_plan_number !== null) {
+        if ($installment_plan_number !== SENTINEL_VALUE) {
             $resourcePath = str_replace(
                 '{' . 'installmentPlanNumber' . '}',
                 ObjectSerializer::toPathValue($installment_plan_number),
@@ -2690,14 +2943,20 @@ class InstallmentPlanApi
             $headers
         );
 
+        $method = 'POST';
+        $this->beforeCreateRequestHook($method, $resourcePath, $queryParams, $headers, $httpBody);
+
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return [
+            "request" => new Request(
+                $method,
+                $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+                $headers,
+                $httpBody
+            ),
+            "serializedBody" => $httpBody
+        ];
     }
 
     /**
@@ -2713,8 +2972,16 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentPlanSearchResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function search($x_splitit_idempotency_key, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = self::contentTypes['search'][0])
+    public function search(
+        $x_splitit_idempotency_key,
+        $installment_plan_number = SENTINEL_VALUE,
+        $ref_order_number = SENTINEL_VALUE,
+        $extended_params = SENTINEL_VALUE,
+        string $contentType = self::contentTypes['search'][0]
+
+    )
     {
+
         list($response) = $this->searchWithHttpInfo($x_splitit_idempotency_key, $installment_plan_number, $ref_order_number, $extended_params, $contentType);
         return $response;
     }
@@ -2734,7 +3001,10 @@ class InstallmentPlanApi
      */
     public function searchWithHttpInfo($x_splitit_idempotency_key, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = self::contentTypes['search'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->searchRequest($x_splitit_idempotency_key, $installment_plan_number, $ref_order_number, $extended_params, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->searchRequest($x_splitit_idempotency_key, $installment_plan_number, $ref_order_number, $extended_params, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2939,8 +3209,16 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function searchAsync($x_splitit_idempotency_key, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = self::contentTypes['search'][0])
+    public function searchAsync(
+        $x_splitit_idempotency_key,
+        $installment_plan_number = SENTINEL_VALUE,
+        $ref_order_number = SENTINEL_VALUE,
+        $extended_params = SENTINEL_VALUE,
+        string $contentType = self::contentTypes['search'][0]
+
+    )
     {
+
         return $this->searchAsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_number, $ref_order_number, $extended_params, $contentType)
             ->then(
                 function ($response) {
@@ -2961,10 +3239,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function searchAsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = self::contentTypes['search'][0])
+    public function searchAsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = self::contentTypes['search'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $returnType = '\Splitit\Model\InstallmentPlanSearchResponse';
-        $request = $this->searchRequest($x_splitit_idempotency_key, $installment_plan_number, $ref_order_number, $extended_params, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->searchRequest($x_splitit_idempotency_key, $installment_plan_number, $ref_order_number, $extended_params, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3014,30 +3295,27 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function searchRequest($x_splitit_idempotency_key, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = self::contentTypes['search'][0])
+    public function searchRequest($x_splitit_idempotency_key, $installment_plan_number = SENTINEL_VALUE, $ref_order_number = SENTINEL_VALUE, $extended_params = SENTINEL_VALUE, string $contentType = self::contentTypes['search'][0])
     {
 
         // Check if $x_splitit_idempotency_key is a string
-        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE && !is_string($x_splitit_idempotency_key)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
         }
         // verify the required parameter 'x_splitit_idempotency_key' is set
-        if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
+        if ($x_splitit_idempotency_key === SENTINEL_VALUE || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter x_splitit_idempotency_key when calling search'
             );
         }
-
         // Check if $installment_plan_number is a string
-        if (!is_null($installment_plan_number) && !is_string($installment_plan_number)) {
+        if ($installment_plan_number !== SENTINEL_VALUE && !is_string($installment_plan_number)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($installment_plan_number, true), gettype($installment_plan_number)));
         }
-
         // Check if $ref_order_number is a string
-        if (!is_null($ref_order_number) && !is_string($ref_order_number)) {
+        if ($ref_order_number !== SENTINEL_VALUE && !is_string($ref_order_number)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($ref_order_number, true), gettype($ref_order_number)));
         }
-
 
 
         $resourcePath = '/api/installmentplans/search';
@@ -3047,36 +3325,42 @@ class InstallmentPlanApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $installment_plan_number,
-            'installmentPlanNumber', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $ref_order_number,
-            'refOrderNumber', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $extended_params,
-            'extendedParams', // param base name
-            'object', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
+        if ($installment_plan_number !== SENTINEL_VALUE) {
+            // query params
+            $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+                $installment_plan_number,
+                'installmentPlanNumber', // param base name
+                'string', // openApiType
+                'form', // style
+                true, // explode
+                false // required
+            ) ?? []);
+        }
+        if ($ref_order_number !== SENTINEL_VALUE) {
+            // query params
+            $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+                $ref_order_number,
+                'refOrderNumber', // param base name
+                'string', // openApiType
+                'form', // style
+                true, // explode
+                false // required
+            ) ?? []);
+        }
+        if ($extended_params !== SENTINEL_VALUE) {
+            // query params
+            $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+                $extended_params,
+                'extendedParams', // param base name
+                'object', // openApiType
+                'form', // style
+                true, // explode
+                false // required
+            ) ?? []);
+        }
 
         // header params
-        if ($x_splitit_idempotency_key !== null) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE) {
             $headerParams['X-Splitit-IdempotencyKey'] = ObjectSerializer::toHeaderValue($x_splitit_idempotency_key);
         }
 
@@ -3130,14 +3414,20 @@ class InstallmentPlanApi
             $headers
         );
 
+        $method = 'GET';
+        $this->beforeCreateRequestHook($method, $resourcePath, $queryParams, $headers, $httpBody);
+
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return [
+            "request" => new Request(
+                $method,
+                $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+                $headers,
+                $httpBody
+            ),
+            "serializedBody" => $httpBody
+        ];
     }
 
     /**
@@ -3152,8 +3442,24 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentPlanUpdateResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function updateOrder($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0])
+    public function updateOrder(
+        $installment_plan_number,
+        $x_splitit_idempotency_key,
+        $tracking_number = SENTINEL_VALUE,
+        $ref_order_number = SENTINEL_VALUE,
+        $shipping_status = SENTINEL_VALUE,
+        $capture = SENTINEL_VALUE,
+        string $contentType = self::contentTypes['updateOrder'][0]
+
+    )
     {
+        $_body = [];
+        $this->setRequestBodyProperty($_body, "tracking_number", $tracking_number);
+        $this->setRequestBodyProperty($_body, "ref_order_number", $ref_order_number);
+        $this->setRequestBodyProperty($_body, "shipping_status", $shipping_status);
+        $this->setRequestBodyProperty($_body, "capture", $capture);
+        $update_order_request = $_body;
+
         list($response) = $this->updateOrderWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, $contentType);
         return $response;
     }
@@ -3172,7 +3478,10 @@ class InstallmentPlanApi
      */
     public function updateOrderWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3375,8 +3684,24 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateOrderAsync($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0])
+    public function updateOrderAsync(
+        $installment_plan_number,
+        $x_splitit_idempotency_key,
+        $tracking_number = SENTINEL_VALUE,
+        $ref_order_number = SENTINEL_VALUE,
+        $shipping_status = SENTINEL_VALUE,
+        $capture = SENTINEL_VALUE,
+        string $contentType = self::contentTypes['updateOrder'][0]
+
+    )
     {
+        $_body = [];
+        $this->setRequestBodyProperty($_body, "tracking_number", $tracking_number);
+        $this->setRequestBodyProperty($_body, "ref_order_number", $ref_order_number);
+        $this->setRequestBodyProperty($_body, "shipping_status", $shipping_status);
+        $this->setRequestBodyProperty($_body, "capture", $capture);
+        $update_order_request = $_body;
+
         return $this->updateOrderAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, $contentType)
             ->then(
                 function ($response) {
@@ -3396,10 +3721,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateOrderAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0])
+    public function updateOrderAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $returnType = '\Splitit\Model\InstallmentPlanUpdateResponse';
-        $request = $this->updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $update_order_request, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3452,32 +3780,35 @@ class InstallmentPlanApi
     {
 
         // Check if $installment_plan_number is a string
-        if (!is_null($installment_plan_number) && !is_string($installment_plan_number)) {
+        if ($installment_plan_number !== SENTINEL_VALUE && !is_string($installment_plan_number)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($installment_plan_number, true), gettype($installment_plan_number)));
         }
         // verify the required parameter 'installment_plan_number' is set
-        if ($installment_plan_number === null || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
+        if ($installment_plan_number === SENTINEL_VALUE || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter installment_plan_number when calling updateOrder'
             );
         }
-
         // Check if $x_splitit_idempotency_key is a string
-        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE && !is_string($x_splitit_idempotency_key)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
         }
         // verify the required parameter 'x_splitit_idempotency_key' is set
-        if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
+        if ($x_splitit_idempotency_key === SENTINEL_VALUE || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter x_splitit_idempotency_key when calling updateOrder'
             );
         }
-
-        if (!($update_order_request instanceof \Splitit\Model\UpdateOrderRequest)) {
-            throw new \InvalidArgumentException('"update_order_request" must be instance of "\Splitit\Model\UpdateOrderRequest" when calling InstallmentPlanApi.updateOrder.');
+        if ($update_order_request !== SENTINEL_VALUE) {
+            if (!($update_order_request instanceof \Splitit\Model\UpdateOrderRequest)) {
+                if (!is_array($update_order_request))
+                    throw new \InvalidArgumentException('"update_order_request" must be associative array or an instance of \Splitit\Model\UpdateOrderRequest InstallmentPlanApi.updateOrder.');
+                else
+                    $update_order_request = new \Splitit\Model\UpdateOrderRequest($update_order_request);
+            }
         }
         // verify the required parameter 'update_order_request' is set
-        if ($update_order_request === null || (is_array($update_order_request) && count($update_order_request) === 0)) {
+        if ($update_order_request === SENTINEL_VALUE || (is_array($update_order_request) && count($update_order_request) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter update_order_request when calling updateOrder'
             );
@@ -3493,12 +3824,12 @@ class InstallmentPlanApi
 
 
         // header params
-        if ($x_splitit_idempotency_key !== null) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE) {
             $headerParams['X-Splitit-IdempotencyKey'] = ObjectSerializer::toHeaderValue($x_splitit_idempotency_key);
         }
 
         // path params
-        if ($installment_plan_number !== null) {
+        if ($installment_plan_number !== SENTINEL_VALUE) {
             $resourcePath = str_replace(
                 '{' . 'installmentPlanNumber' . '}',
                 ObjectSerializer::toPathValue($installment_plan_number),
@@ -3562,14 +3893,20 @@ class InstallmentPlanApi
             $headers
         );
 
+        $method = 'PUT';
+        $this->beforeCreateRequestHook($method, $resourcePath, $queryParams, $headers, $httpBody);
+
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'PUT',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return [
+            "request" => new Request(
+                $method,
+                $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+                $headers,
+                $httpBody
+            ),
+            "serializedBody" => $httpBody
+        ];
     }
 
     /**
@@ -3583,8 +3920,20 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\InstallmentPlanUpdateResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function updateOrder2($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, string $contentType = self::contentTypes['updateOrder2'][0])
+    public function updateOrder2(
+        $body,
+        $x_splitit_idempotency_key,
+        $ref_order_number = SENTINEL_VALUE,
+        $tracking_number = SENTINEL_VALUE,
+        $capture = SENTINEL_VALUE,
+        $shipping_status = SENTINEL_VALUE,
+        $identifier = SENTINEL_VALUE,
+        string $contentType = self::contentTypes['updateOrder2'][0]
+
+    )
     {
+        $installment_plan_update_request_by_identifier = $body === SENTINEL_VALUE ? null : $body;
+
         list($response) = $this->updateOrder2WithHttpInfo($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, $contentType);
         return $response;
     }
@@ -3602,7 +3951,10 @@ class InstallmentPlanApi
      */
     public function updateOrder2WithHttpInfo($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, string $contentType = self::contentTypes['updateOrder2'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->updateOrder2Request($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->updateOrder2Request($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3803,8 +4155,20 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateOrder2Async($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, string $contentType = self::contentTypes['updateOrder2'][0])
+    public function updateOrder2Async(
+        $body,
+        $x_splitit_idempotency_key,
+        $ref_order_number = SENTINEL_VALUE,
+        $tracking_number = SENTINEL_VALUE,
+        $capture = SENTINEL_VALUE,
+        $shipping_status = SENTINEL_VALUE,
+        $identifier = SENTINEL_VALUE,
+        string $contentType = self::contentTypes['updateOrder2'][0]
+
+    )
     {
+        $installment_plan_update_request_by_identifier = $body === SENTINEL_VALUE ? null : $body;
+
         return $this->updateOrder2AsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, $contentType)
             ->then(
                 function ($response) {
@@ -3823,10 +4187,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateOrder2AsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, string $contentType = self::contentTypes['updateOrder2'][0])
+    public function updateOrder2AsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, string $contentType = self::contentTypes['updateOrder2'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $returnType = '\Splitit\Model\InstallmentPlanUpdateResponse';
-        $request = $this->updateOrder2Request($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->updateOrder2Request($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3878,21 +4245,25 @@ class InstallmentPlanApi
     {
 
         // Check if $x_splitit_idempotency_key is a string
-        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE && !is_string($x_splitit_idempotency_key)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
         }
         // verify the required parameter 'x_splitit_idempotency_key' is set
-        if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
+        if ($x_splitit_idempotency_key === SENTINEL_VALUE || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter x_splitit_idempotency_key when calling updateOrder2'
             );
         }
-
-        if (!($installment_plan_update_request_by_identifier instanceof \Splitit\Model\InstallmentPlanUpdateRequestByIdentifier)) {
-            throw new \InvalidArgumentException('"installment_plan_update_request_by_identifier" must be instance of "\Splitit\Model\InstallmentPlanUpdateRequestByIdentifier" when calling InstallmentPlanApi.updateOrder2.');
+        if ($installment_plan_update_request_by_identifier !== SENTINEL_VALUE) {
+            if (!($installment_plan_update_request_by_identifier instanceof \Splitit\Model\InstallmentPlanUpdateRequestByIdentifier)) {
+                if (!is_array($installment_plan_update_request_by_identifier))
+                    throw new \InvalidArgumentException('"installment_plan_update_request_by_identifier" must be associative array or an instance of \Splitit\Model\InstallmentPlanUpdateRequestByIdentifier InstallmentPlanApi.updateOrder2.');
+                else
+                    $installment_plan_update_request_by_identifier = new \Splitit\Model\InstallmentPlanUpdateRequestByIdentifier($installment_plan_update_request_by_identifier);
+            }
         }
         // verify the required parameter 'installment_plan_update_request_by_identifier' is set
-        if ($installment_plan_update_request_by_identifier === null || (is_array($installment_plan_update_request_by_identifier) && count($installment_plan_update_request_by_identifier) === 0)) {
+        if ($installment_plan_update_request_by_identifier === SENTINEL_VALUE || (is_array($installment_plan_update_request_by_identifier) && count($installment_plan_update_request_by_identifier) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter installment_plan_update_request_by_identifier when calling updateOrder2'
             );
@@ -3908,7 +4279,7 @@ class InstallmentPlanApi
 
 
         // header params
-        if ($x_splitit_idempotency_key !== null) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE) {
             $headerParams['X-Splitit-IdempotencyKey'] = ObjectSerializer::toHeaderValue($x_splitit_idempotency_key);
         }
 
@@ -3969,14 +4340,20 @@ class InstallmentPlanApi
             $headers
         );
 
+        $method = 'PUT';
+        $this->beforeCreateRequestHook($method, $resourcePath, $queryParams, $headers, $httpBody);
+
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'PUT',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return [
+            "request" => new Request(
+                $method,
+                $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+                $headers,
+                $httpBody
+            ),
+            "serializedBody" => $httpBody
+        ];
     }
 
     /**
@@ -3990,8 +4367,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \Splitit\Model\VerifyAuthorizationResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
-    public function verifyAuthorization($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['verifyAuthorization'][0])
+    public function verifyAuthorization(
+        $installment_plan_number,
+        $x_splitit_idempotency_key,
+        string $contentType = self::contentTypes['verifyAuthorization'][0]
+
+    )
     {
+
         list($response) = $this->verifyAuthorizationWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $contentType);
         return $response;
     }
@@ -4009,7 +4392,10 @@ class InstallmentPlanApi
      */
     public function verifyAuthorizationWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['verifyAuthorization'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
-        $request = $this->verifyAuthorizationRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->verifyAuthorizationRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4210,8 +4596,14 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function verifyAuthorizationAsync($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['verifyAuthorization'][0])
+    public function verifyAuthorizationAsync(
+        $installment_plan_number,
+        $x_splitit_idempotency_key,
+        string $contentType = self::contentTypes['verifyAuthorization'][0]
+
+    )
     {
+
         return $this->verifyAuthorizationAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $contentType)
             ->then(
                 function ($response) {
@@ -4230,10 +4622,13 @@ class InstallmentPlanApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function verifyAuthorizationAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['verifyAuthorization'][0])
+    public function verifyAuthorizationAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, string $contentType = self::contentTypes['verifyAuthorization'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
     {
         $returnType = '\Splitit\Model\VerifyAuthorizationResponse';
-        $request = $this->verifyAuthorizationRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->verifyAuthorizationRequest($installment_plan_number, $x_splitit_idempotency_key, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4285,22 +4680,21 @@ class InstallmentPlanApi
     {
 
         // Check if $installment_plan_number is a string
-        if (!is_null($installment_plan_number) && !is_string($installment_plan_number)) {
+        if ($installment_plan_number !== SENTINEL_VALUE && !is_string($installment_plan_number)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($installment_plan_number, true), gettype($installment_plan_number)));
         }
         // verify the required parameter 'installment_plan_number' is set
-        if ($installment_plan_number === null || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
+        if ($installment_plan_number === SENTINEL_VALUE || (is_array($installment_plan_number) && count($installment_plan_number) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter installment_plan_number when calling verifyAuthorization'
             );
         }
-
         // Check if $x_splitit_idempotency_key is a string
-        if (!is_null($x_splitit_idempotency_key) && !is_string($x_splitit_idempotency_key)) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE && !is_string($x_splitit_idempotency_key)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
         }
         // verify the required parameter 'x_splitit_idempotency_key' is set
-        if ($x_splitit_idempotency_key === null || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
+        if ($x_splitit_idempotency_key === SENTINEL_VALUE || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter x_splitit_idempotency_key when calling verifyAuthorization'
             );
@@ -4316,12 +4710,12 @@ class InstallmentPlanApi
 
 
         // header params
-        if ($x_splitit_idempotency_key !== null) {
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE) {
             $headerParams['X-Splitit-IdempotencyKey'] = ObjectSerializer::toHeaderValue($x_splitit_idempotency_key);
         }
 
         // path params
-        if ($installment_plan_number !== null) {
+        if ($installment_plan_number !== SENTINEL_VALUE) {
             $resourcePath = str_replace(
                 '{' . 'installmentPlanNumber' . '}',
                 ObjectSerializer::toPathValue($installment_plan_number),
@@ -4378,14 +4772,20 @@ class InstallmentPlanApi
             $headers
         );
 
+        $method = 'GET';
+        $this->beforeCreateRequestHook($method, $resourcePath, $queryParams, $headers, $httpBody);
+
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return [
+            "request" => new Request(
+                $method,
+                $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+                $headers,
+                $httpBody
+            ),
+            "serializedBody" => $httpBody
+        ];
     }
 
     /**
