@@ -13,7 +13,7 @@ class Client
         string $tokenUrl = null,
         string $clientId = null,
         string $clientSecret = null,
-        string $host = null,
+        string $host = 'https://web-api-v3.production.splitit.com',
         \Splitit\Configuration $config = null
     )
     {
