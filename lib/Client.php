@@ -10,7 +10,7 @@ class Client
      * Constructor
      */
     public function __construct(
-        string $tokenUrl = null,
+        string $tokenUrl = 'https://id.production.splitit.com/connect/token',
         string $clientId = null,
         string $clientSecret = null,
         string $host = 'https://web-api-v3.production.splitit.com',
@@ -20,10 +20,10 @@ class Client
         if ($config == null) {
             $config = new \Splitit\Configuration(
             );
-            $config->setHost($host);
-            $config->setTokenUrl($tokenUrl);
-            $config->setClientId($clientId);
-            $config->setClientSecret($clientSecret);
+            if ($host !== null) $config->setHost($host);
+            if ($tokenUrl !== null) $config->setTokenUrl($tokenUrl);
+            if ($clientId !== null) $config->setClientId($clientId);
+            if ($clientSecret !== null) $config->setClientSecret($clientSecret);
         }
         $this->installmentPlan = new \Splitit\Api\InstallmentPlanApi($config);
     }
