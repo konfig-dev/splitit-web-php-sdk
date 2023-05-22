@@ -177,6 +177,8 @@ class InstallmentPlanApi extends \Splitit\CustomApi
     public function cancel(
         $installment_plan_number,
         $x_splitit_idempotency_key,
+
+
         string $contentType = self::contentTypes['cancel'][0]
 
     )
@@ -406,6 +408,8 @@ class InstallmentPlanApi extends \Splitit\CustomApi
     public function cancelAsync(
         $installment_plan_number,
         $x_splitit_idempotency_key,
+
+
         string $contentType = self::contentTypes['cancel'][0]
 
     )
@@ -607,10 +611,12 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @return \Splitit\Model\InstallmentsEligibilityResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
     public function checkEligibility(
+
         $x_splitit_idempotency_key,
         $plan_data = SENTINEL_VALUE,
         $card_details = SENTINEL_VALUE,
         $billing_address = SENTINEL_VALUE,
+
         string $contentType = self::contentTypes['checkEligibility'][0]
 
     )
@@ -843,10 +849,12 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function checkEligibilityAsync(
+
         $x_splitit_idempotency_key,
         $plan_data = SENTINEL_VALUE,
         $card_details = SENTINEL_VALUE,
         $billing_address = SENTINEL_VALUE,
+
         string $contentType = self::contentTypes['checkEligibility'][0]
 
     )
@@ -1058,6 +1066,8 @@ class InstallmentPlanApi extends \Splitit\CustomApi
     public function get(
         $installment_plan_number,
         $x_splitit_idempotency_key,
+
+
         string $contentType = self::contentTypes['get'][0]
 
     )
@@ -1287,6 +1297,8 @@ class InstallmentPlanApi extends \Splitit\CustomApi
     public function getAsync(
         $installment_plan_number,
         $x_splitit_idempotency_key,
+
+
         string $contentType = self::contentTypes['get'][0]
 
     )
@@ -1489,6 +1501,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @return \Splitit\Model\InitiatePlanResponse|\Splitit\Model\PlanErrorResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
     public function post(
+
         $auto_capture,
         $x_splitit_idempotency_key,
         $attempt3d_secure = SENTINEL_VALUE,
@@ -1497,7 +1510,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $billing_address = SENTINEL_VALUE,
         $redirect_urls = SENTINEL_VALUE,
         $ux_settings = SENTINEL_VALUE,
+        $events_endpoints = SENTINEL_VALUE,
         $x_splitit_test_mode = SENTINEL_VALUE,
+
         string $contentType = self::contentTypes['post'][0]
 
     )
@@ -1510,6 +1525,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "billing_address", $billing_address);
         $this->setRequestBodyProperty($_body, "redirect_urls", $redirect_urls);
         $this->setRequestBodyProperty($_body, "ux_settings", $ux_settings);
+        $this->setRequestBodyProperty($_body, "events_endpoints", $events_endpoints);
         $installment_plan_initiate_request = $_body;
 
         list($response) = $this->postWithHttpInfo($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType);
@@ -1760,6 +1776,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function postAsync(
+
         $auto_capture,
         $x_splitit_idempotency_key,
         $attempt3d_secure = SENTINEL_VALUE,
@@ -1768,7 +1785,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $billing_address = SENTINEL_VALUE,
         $redirect_urls = SENTINEL_VALUE,
         $ux_settings = SENTINEL_VALUE,
+        $events_endpoints = SENTINEL_VALUE,
         $x_splitit_test_mode = SENTINEL_VALUE,
+
         string $contentType = self::contentTypes['post'][0]
 
     )
@@ -1781,6 +1800,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "billing_address", $billing_address);
         $this->setRequestBodyProperty($_body, "redirect_urls", $redirect_urls);
         $this->setRequestBodyProperty($_body, "ux_settings", $ux_settings);
+        $this->setRequestBodyProperty($_body, "events_endpoints", $events_endpoints);
         $installment_plan_initiate_request = $_body;
 
         return $this->postAsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType)
@@ -1993,6 +2013,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @return \Splitit\Model\InstallmentPlanCreateResponse|\Splitit\Model\PlanErrorResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
     public function post2(
+
         $auto_capture,
         $terms_and_conditions_accepted,
         $x_splitit_idempotency_key,
@@ -2002,7 +2023,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $billing_address = SENTINEL_VALUE,
         $payment_method = SENTINEL_VALUE,
         $redirect_urls = SENTINEL_VALUE,
+        $events_endpoints = SENTINEL_VALUE,
         $x_splitit_test_mode = SENTINEL_VALUE,
+
         string $contentType = self::contentTypes['post2'][0]
 
     )
@@ -2016,6 +2039,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "billing_address", $billing_address);
         $this->setRequestBodyProperty($_body, "payment_method", $payment_method);
         $this->setRequestBodyProperty($_body, "redirect_urls", $redirect_urls);
+        $this->setRequestBodyProperty($_body, "events_endpoints", $events_endpoints);
         $installment_plan_create_request = $_body;
 
         list($response) = $this->post2WithHttpInfo($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode, $contentType);
@@ -2266,6 +2290,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function post2Async(
+
         $auto_capture,
         $terms_and_conditions_accepted,
         $x_splitit_idempotency_key,
@@ -2275,7 +2300,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $billing_address = SENTINEL_VALUE,
         $payment_method = SENTINEL_VALUE,
         $redirect_urls = SENTINEL_VALUE,
+        $events_endpoints = SENTINEL_VALUE,
         $x_splitit_test_mode = SENTINEL_VALUE,
+
         string $contentType = self::contentTypes['post2'][0]
 
     )
@@ -2289,6 +2316,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "billing_address", $billing_address);
         $this->setRequestBodyProperty($_body, "payment_method", $payment_method);
         $this->setRequestBodyProperty($_body, "redirect_urls", $redirect_urls);
+        $this->setRequestBodyProperty($_body, "events_endpoints", $events_endpoints);
         $installment_plan_create_request = $_body;
 
         return $this->post2AsyncWithHttpInfo($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode, $contentType)
@@ -2501,10 +2529,12 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @return \Splitit\Model\InstallmentPlanRefundResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
     public function refund(
+
         $amount,
         $installment_plan_number,
         $x_splitit_idempotency_key,
         $refund_strategy = SENTINEL_VALUE,
+
         string $contentType = self::contentTypes['refund'][0]
 
     )
@@ -2739,10 +2769,12 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function refundAsync(
+
         $amount,
         $installment_plan_number,
         $x_splitit_idempotency_key,
         $refund_strategy = SENTINEL_VALUE,
+
         string $contentType = self::contentTypes['refund'][0]
 
     )
@@ -2977,6 +3009,8 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $installment_plan_number = SENTINEL_VALUE,
         $ref_order_number = SENTINEL_VALUE,
         $extended_params = SENTINEL_VALUE,
+
+
         string $contentType = self::contentTypes['search'][0]
 
     )
@@ -3214,6 +3248,8 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $installment_plan_number = SENTINEL_VALUE,
         $ref_order_number = SENTINEL_VALUE,
         $extended_params = SENTINEL_VALUE,
+
+
         string $contentType = self::contentTypes['search'][0]
 
     )
@@ -3443,12 +3479,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @return \Splitit\Model\InstallmentPlanUpdateResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
     public function updateOrder(
+
         $installment_plan_number,
         $x_splitit_idempotency_key,
         $tracking_number = SENTINEL_VALUE,
         $ref_order_number = SENTINEL_VALUE,
         $shipping_status = SENTINEL_VALUE,
         $capture = SENTINEL_VALUE,
+
         string $contentType = self::contentTypes['updateOrder'][0]
 
     )
@@ -3685,12 +3723,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function updateOrderAsync(
+
         $installment_plan_number,
         $x_splitit_idempotency_key,
         $tracking_number = SENTINEL_VALUE,
         $ref_order_number = SENTINEL_VALUE,
         $shipping_status = SENTINEL_VALUE,
         $capture = SENTINEL_VALUE,
+
         string $contentType = self::contentTypes['updateOrder'][0]
 
     )
@@ -3921,12 +3961,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @return \Splitit\Model\InstallmentPlanUpdateResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
      */
     public function updateOrder2(
+
         $x_splitit_idempotency_key,
         $ref_order_number = SENTINEL_VALUE,
         $tracking_number = SENTINEL_VALUE,
         $capture = SENTINEL_VALUE,
         $shipping_status = SENTINEL_VALUE,
         $identifier = SENTINEL_VALUE,
+
         string $contentType = self::contentTypes['updateOrder2'][0]
 
     )
@@ -4161,12 +4203,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function updateOrder2Async(
+
         $x_splitit_idempotency_key,
         $ref_order_number = SENTINEL_VALUE,
         $tracking_number = SENTINEL_VALUE,
         $capture = SENTINEL_VALUE,
         $shipping_status = SENTINEL_VALUE,
         $identifier = SENTINEL_VALUE,
+
         string $contentType = self::contentTypes['updateOrder2'][0]
 
     )
@@ -4380,6 +4424,8 @@ class InstallmentPlanApi extends \Splitit\CustomApi
     public function verifyAuthorization(
         $installment_plan_number,
         $x_splitit_idempotency_key,
+
+
         string $contentType = self::contentTypes['verifyAuthorization'][0]
 
     )
@@ -4609,6 +4655,8 @@ class InstallmentPlanApi extends \Splitit\CustomApi
     public function verifyAuthorizationAsync(
         $installment_plan_number,
         $x_splitit_idempotency_key,
+
+
         string $contentType = self::contentTypes['verifyAuthorization'][0]
 
     )

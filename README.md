@@ -22,7 +22,7 @@ To install the bindings via [Composer](https://getcomposer.org/), add the follow
     }
   ],
   "require": {
-    "konfig/splitit-web-php-sdk": "1.8.0"
+    "konfig/splitit-web-php-sdk": "1.9.0"
   }
 }
 ```
@@ -94,6 +94,7 @@ Class | Method | HTTP request | Description
 - [Error](docs/Model/Error.md)
 - [ErrorExtended](docs/Model/ErrorExtended.md)
 - [ErrorExtendedAllOf](docs/Model/ErrorExtendedAllOf.md)
+- [EventsEndpointsModel](docs/Model/EventsEndpointsModel.md)
 - [FailedResponse](docs/Model/FailedResponse.md)
 - [GwAuthorizationStatus](docs/Model/GwAuthorizationStatus.md)
 - [IdentifierContract](docs/Model/IdentifierContract.md)

@@ -11,5 +11,6 @@ Name | Type | Description | Notes
 **billing_address** | [**\Splitit\Model\AddressDataModel**](AddressDataModel.md) |  | [optional]
 **redirect_urls** | [**\Splitit\Model\InitiateRedirectionEndpointsModel**](InitiateRedirectionEndpointsModel.md) |  | [optional]
 **ux_settings** | [**\Splitit\Model\UxSettingsModel**](UxSettingsModel.md) |  | [optional]
+**events_endpoints** | [**\Splitit\Model\EventsEndpointsModel**](EventsEndpointsModel.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

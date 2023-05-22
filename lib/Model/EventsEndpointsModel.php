@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentPlanInitiateRequest
+ * EventsEndpointsModel
  *
  * PHP version 7.4
  *
@@ -26,13 +26,13 @@ use \ArrayAccess;
 use \Splitit\ObjectSerializer;
 
 /**
- * InstallmentPlanInitiateRequest Class Doc Comment
+ * EventsEndpointsModel Class Doc Comment
  *
  * @category Class
  * @package  Splitit
  * @implements \ArrayAccess<string, mixed>
  */
-class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
+class EventsEndpointsModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
       *
       * @var string
       */
-    protected static $openAPIModelName = 'InstallmentPlanInitiateRequest';
+    protected static $openAPIModelName = 'EventsEndpointsModel';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,14 +49,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
       * @var string[]
       */
     protected static $openAPITypes = [
-        'auto_capture' => 'bool',
-        'attempt3d_secure' => 'bool',
-        'shopper' => '\Splitit\Model\ShopperData',
-        'plan_data' => '\Splitit\Model\PlanDataModel',
-        'billing_address' => '\Splitit\Model\AddressDataModel',
-        'redirect_urls' => '\Splitit\Model\InitiateRedirectionEndpointsModel',
-        'ux_settings' => '\Splitit\Model\UxSettingsModel',
-        'events_endpoints' => '\Splitit\Model\EventsEndpointsModel'
+        'create_succeeded' => 'string'
     ];
 
     /**
@@ -67,14 +60,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'auto_capture' => null,
-        'attempt3d_secure' => null,
-        'shopper' => null,
-        'plan_data' => null,
-        'billing_address' => null,
-        'redirect_urls' => null,
-        'ux_settings' => null,
-        'events_endpoints' => null
+        'create_succeeded' => null
     ];
 
     /**
@@ -83,14 +69,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'auto_capture' => false,
-		'attempt3d_secure' => false,
-		'shopper' => false,
-		'plan_data' => false,
-		'billing_address' => false,
-		'redirect_urls' => false,
-		'ux_settings' => false,
-		'events_endpoints' => false
+        'create_succeeded' => false
     ];
 
     /**
@@ -179,14 +158,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
      * @var string[]
      */
     protected static $attributeMap = [
-        'auto_capture' => 'AutoCapture',
-        'attempt3d_secure' => 'Attempt3dSecure',
-        'shopper' => 'Shopper',
-        'plan_data' => 'PlanData',
-        'billing_address' => 'BillingAddress',
-        'redirect_urls' => 'RedirectUrls',
-        'ux_settings' => 'UxSettings',
-        'events_endpoints' => 'EventsEndpoints'
+        'create_succeeded' => 'CreateSucceeded'
     ];
 
     /**
@@ -195,14 +167,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
      * @var string[]
      */
     protected static $setters = [
-        'auto_capture' => 'setAutoCapture',
-        'attempt3d_secure' => 'setAttempt3dSecure',
-        'shopper' => 'setShopper',
-        'plan_data' => 'setPlanData',
-        'billing_address' => 'setBillingAddress',
-        'redirect_urls' => 'setRedirectUrls',
-        'ux_settings' => 'setUxSettings',
-        'events_endpoints' => 'setEventsEndpoints'
+        'create_succeeded' => 'setCreateSucceeded'
     ];
 
     /**
@@ -211,14 +176,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
      * @var string[]
      */
     protected static $getters = [
-        'auto_capture' => 'getAutoCapture',
-        'attempt3d_secure' => 'getAttempt3dSecure',
-        'shopper' => 'getShopper',
-        'plan_data' => 'getPlanData',
-        'billing_address' => 'getBillingAddress',
-        'redirect_urls' => 'getRedirectUrls',
-        'ux_settings' => 'getUxSettings',
-        'events_endpoints' => 'getEventsEndpoints'
+        'create_succeeded' => 'getCreateSucceeded'
     ];
 
     /**
@@ -278,14 +236,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('auto_capture', $data ?? [], null);
-        $this->setIfExists('attempt3d_secure', $data ?? [], null);
-        $this->setIfExists('shopper', $data ?? [], null);
-        $this->setIfExists('plan_data', $data ?? [], null);
-        $this->setIfExists('billing_address', $data ?? [], null);
-        $this->setIfExists('redirect_urls', $data ?? [], null);
-        $this->setIfExists('ux_settings', $data ?? [], null);
-        $this->setIfExists('events_endpoints', $data ?? [], null);
+        $this->setIfExists('create_succeeded', $data ?? [], null);
     }
 
     /**
@@ -315,9 +266,6 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
     {
         $invalidProperties = [];
 
-        if ($this->container['auto_capture'] === null) {
-            $invalidProperties[] = "'auto_capture' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -334,233 +282,30 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
 
 
     /**
-     * Gets auto_capture
+     * Gets create_succeeded
      *
-     * @return bool
+     * @return string|null
      */
-    public function getAutoCapture()
+    public function getCreateSucceeded()
     {
-        return $this->container['auto_capture'];
+        return $this->container['create_succeeded'];
     }
 
     /**
-     * Sets auto_capture
+     * Sets create_succeeded
      *
-     * @param bool $auto_capture auto_capture
+     * @param string|null $create_succeeded create_succeeded
      *
      * @return self
      */
-    public function setAutoCapture($auto_capture)
+    public function setCreateSucceeded($create_succeeded)
     {
 
-        if (is_null($auto_capture)) {
-            throw new \InvalidArgumentException('non-nullable auto_capture cannot be null');
+        if (is_null($create_succeeded)) {
+            throw new \InvalidArgumentException('non-nullable create_succeeded cannot be null');
         }
 
-        $this->container['auto_capture'] = $auto_capture;
-
-        return $this;
-    }
-
-    /**
-     * Gets attempt3d_secure
-     *
-     * @return bool|null
-     */
-    public function getAttempt3dSecure()
-    {
-        return $this->container['attempt3d_secure'];
-    }
-
-    /**
-     * Sets attempt3d_secure
-     *
-     * @param bool|null $attempt3d_secure attempt3d_secure
-     *
-     * @return self
-     */
-    public function setAttempt3dSecure($attempt3d_secure)
-    {
-
-        if (is_null($attempt3d_secure)) {
-            throw new \InvalidArgumentException('non-nullable attempt3d_secure cannot be null');
-        }
-
-        $this->container['attempt3d_secure'] = $attempt3d_secure;
-
-        return $this;
-    }
-
-    /**
-     * Gets shopper
-     *
-     * @return \Splitit\Model\ShopperData|null
-     */
-    public function getShopper()
-    {
-        return $this->container['shopper'];
-    }
-
-    /**
-     * Sets shopper
-     *
-     * @param \Splitit\Model\ShopperData|null $shopper shopper
-     *
-     * @return self
-     */
-    public function setShopper($shopper)
-    {
-
-        if (is_null($shopper)) {
-            throw new \InvalidArgumentException('non-nullable shopper cannot be null');
-        }
-
-        $this->container['shopper'] = $shopper;
-
-        return $this;
-    }
-
-    /**
-     * Gets plan_data
-     *
-     * @return \Splitit\Model\PlanDataModel|null
-     */
-    public function getPlanData()
-    {
-        return $this->container['plan_data'];
-    }
-
-    /**
-     * Sets plan_data
-     *
-     * @param \Splitit\Model\PlanDataModel|null $plan_data plan_data
-     *
-     * @return self
-     */
-    public function setPlanData($plan_data)
-    {
-
-        if (is_null($plan_data)) {
-            throw new \InvalidArgumentException('non-nullable plan_data cannot be null');
-        }
-
-        $this->container['plan_data'] = $plan_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets billing_address
-     *
-     * @return \Splitit\Model\AddressDataModel|null
-     */
-    public function getBillingAddress()
-    {
-        return $this->container['billing_address'];
-    }
-
-    /**
-     * Sets billing_address
-     *
-     * @param \Splitit\Model\AddressDataModel|null $billing_address billing_address
-     *
-     * @return self
-     */
-    public function setBillingAddress($billing_address)
-    {
-
-        if (is_null($billing_address)) {
-            throw new \InvalidArgumentException('non-nullable billing_address cannot be null');
-        }
-
-        $this->container['billing_address'] = $billing_address;
-
-        return $this;
-    }
-
-    /**
-     * Gets redirect_urls
-     *
-     * @return \Splitit\Model\InitiateRedirectionEndpointsModel|null
-     */
-    public function getRedirectUrls()
-    {
-        return $this->container['redirect_urls'];
-    }
-
-    /**
-     * Sets redirect_urls
-     *
-     * @param \Splitit\Model\InitiateRedirectionEndpointsModel|null $redirect_urls redirect_urls
-     *
-     * @return self
-     */
-    public function setRedirectUrls($redirect_urls)
-    {
-
-        if (is_null($redirect_urls)) {
-            throw new \InvalidArgumentException('non-nullable redirect_urls cannot be null');
-        }
-
-        $this->container['redirect_urls'] = $redirect_urls;
-
-        return $this;
-    }
-
-    /**
-     * Gets ux_settings
-     *
-     * @return \Splitit\Model\UxSettingsModel|null
-     */
-    public function getUxSettings()
-    {
-        return $this->container['ux_settings'];
-    }
-
-    /**
-     * Sets ux_settings
-     *
-     * @param \Splitit\Model\UxSettingsModel|null $ux_settings ux_settings
-     *
-     * @return self
-     */
-    public function setUxSettings($ux_settings)
-    {
-
-        if (is_null($ux_settings)) {
-            throw new \InvalidArgumentException('non-nullable ux_settings cannot be null');
-        }
-
-        $this->container['ux_settings'] = $ux_settings;
-
-        return $this;
-    }
-
-    /**
-     * Gets events_endpoints
-     *
-     * @return \Splitit\Model\EventsEndpointsModel|null
-     */
-    public function getEventsEndpoints()
-    {
-        return $this->container['events_endpoints'];
-    }
-
-    /**
-     * Sets events_endpoints
-     *
-     * @param \Splitit\Model\EventsEndpointsModel|null $events_endpoints events_endpoints
-     *
-     * @return self
-     */
-    public function setEventsEndpoints($events_endpoints)
-    {
-
-        if (is_null($events_endpoints)) {
-            throw new \InvalidArgumentException('non-nullable events_endpoints cannot be null');
-        }
-
-        $this->container['events_endpoints'] = $events_endpoints;
+        $this->container['create_succeeded'] = $create_succeeded;
 
         return $this;
     }

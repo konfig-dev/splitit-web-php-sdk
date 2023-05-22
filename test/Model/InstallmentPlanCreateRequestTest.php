@@ -142,4 +142,13 @@ class InstallmentPlanCreateRequestTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "events_endpoints"
+     */
+    public function testPropertyEventsEndpoints()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }

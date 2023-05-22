@@ -248,6 +248,8 @@ $redirect_urls = [
     ];
 $ux_settings = [
     ];
+$events_endpoints = [
+    ];
 $x_splitit_test_mode = "None";
 
 try {
@@ -260,6 +262,7 @@ try {
         billing_address: $billing_address, 
         redirect_urls: $redirect_urls, 
         ux_settings: $ux_settings, 
+        events_endpoints: $events_endpoints, 
         x_splitit_test_mode: $x_splitit_test_mode
     );
     print_r($result->$getInstallmentPlanNumber());
@@ -338,6 +341,8 @@ $payment_method = [
     ];
 $redirect_urls = [
     ];
+$events_endpoints = [
+    ];
 $x_splitit_test_mode = "None";
 
 try {
@@ -351,6 +356,7 @@ try {
         billing_address: $billing_address, 
         payment_method: $payment_method, 
         redirect_urls: $redirect_urls, 
+        events_endpoints: $events_endpoints, 
         x_splitit_test_mode: $x_splitit_test_mode
     );
     print_r($result->$getInstallmentPlanNumber());

@@ -56,7 +56,8 @@ class InstallmentPlanCreateRequest implements ModelInterface, ArrayAccess, \Json
         'plan_data' => '\Splitit\Model\PlanDataModel',
         'billing_address' => '\Splitit\Model\AddressDataModel',
         'payment_method' => '\Splitit\Model\PaymentMethodModel',
-        'redirect_urls' => '\Splitit\Model\RedirectionEndpointsModel'
+        'redirect_urls' => '\Splitit\Model\RedirectionEndpointsModel',
+        'events_endpoints' => '\Splitit\Model\EventsEndpointsModel'
     ];
 
     /**
@@ -74,7 +75,8 @@ class InstallmentPlanCreateRequest implements ModelInterface, ArrayAccess, \Json
         'plan_data' => null,
         'billing_address' => null,
         'payment_method' => null,
-        'redirect_urls' => null
+        'redirect_urls' => null,
+        'events_endpoints' => null
     ];
 
     /**
@@ -90,7 +92,8 @@ class InstallmentPlanCreateRequest implements ModelInterface, ArrayAccess, \Json
 		'plan_data' => false,
 		'billing_address' => false,
 		'payment_method' => false,
-		'redirect_urls' => false
+		'redirect_urls' => false,
+		'events_endpoints' => false
     ];
 
     /**
@@ -186,7 +189,8 @@ class InstallmentPlanCreateRequest implements ModelInterface, ArrayAccess, \Json
         'plan_data' => 'PlanData',
         'billing_address' => 'BillingAddress',
         'payment_method' => 'PaymentMethod',
-        'redirect_urls' => 'RedirectUrls'
+        'redirect_urls' => 'RedirectUrls',
+        'events_endpoints' => 'EventsEndpoints'
     ];
 
     /**
@@ -202,7 +206,8 @@ class InstallmentPlanCreateRequest implements ModelInterface, ArrayAccess, \Json
         'plan_data' => 'setPlanData',
         'billing_address' => 'setBillingAddress',
         'payment_method' => 'setPaymentMethod',
-        'redirect_urls' => 'setRedirectUrls'
+        'redirect_urls' => 'setRedirectUrls',
+        'events_endpoints' => 'setEventsEndpoints'
     ];
 
     /**
@@ -218,7 +223,8 @@ class InstallmentPlanCreateRequest implements ModelInterface, ArrayAccess, \Json
         'plan_data' => 'getPlanData',
         'billing_address' => 'getBillingAddress',
         'payment_method' => 'getPaymentMethod',
-        'redirect_urls' => 'getRedirectUrls'
+        'redirect_urls' => 'getRedirectUrls',
+        'events_endpoints' => 'getEventsEndpoints'
     ];
 
     /**
@@ -286,6 +292,7 @@ class InstallmentPlanCreateRequest implements ModelInterface, ArrayAccess, \Json
         $this->setIfExists('billing_address', $data ?? [], null);
         $this->setIfExists('payment_method', $data ?? [], null);
         $this->setIfExists('redirect_urls', $data ?? [], null);
+        $this->setIfExists('events_endpoints', $data ?? [], null);
     }
 
     /**
@@ -564,6 +571,35 @@ class InstallmentPlanCreateRequest implements ModelInterface, ArrayAccess, \Json
         }
 
         $this->container['redirect_urls'] = $redirect_urls;
+
+        return $this;
+    }
+
+    /**
+     * Gets events_endpoints
+     *
+     * @return \Splitit\Model\EventsEndpointsModel|null
+     */
+    public function getEventsEndpoints()
+    {
+        return $this->container['events_endpoints'];
+    }
+
+    /**
+     * Sets events_endpoints
+     *
+     * @param \Splitit\Model\EventsEndpointsModel|null $events_endpoints events_endpoints
+     *
+     * @return self
+     */
+    public function setEventsEndpoints($events_endpoints)
+    {
+
+        if (is_null($events_endpoints)) {
+            throw new \InvalidArgumentException('non-nullable events_endpoints cannot be null');
+        }
+
+        $this->container['events_endpoints'] = $events_endpoints;
 
         return $this;
     }
