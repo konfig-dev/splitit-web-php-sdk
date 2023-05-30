@@ -22,7 +22,7 @@ To install the bindings via [Composer](https://getcomposer.org/), add the follow
     }
   ],
   "require": {
-    "konfig/splitit-web-php-sdk": "1.9.0"
+    "konfig/splitit-web-php-sdk": "1.10.0"
   }
 }
 ```
