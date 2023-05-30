@@ -63,7 +63,7 @@ class Configuration
      *
      * @var string
      */
-    protected string $tokenUrl = "";
+    protected string $tokenUrl = "https://id.production.splitit.com/connect/token";
 
     /**
      * Access token for OAuth/Application authentication
