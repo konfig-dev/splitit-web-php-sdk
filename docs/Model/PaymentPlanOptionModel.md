@@ -9,5 +9,7 @@ Name | Type | Description | Notes
 **installment_amount** | **float** |  |
 **last_installment_amount** | **float** |  |
 **links** | [**\Splitit\Model\LinksModel**](LinksModel.md) |  | [optional]
+**terms_and_conditions_brief** | **string** |  | [optional]
+**installment_frequency** | **string** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

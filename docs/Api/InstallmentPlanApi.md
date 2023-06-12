@@ -112,6 +112,7 @@ try {
         card_details: $card_details, 
         billing_address: $billing_address
     );
+    print_r($result->$getInstallmentProvider());
     print_r($result->$getPaymentPlanOptions());
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->checkEligibility: ', $e->getMessage(), PHP_EOL;

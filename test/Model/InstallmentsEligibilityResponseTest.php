@@ -72,6 +72,15 @@ class InstallmentsEligibilityResponseTest extends TestCase
     }
 
     /**
+     * Test attribute "installment_provider"
+     */
+    public function testPropertyInstallmentProvider()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "payment_plan_options"
      */
     public function testPropertyPaymentPlanOptions()

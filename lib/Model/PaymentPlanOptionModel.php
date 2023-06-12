@@ -53,7 +53,9 @@ class PaymentPlanOptionModel implements ModelInterface, ArrayAccess, \JsonSerial
         'first_installment_amount' => 'float',
         'installment_amount' => 'float',
         'last_installment_amount' => 'float',
-        'links' => '\Splitit\Model\LinksModel'
+        'links' => '\Splitit\Model\LinksModel',
+        'terms_and_conditions_brief' => 'string',
+        'installment_frequency' => 'string'
     ];
 
     /**
@@ -68,7 +70,9 @@ class PaymentPlanOptionModel implements ModelInterface, ArrayAccess, \JsonSerial
         'first_installment_amount' => 'decimal',
         'installment_amount' => 'decimal',
         'last_installment_amount' => 'decimal',
-        'links' => null
+        'links' => null,
+        'terms_and_conditions_brief' => null,
+        'installment_frequency' => null
     ];
 
     /**
@@ -81,7 +85,9 @@ class PaymentPlanOptionModel implements ModelInterface, ArrayAccess, \JsonSerial
 		'first_installment_amount' => false,
 		'installment_amount' => false,
 		'last_installment_amount' => false,
-		'links' => false
+		'links' => false,
+		'terms_and_conditions_brief' => false,
+		'installment_frequency' => false
     ];
 
     /**
@@ -174,7 +180,9 @@ class PaymentPlanOptionModel implements ModelInterface, ArrayAccess, \JsonSerial
         'first_installment_amount' => 'FirstInstallmentAmount',
         'installment_amount' => 'InstallmentAmount',
         'last_installment_amount' => 'LastInstallmentAmount',
-        'links' => 'Links'
+        'links' => 'Links',
+        'terms_and_conditions_brief' => 'TermsAndConditionsBrief',
+        'installment_frequency' => 'InstallmentFrequency'
     ];
 
     /**
@@ -187,7 +195,9 @@ class PaymentPlanOptionModel implements ModelInterface, ArrayAccess, \JsonSerial
         'first_installment_amount' => 'setFirstInstallmentAmount',
         'installment_amount' => 'setInstallmentAmount',
         'last_installment_amount' => 'setLastInstallmentAmount',
-        'links' => 'setLinks'
+        'links' => 'setLinks',
+        'terms_and_conditions_brief' => 'setTermsAndConditionsBrief',
+        'installment_frequency' => 'setInstallmentFrequency'
     ];
 
     /**
@@ -200,7 +210,9 @@ class PaymentPlanOptionModel implements ModelInterface, ArrayAccess, \JsonSerial
         'first_installment_amount' => 'getFirstInstallmentAmount',
         'installment_amount' => 'getInstallmentAmount',
         'last_installment_amount' => 'getLastInstallmentAmount',
-        'links' => 'getLinks'
+        'links' => 'getLinks',
+        'terms_and_conditions_brief' => 'getTermsAndConditionsBrief',
+        'installment_frequency' => 'getInstallmentFrequency'
     ];
 
     /**
@@ -265,6 +277,8 @@ class PaymentPlanOptionModel implements ModelInterface, ArrayAccess, \JsonSerial
         $this->setIfExists('installment_amount', $data ?? [], null);
         $this->setIfExists('last_installment_amount', $data ?? [], null);
         $this->setIfExists('links', $data ?? [], null);
+        $this->setIfExists('terms_and_conditions_brief', $data ?? [], null);
+        $this->setIfExists('installment_frequency', $data ?? [], null);
     }
 
     /**
@@ -462,6 +476,64 @@ class PaymentPlanOptionModel implements ModelInterface, ArrayAccess, \JsonSerial
         }
 
         $this->container['links'] = $links;
+
+        return $this;
+    }
+
+    /**
+     * Gets terms_and_conditions_brief
+     *
+     * @return string|null
+     */
+    public function getTermsAndConditionsBrief()
+    {
+        return $this->container['terms_and_conditions_brief'];
+    }
+
+    /**
+     * Sets terms_and_conditions_brief
+     *
+     * @param string|null $terms_and_conditions_brief terms_and_conditions_brief
+     *
+     * @return self
+     */
+    public function setTermsAndConditionsBrief($terms_and_conditions_brief)
+    {
+
+        if (is_null($terms_and_conditions_brief)) {
+            throw new \InvalidArgumentException('non-nullable terms_and_conditions_brief cannot be null');
+        }
+
+        $this->container['terms_and_conditions_brief'] = $terms_and_conditions_brief;
+
+        return $this;
+    }
+
+    /**
+     * Gets installment_frequency
+     *
+     * @return string|null
+     */
+    public function getInstallmentFrequency()
+    {
+        return $this->container['installment_frequency'];
+    }
+
+    /**
+     * Sets installment_frequency
+     *
+     * @param string|null $installment_frequency installment_frequency
+     *
+     * @return self
+     */
+    public function setInstallmentFrequency($installment_frequency)
+    {
+
+        if (is_null($installment_frequency)) {
+            throw new \InvalidArgumentException('non-nullable installment_frequency cannot be null');
+        }
+
+        $this->container['installment_frequency'] = $installment_frequency;
 
         return $this;
     }

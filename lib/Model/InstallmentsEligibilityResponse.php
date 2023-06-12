@@ -49,6 +49,7 @@ class InstallmentsEligibilityResponse implements ModelInterface, ArrayAccess, \J
       * @var string[]
       */
     protected static $openAPITypes = [
+        'installment_provider' => 'string',
         'payment_plan_options' => '\Splitit\Model\PaymentPlanOptionModel[]'
     ];
 
@@ -60,6 +61,7 @@ class InstallmentsEligibilityResponse implements ModelInterface, ArrayAccess, \J
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'installment_provider' => null,
         'payment_plan_options' => null
     ];
 
@@ -69,7 +71,8 @@ class InstallmentsEligibilityResponse implements ModelInterface, ArrayAccess, \J
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'payment_plan_options' => false
+        'installment_provider' => false,
+		'payment_plan_options' => false
     ];
 
     /**
@@ -158,6 +161,7 @@ class InstallmentsEligibilityResponse implements ModelInterface, ArrayAccess, \J
      * @var string[]
      */
     protected static $attributeMap = [
+        'installment_provider' => 'InstallmentProvider',
         'payment_plan_options' => 'PaymentPlanOptions'
     ];
 
@@ -167,6 +171,7 @@ class InstallmentsEligibilityResponse implements ModelInterface, ArrayAccess, \J
      * @var string[]
      */
     protected static $setters = [
+        'installment_provider' => 'setInstallmentProvider',
         'payment_plan_options' => 'setPaymentPlanOptions'
     ];
 
@@ -176,6 +181,7 @@ class InstallmentsEligibilityResponse implements ModelInterface, ArrayAccess, \J
      * @var string[]
      */
     protected static $getters = [
+        'installment_provider' => 'getInstallmentProvider',
         'payment_plan_options' => 'getPaymentPlanOptions'
     ];
 
@@ -236,6 +242,7 @@ class InstallmentsEligibilityResponse implements ModelInterface, ArrayAccess, \J
      */
     public function __construct(array $data = null)
     {
+        $this->setIfExists('installment_provider', $data ?? [], null);
         $this->setIfExists('payment_plan_options', $data ?? [], null);
     }
 
@@ -280,6 +287,35 @@ class InstallmentsEligibilityResponse implements ModelInterface, ArrayAccess, \J
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets installment_provider
+     *
+     * @return string|null
+     */
+    public function getInstallmentProvider()
+    {
+        return $this->container['installment_provider'];
+    }
+
+    /**
+     * Sets installment_provider
+     *
+     * @param string|null $installment_provider installment_provider
+     *
+     * @return self
+     */
+    public function setInstallmentProvider($installment_provider)
+    {
+
+        if (is_null($installment_provider)) {
+            throw new \InvalidArgumentException('non-nullable installment_provider cannot be null');
+        }
+
+        $this->container['installment_provider'] = $installment_provider;
+
+        return $this;
+    }
 
     /**
      * Gets payment_plan_options

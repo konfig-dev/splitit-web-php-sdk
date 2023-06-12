@@ -13,6 +13,7 @@ class Client
         string $tokenUrl = 'https://id.production.splitit.com/connect/token',
         string $clientId = null,
         string $clientSecret = null,
+        bool $verifySsl = null,
         string $host = 'https://web-api-v3.production.splitit.com',
         \Splitit\Configuration $config = null
     )
@@ -21,6 +22,7 @@ class Client
             $config = new \Splitit\Configuration(
             );
             if ($host !== null) $config->setHost($host);
+            if ($verifySsl !== null) $config->setVerifySsl($verifySsl);
             if ($tokenUrl !== null) $config->setTokenUrl($tokenUrl);
             if ($clientId !== null) $config->setClientId($clientId);
             if ($clientSecret !== null) $config->setClientSecret($clientSecret);

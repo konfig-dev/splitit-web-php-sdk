@@ -115,4 +115,22 @@ class PaymentPlanOptionModelTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "terms_and_conditions_brief"
+     */
+    public function testPropertyTermsAndConditionsBrief()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "installment_frequency"
+     */
+    public function testPropertyInstallmentFrequency()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }

@@ -101,6 +101,13 @@ class Configuration
     protected $password = '';
 
     /**
+     * Set to false if you want to skip SSL verification in HTTP request
+     *
+     * @var bool
+     */
+    protected $verifySsl = true;
+
+    /**
      * The host
      *
      * @var string
@@ -310,6 +317,29 @@ class Configuration
     public function getTokenUrl()
     {
         return $this->tokenUrl;
+    }
+
+    /**
+     * Set verifySsl
+     *
+     * @param bool $verifySsl
+     *
+     * @return $this
+     */
+    public function setVerifySsl($verifySsl)
+    {
+        $this->verifySsl = $verifySsl;
+        return $this;
+    }
+
+    /**
+     * Gets the verifySsl
+     *
+     * @return bool verifySsl
+     */
+    public function getVerifySsl()
+    {
+        return $this->verifySsl;
     }
 
     /**
