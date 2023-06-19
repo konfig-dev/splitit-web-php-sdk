@@ -28,6 +28,10 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
+use GuzzleHttp\BodySummarizer;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Utils;
 use Splitit\ApiException;
 use Splitit\Configuration;
 use Splitit\HeaderSelector;
@@ -121,6 +125,16 @@ class InstallmentPlanApi extends \Splitit\CustomApi
     ) {
         $clientOptions = [];
         if (!$config->getVerifySsl()) $clientOptions["verify"] = false;
+
+        // Do not truncate error messages
+        // https://github.com/guzzle/guzzle/issues/2185#issuecomment-800293420
+        $stack = new HandlerStack(Utils::chooseHandler());
+        $stack->push(Middleware::httpErrors(new BodySummarizer(10_000)), 'http_errors');
+        $stack->push(Middleware::redirect(), 'allow_redirects');
+        $stack->push(Middleware::cookies(), 'cookies');
+        $stack->push(Middleware::prepareBody(), 'prepare_body');
+        $clientOptions["handler"] = $stack;
+
         $this->client = $client ?: new Client($clientOptions);
         $this->config = $config ?: new Configuration();
         $this->headerSelector = $selector ?: new HeaderSelector();
