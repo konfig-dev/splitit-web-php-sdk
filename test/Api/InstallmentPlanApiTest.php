@@ -113,6 +113,7 @@ class InstallmentPlanApiTest extends TestCase
     {
         $response = $this->splitit->installmentPlan->post(
             x_splitit_idempotency_key: date("c"),
+            x_splitit_touch_point: date("c"),
             auto_capture: true,
             attempt3d_secure: true,
             shopper: [
