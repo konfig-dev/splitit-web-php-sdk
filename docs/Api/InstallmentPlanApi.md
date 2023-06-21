@@ -19,7 +19,7 @@ All URIs are relative to https://web-api-v3.production.splitit.com, except if th
 ## `cancel()`
 
 ```php
-cancel($installment_plan_number, $x_splitit_idempotency_key): \Splitit\Model\InstallmentPlanCancelResponse
+cancel($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point): \Splitit\Model\InstallmentPlanCancelResponse
 ```
 
 
@@ -37,11 +37,13 @@ $splitit = new \Splitit\Client(
 
 $installment_plan_number = "installmentPlanNumber_example";
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
+$x_splitit_touch_point = ""; // TouchPoint
 
 try {
     $result = $splitit->installmentPlan->cancel(
         installment_plan_number: $installment_plan_number, 
-        x_splitit_idempotency_key: $x_splitit_idempotency_key
+        x_splitit_idempotency_key: $x_splitit_idempotency_key, 
+        x_splitit_touch_point: $x_splitit_touch_point
     );
     print_r($result->$getInstallmentPlanNumber());
 } catch (\Exception $e) {
@@ -55,6 +57,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **installment_plan_number** | **string**|  | |
 | **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
 
 ### Return type
 
@@ -76,7 +79,7 @@ try {
 ## `checkEligibility()`
 
 ```php
-checkEligibility($x_splitit_idempotency_key, $check_installments_eligibility_request): \Splitit\Model\InstallmentsEligibilityResponse
+checkEligibility($x_splitit_idempotency_key, $x_splitit_touch_point, $check_installments_eligibility_request): \Splitit\Model\InstallmentsEligibilityResponse
 ```
 
 
@@ -93,6 +96,7 @@ $splitit = new \Splitit\Client(
 );
 
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
+$x_splitit_touch_point = ""; // TouchPoint
 $plan_data = [
         "total_amount" => 3.14,
         "number_of_installments" => 1,
@@ -108,6 +112,7 @@ $billing_address = [
 try {
     $result = $splitit->installmentPlan->checkEligibility(
         x_splitit_idempotency_key: $x_splitit_idempotency_key, 
+        x_splitit_touch_point: $x_splitit_touch_point, 
         plan_data: $plan_data, 
         card_details: $card_details, 
         billing_address: $billing_address
@@ -124,6 +129,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
 | **check_installments_eligibility_request** | [**\Splitit\Model\CheckInstallmentsEligibilityRequest**](../Model/CheckInstallmentsEligibilityRequest.md)|  | |
 
 ### Return type
@@ -146,7 +152,7 @@ try {
 ## `get()`
 
 ```php
-get($installment_plan_number, $x_splitit_idempotency_key): \Splitit\Model\InstallmentPlanGetResponse
+get($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point): \Splitit\Model\InstallmentPlanGetResponse
 ```
 
 
@@ -164,11 +170,13 @@ $splitit = new \Splitit\Client(
 
 $installment_plan_number = "installmentPlanNumber_example";
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
+$x_splitit_touch_point = ""; // TouchPoint
 
 try {
     $result = $splitit->installmentPlan->get(
         installment_plan_number: $installment_plan_number, 
-        x_splitit_idempotency_key: $x_splitit_idempotency_key
+        x_splitit_idempotency_key: $x_splitit_idempotency_key, 
+        x_splitit_touch_point: $x_splitit_touch_point
     );
     print_r($result->$getInstallmentPlanNumber());
     print_r($result->$getDateCreated());
@@ -197,6 +205,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **installment_plan_number** | **string**|  | |
 | **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
 
 ### Return type
 
@@ -218,7 +227,7 @@ try {
 ## `post()`
 
 ```php
-post($x_splitit_idempotency_key, $installment_plan_initiate_request, $x_splitit_test_mode): \Splitit\Model\InitiatePlanResponse
+post($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode): \Splitit\Model\InitiatePlanResponse
 ```
 
 
@@ -236,6 +245,7 @@ $splitit = new \Splitit\Client(
 
 $auto_capture = True;
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
+$x_splitit_touch_point = ""; // TouchPoint
 $attempt3d_secure = True;
 $shopper = [
     ];
@@ -257,6 +267,7 @@ try {
     $result = $splitit->installmentPlan->post(
         auto_capture: $auto_capture, 
         x_splitit_idempotency_key: $x_splitit_idempotency_key, 
+        x_splitit_touch_point: $x_splitit_touch_point, 
         attempt3d_secure: $attempt3d_secure, 
         shopper: $shopper, 
         plan_data: $plan_data, 
@@ -286,6 +297,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
 | **installment_plan_initiate_request** | [**\Splitit\Model\InstallmentPlanInitiateRequest**](../Model/InstallmentPlanInitiateRequest.md)|  | |
 | **x_splitit_test_mode** | **string**|  | [optional] |
 
@@ -309,7 +321,7 @@ try {
 ## `post2()`
 
 ```php
-post2($x_splitit_idempotency_key, $installment_plan_create_request, $x_splitit_test_mode): \Splitit\Model\InstallmentPlanCreateResponse
+post2($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode): \Splitit\Model\InstallmentPlanCreateResponse
 ```
 
 
@@ -328,6 +340,7 @@ $splitit = new \Splitit\Client(
 $auto_capture = True;
 $terms_and_conditions_accepted = True;
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
+$x_splitit_touch_point = ""; // TouchPoint
 $attempt3d_secure = True;
 $shopper = [
     ];
@@ -351,6 +364,7 @@ try {
         auto_capture: $auto_capture, 
         terms_and_conditions_accepted: $terms_and_conditions_accepted, 
         x_splitit_idempotency_key: $x_splitit_idempotency_key, 
+        x_splitit_touch_point: $x_splitit_touch_point, 
         attempt3d_secure: $attempt3d_secure, 
         shopper: $shopper, 
         plan_data: $plan_data, 
@@ -385,6 +399,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
 | **installment_plan_create_request** | [**\Splitit\Model\InstallmentPlanCreateRequest**](../Model/InstallmentPlanCreateRequest.md)|  | |
 | **x_splitit_test_mode** | **string**|  | [optional] |
 
@@ -408,7 +423,7 @@ try {
 ## `refund()`
 
 ```php
-refund($installment_plan_number, $x_splitit_idempotency_key, $installment_plan_refund_request): \Splitit\Model\InstallmentPlanRefundResponse
+refund($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request): \Splitit\Model\InstallmentPlanRefundResponse
 ```
 
 
@@ -427,6 +442,7 @@ $splitit = new \Splitit\Client(
 $amount = 3.14;
 $installment_plan_number = "installmentPlanNumber_example";
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
+$x_splitit_touch_point = ""; // TouchPoint
 $refund_strategy = "FutureInstallmentsFirst";
 
 try {
@@ -434,6 +450,7 @@ try {
         amount: $amount, 
         installment_plan_number: $installment_plan_number, 
         x_splitit_idempotency_key: $x_splitit_idempotency_key, 
+        x_splitit_touch_point: $x_splitit_touch_point, 
         refund_strategy: $refund_strategy
     );
     print_r($result->$getRefundId());
@@ -453,6 +470,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **installment_plan_number** | **string**|  | |
 | **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
 | **installment_plan_refund_request** | [**\Splitit\Model\InstallmentPlanRefundRequest**](../Model/InstallmentPlanRefundRequest.md)|  | |
 
 ### Return type
@@ -475,7 +493,7 @@ try {
 ## `search()`
 
 ```php
-search($x_splitit_idempotency_key, $installment_plan_number, $ref_order_number, $extended_params): \Splitit\Model\InstallmentPlanSearchResponse
+search($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_number, $ref_order_number, $extended_params): \Splitit\Model\InstallmentPlanSearchResponse
 ```
 
 
@@ -492,6 +510,7 @@ $splitit = new \Splitit\Client(
 );
 
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
+$x_splitit_touch_point = ""; // TouchPoint
 $installment_plan_number = "string_example";
 $ref_order_number = "string_example";
 $extended_params = [
@@ -501,6 +520,7 @@ $extended_params = [
 try {
     $result = $splitit->installmentPlan->search(
         x_splitit_idempotency_key: $x_splitit_idempotency_key, 
+        x_splitit_touch_point: $x_splitit_touch_point, 
         installment_plan_number: $installment_plan_number, 
         ref_order_number: $ref_order_number, 
         extended_params: $extended_params
@@ -516,6 +536,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
 | **installment_plan_number** | **string**|  | [optional] |
 | **ref_order_number** | **string**|  | [optional] |
 | **extended_params** | [**array<string,string>**](../Model/string.md)|  | [optional] |
@@ -540,7 +561,7 @@ try {
 ## `updateOrder()`
 
 ```php
-updateOrder($installment_plan_number, $x_splitit_idempotency_key, $update_order_request): \Splitit\Model\InstallmentPlanUpdateResponse
+updateOrder($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request): \Splitit\Model\InstallmentPlanUpdateResponse
 ```
 
 
@@ -558,6 +579,7 @@ $splitit = new \Splitit\Client(
 
 $installment_plan_number = "installmentPlanNumber_example";
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
+$x_splitit_touch_point = ""; // TouchPoint
 $tracking_number = "string_example";
 $ref_order_number = "string_example";
 $shipping_status = "Pending";
@@ -567,6 +589,7 @@ try {
     $result = $splitit->installmentPlan->updateOrder(
         installment_plan_number: $installment_plan_number, 
         x_splitit_idempotency_key: $x_splitit_idempotency_key, 
+        x_splitit_touch_point: $x_splitit_touch_point, 
         tracking_number: $tracking_number, 
         ref_order_number: $ref_order_number, 
         shipping_status: $shipping_status, 
@@ -587,6 +610,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **installment_plan_number** | **string**|  | |
 | **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
 | **update_order_request** | [**\Splitit\Model\UpdateOrderRequest**](../Model/UpdateOrderRequest.md)|  | |
 
 ### Return type
@@ -609,7 +633,7 @@ try {
 ## `updateOrder2()`
 
 ```php
-updateOrder2($x_splitit_idempotency_key, $installment_plan_update_request_by_identifier): \Splitit\Model\InstallmentPlanUpdateResponse
+updateOrder2($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request_by_identifier): \Splitit\Model\InstallmentPlanUpdateResponse
 ```
 
 
@@ -626,6 +650,7 @@ $splitit = new \Splitit\Client(
 );
 
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
+$x_splitit_touch_point = ""; // TouchPoint
 $ref_order_number = "string_example";
 $tracking_number = "string_example";
 $capture = True;
@@ -636,6 +661,7 @@ $identifier = [
 try {
     $result = $splitit->installmentPlan->updateOrder2(
         x_splitit_idempotency_key: $x_splitit_idempotency_key, 
+        x_splitit_touch_point: $x_splitit_touch_point, 
         ref_order_number: $ref_order_number, 
         tracking_number: $tracking_number, 
         capture: $capture, 
@@ -656,6 +682,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
 | **installment_plan_update_request_by_identifier** | [**\Splitit\Model\InstallmentPlanUpdateRequestByIdentifier**](../Model/InstallmentPlanUpdateRequestByIdentifier.md)|  | |
 
 ### Return type
@@ -678,7 +705,7 @@ try {
 ## `verifyAuthorization()`
 
 ```php
-verifyAuthorization($installment_plan_number, $x_splitit_idempotency_key): \Splitit\Model\VerifyAuthorizationResponse
+verifyAuthorization($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point): \Splitit\Model\VerifyAuthorizationResponse
 ```
 
 
@@ -696,11 +723,13 @@ $splitit = new \Splitit\Client(
 
 $installment_plan_number = "installmentPlanNumber_example";
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
+$x_splitit_touch_point = ""; // TouchPoint
 
 try {
     $result = $splitit->installmentPlan->verifyAuthorization(
         installment_plan_number: $installment_plan_number, 
-        x_splitit_idempotency_key: $x_splitit_idempotency_key
+        x_splitit_idempotency_key: $x_splitit_idempotency_key, 
+        x_splitit_touch_point: $x_splitit_touch_point
     );
     print_r($result->$getIsAuthorized());
     print_r($result->$getAuthorizationAmount());
@@ -716,6 +745,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **installment_plan_number** | **string**|  | |
 | **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
 
 ### Return type
 

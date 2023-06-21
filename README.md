@@ -53,11 +53,13 @@ $splitit = new \Splitit\Client(
 
 $installment_plan_number = "installmentPlanNumber_example";
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
+$x_splitit_touch_point = ""; // TouchPoint
 
 try {
     $result = $splitit->installmentPlan->cancel(
         installment_plan_number: $installment_plan_number, 
-        x_splitit_idempotency_key: $x_splitit_idempotency_key
+        x_splitit_idempotency_key: $x_splitit_idempotency_key, 
+        x_splitit_touch_point: $x_splitit_touch_point
     );
     print_r($result->$getInstallmentPlanNumber());
 } catch (\Exception $e) {
