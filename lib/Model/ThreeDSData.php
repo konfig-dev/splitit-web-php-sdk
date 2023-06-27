@@ -1,6 +1,6 @@
 <?php
 /**
- * PaymentMethodModel
+ * ThreeDSData
  *
  * PHP version 7.4
  *
@@ -26,13 +26,13 @@ use \ArrayAccess;
 use \Splitit\ObjectSerializer;
 
 /**
- * PaymentMethodModel Class Doc Comment
+ * ThreeDSData Class Doc Comment
  *
  * @category Class
  * @package  Splitit
  * @implements \ArrayAccess<string, mixed>
  */
-class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializable
+class ThreeDSData implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
       *
       * @var string
       */
-    protected static $openAPIModelName = 'PaymentMethodModel';
+    protected static $openAPIModelName = 'ThreeDSData';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,11 +49,12 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'type' => '\Splitit\Model\PaymentMethodType',
-        'card' => '\Splitit\Model\CardData',
-        'token' => 'string',
-        'bluesnap_vaulted_shopper_token' => '\Splitit\Model\BluesnapVaultedShopperToken',
-        'mocker_shopper_token' => '\Splitit\Model\MockerShopperToken'
+        'eci' => 'string',
+        'cavv' => 'string',
+        'xid' => 'string',
+        'directory_server_txn_id' => 'string',
+        'three_ds_version' => 'string',
+        'transaction_id' => 'string'
     ];
 
     /**
@@ -64,11 +65,12 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'type' => null,
-        'card' => null,
-        'token' => null,
-        'bluesnap_vaulted_shopper_token' => null,
-        'mocker_shopper_token' => null
+        'eci' => null,
+        'cavv' => null,
+        'xid' => null,
+        'directory_server_txn_id' => null,
+        'three_ds_version' => null,
+        'transaction_id' => null
     ];
 
     /**
@@ -77,11 +79,12 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'type' => false,
-		'card' => false,
-		'token' => false,
-		'bluesnap_vaulted_shopper_token' => false,
-		'mocker_shopper_token' => false
+        'eci' => false,
+		'cavv' => false,
+		'xid' => false,
+		'directory_server_txn_id' => false,
+		'three_ds_version' => false,
+		'transaction_id' => false
     ];
 
     /**
@@ -170,11 +173,12 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $attributeMap = [
-        'type' => 'Type',
-        'card' => 'Card',
-        'token' => 'Token',
-        'bluesnap_vaulted_shopper_token' => 'BluesnapVaultedShopperToken',
-        'mocker_shopper_token' => 'MockerShopperToken'
+        'eci' => 'ECI',
+        'cavv' => 'CAVV',
+        'xid' => 'XID',
+        'directory_server_txn_id' => 'DirectoryServerTxnId',
+        'three_ds_version' => 'ThreeDSVersion',
+        'transaction_id' => 'TransactionId'
     ];
 
     /**
@@ -183,11 +187,12 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $setters = [
-        'type' => 'setType',
-        'card' => 'setCard',
-        'token' => 'setToken',
-        'bluesnap_vaulted_shopper_token' => 'setBluesnapVaultedShopperToken',
-        'mocker_shopper_token' => 'setMockerShopperToken'
+        'eci' => 'setEci',
+        'cavv' => 'setCavv',
+        'xid' => 'setXid',
+        'directory_server_txn_id' => 'setDirectoryServerTxnId',
+        'three_ds_version' => 'setThreeDsVersion',
+        'transaction_id' => 'setTransactionId'
     ];
 
     /**
@@ -196,11 +201,12 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $getters = [
-        'type' => 'getType',
-        'card' => 'getCard',
-        'token' => 'getToken',
-        'bluesnap_vaulted_shopper_token' => 'getBluesnapVaultedShopperToken',
-        'mocker_shopper_token' => 'getMockerShopperToken'
+        'eci' => 'getEci',
+        'cavv' => 'getCavv',
+        'xid' => 'getXid',
+        'directory_server_txn_id' => 'getDirectoryServerTxnId',
+        'three_ds_version' => 'getThreeDsVersion',
+        'transaction_id' => 'getTransactionId'
     ];
 
     /**
@@ -260,11 +266,12 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('type', $data ?? [], null);
-        $this->setIfExists('card', $data ?? [], null);
-        $this->setIfExists('token', $data ?? [], null);
-        $this->setIfExists('bluesnap_vaulted_shopper_token', $data ?? [], null);
-        $this->setIfExists('mocker_shopper_token', $data ?? [], null);
+        $this->setIfExists('eci', $data ?? [], null);
+        $this->setIfExists('cavv', $data ?? [], null);
+        $this->setIfExists('xid', $data ?? [], null);
+        $this->setIfExists('directory_server_txn_id', $data ?? [], null);
+        $this->setIfExists('three_ds_version', $data ?? [], null);
+        $this->setIfExists('transaction_id', $data ?? [], null);
     }
 
     /**
@@ -294,9 +301,6 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         $invalidProperties = [];
 
-        if ($this->container['type'] === null) {
-            $invalidProperties[] = "'type' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -313,146 +317,175 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
 
 
     /**
-     * Gets type
-     *
-     * @return \Splitit\Model\PaymentMethodType
-     */
-    public function getType()
-    {
-        return $this->container['type'];
-    }
-
-    /**
-     * Sets type
-     *
-     * @param \Splitit\Model\PaymentMethodType $type type
-     *
-     * @return self
-     */
-    public function setType($type)
-    {
-
-        if (is_null($type)) {
-            throw new \InvalidArgumentException('non-nullable type cannot be null');
-        }
-
-        $this->container['type'] = $type;
-
-        return $this;
-    }
-
-    /**
-     * Gets card
-     *
-     * @return \Splitit\Model\CardData|null
-     */
-    public function getCard()
-    {
-        return $this->container['card'];
-    }
-
-    /**
-     * Sets card
-     *
-     * @param \Splitit\Model\CardData|null $card card
-     *
-     * @return self
-     */
-    public function setCard($card)
-    {
-
-        if (is_null($card)) {
-            throw new \InvalidArgumentException('non-nullable card cannot be null');
-        }
-
-        $this->container['card'] = $card;
-
-        return $this;
-    }
-
-    /**
-     * Gets token
+     * Gets eci
      *
      * @return string|null
      */
-    public function getToken()
+    public function getEci()
     {
-        return $this->container['token'];
+        return $this->container['eci'];
     }
 
     /**
-     * Sets token
+     * Sets eci
      *
-     * @param string|null $token token
+     * @param string|null $eci eci
      *
      * @return self
      */
-    public function setToken($token)
+    public function setEci($eci)
     {
 
-        if (is_null($token)) {
-            throw new \InvalidArgumentException('non-nullable token cannot be null');
+        if (is_null($eci)) {
+            throw new \InvalidArgumentException('non-nullable eci cannot be null');
         }
 
-        $this->container['token'] = $token;
+        $this->container['eci'] = $eci;
 
         return $this;
     }
 
     /**
-     * Gets bluesnap_vaulted_shopper_token
+     * Gets cavv
      *
-     * @return \Splitit\Model\BluesnapVaultedShopperToken|null
+     * @return string|null
      */
-    public function getBluesnapVaultedShopperToken()
+    public function getCavv()
     {
-        return $this->container['bluesnap_vaulted_shopper_token'];
+        return $this->container['cavv'];
     }
 
     /**
-     * Sets bluesnap_vaulted_shopper_token
+     * Sets cavv
      *
-     * @param \Splitit\Model\BluesnapVaultedShopperToken|null $bluesnap_vaulted_shopper_token bluesnap_vaulted_shopper_token
+     * @param string|null $cavv cavv
      *
      * @return self
      */
-    public function setBluesnapVaultedShopperToken($bluesnap_vaulted_shopper_token)
+    public function setCavv($cavv)
     {
 
-        if (is_null($bluesnap_vaulted_shopper_token)) {
-            throw new \InvalidArgumentException('non-nullable bluesnap_vaulted_shopper_token cannot be null');
+        if (is_null($cavv)) {
+            throw new \InvalidArgumentException('non-nullable cavv cannot be null');
         }
 
-        $this->container['bluesnap_vaulted_shopper_token'] = $bluesnap_vaulted_shopper_token;
+        $this->container['cavv'] = $cavv;
 
         return $this;
     }
 
     /**
-     * Gets mocker_shopper_token
+     * Gets xid
      *
-     * @return \Splitit\Model\MockerShopperToken|null
+     * @return string|null
      */
-    public function getMockerShopperToken()
+    public function getXid()
     {
-        return $this->container['mocker_shopper_token'];
+        return $this->container['xid'];
     }
 
     /**
-     * Sets mocker_shopper_token
+     * Sets xid
      *
-     * @param \Splitit\Model\MockerShopperToken|null $mocker_shopper_token mocker_shopper_token
+     * @param string|null $xid xid
      *
      * @return self
      */
-    public function setMockerShopperToken($mocker_shopper_token)
+    public function setXid($xid)
     {
 
-        if (is_null($mocker_shopper_token)) {
-            throw new \InvalidArgumentException('non-nullable mocker_shopper_token cannot be null');
+        if (is_null($xid)) {
+            throw new \InvalidArgumentException('non-nullable xid cannot be null');
         }
 
-        $this->container['mocker_shopper_token'] = $mocker_shopper_token;
+        $this->container['xid'] = $xid;
+
+        return $this;
+    }
+
+    /**
+     * Gets directory_server_txn_id
+     *
+     * @return string|null
+     */
+    public function getDirectoryServerTxnId()
+    {
+        return $this->container['directory_server_txn_id'];
+    }
+
+    /**
+     * Sets directory_server_txn_id
+     *
+     * @param string|null $directory_server_txn_id directory_server_txn_id
+     *
+     * @return self
+     */
+    public function setDirectoryServerTxnId($directory_server_txn_id)
+    {
+
+        if (is_null($directory_server_txn_id)) {
+            throw new \InvalidArgumentException('non-nullable directory_server_txn_id cannot be null');
+        }
+
+        $this->container['directory_server_txn_id'] = $directory_server_txn_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets three_ds_version
+     *
+     * @return string|null
+     */
+    public function getThreeDsVersion()
+    {
+        return $this->container['three_ds_version'];
+    }
+
+    /**
+     * Sets three_ds_version
+     *
+     * @param string|null $three_ds_version three_ds_version
+     *
+     * @return self
+     */
+    public function setThreeDsVersion($three_ds_version)
+    {
+
+        if (is_null($three_ds_version)) {
+            throw new \InvalidArgumentException('non-nullable three_ds_version cannot be null');
+        }
+
+        $this->container['three_ds_version'] = $three_ds_version;
+
+        return $this;
+    }
+
+    /**
+     * Gets transaction_id
+     *
+     * @return string|null
+     */
+    public function getTransactionId()
+    {
+        return $this->container['transaction_id'];
+    }
+
+    /**
+     * Sets transaction_id
+     *
+     * @param string|null $transaction_id transaction_id
+     *
+     * @return self
+     */
+    public function setTransactionId($transaction_id)
+    {
+
+        if (is_null($transaction_id)) {
+            throw new \InvalidArgumentException('non-nullable transaction_id cannot be null');
+        }
+
+        $this->container['transaction_id'] = $transaction_id;
 
         return $this;
     }

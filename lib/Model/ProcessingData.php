@@ -1,6 +1,6 @@
 <?php
 /**
- * PaymentMethodModel
+ * ProcessingData
  *
  * PHP version 7.4
  *
@@ -26,13 +26,13 @@ use \ArrayAccess;
 use \Splitit\ObjectSerializer;
 
 /**
- * PaymentMethodModel Class Doc Comment
+ * ProcessingData Class Doc Comment
  *
  * @category Class
  * @package  Splitit
  * @implements \ArrayAccess<string, mixed>
  */
-class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializable
+class ProcessingData implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
       *
       * @var string
       */
-    protected static $openAPIModelName = 'PaymentMethodModel';
+    protected static $openAPIModelName = 'ProcessingData';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,11 +49,9 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'type' => '\Splitit\Model\PaymentMethodType',
-        'card' => '\Splitit\Model\CardData',
-        'token' => 'string',
-        'bluesnap_vaulted_shopper_token' => '\Splitit\Model\BluesnapVaultedShopperToken',
-        'mocker_shopper_token' => '\Splitit\Model\MockerShopperToken'
+        'attempt_three_d_secured' => 'bool',
+        'soft_descriptor' => 'string',
+        'three_ds_data' => '\Splitit\Model\ThreeDSData'
     ];
 
     /**
@@ -64,11 +62,9 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'type' => null,
-        'card' => null,
-        'token' => null,
-        'bluesnap_vaulted_shopper_token' => null,
-        'mocker_shopper_token' => null
+        'attempt_three_d_secured' => null,
+        'soft_descriptor' => null,
+        'three_ds_data' => null
     ];
 
     /**
@@ -77,11 +73,9 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'type' => false,
-		'card' => false,
-		'token' => false,
-		'bluesnap_vaulted_shopper_token' => false,
-		'mocker_shopper_token' => false
+        'attempt_three_d_secured' => false,
+		'soft_descriptor' => false,
+		'three_ds_data' => false
     ];
 
     /**
@@ -170,11 +164,9 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $attributeMap = [
-        'type' => 'Type',
-        'card' => 'Card',
-        'token' => 'Token',
-        'bluesnap_vaulted_shopper_token' => 'BluesnapVaultedShopperToken',
-        'mocker_shopper_token' => 'MockerShopperToken'
+        'attempt_three_d_secured' => 'AttemptThreeDSecured',
+        'soft_descriptor' => 'SoftDescriptor',
+        'three_ds_data' => 'ThreeDSData'
     ];
 
     /**
@@ -183,11 +175,9 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $setters = [
-        'type' => 'setType',
-        'card' => 'setCard',
-        'token' => 'setToken',
-        'bluesnap_vaulted_shopper_token' => 'setBluesnapVaultedShopperToken',
-        'mocker_shopper_token' => 'setMockerShopperToken'
+        'attempt_three_d_secured' => 'setAttemptThreeDSecured',
+        'soft_descriptor' => 'setSoftDescriptor',
+        'three_ds_data' => 'setThreeDsData'
     ];
 
     /**
@@ -196,11 +186,9 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $getters = [
-        'type' => 'getType',
-        'card' => 'getCard',
-        'token' => 'getToken',
-        'bluesnap_vaulted_shopper_token' => 'getBluesnapVaultedShopperToken',
-        'mocker_shopper_token' => 'getMockerShopperToken'
+        'attempt_three_d_secured' => 'getAttemptThreeDSecured',
+        'soft_descriptor' => 'getSoftDescriptor',
+        'three_ds_data' => 'getThreeDsData'
     ];
 
     /**
@@ -260,11 +248,9 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('type', $data ?? [], null);
-        $this->setIfExists('card', $data ?? [], null);
-        $this->setIfExists('token', $data ?? [], null);
-        $this->setIfExists('bluesnap_vaulted_shopper_token', $data ?? [], null);
-        $this->setIfExists('mocker_shopper_token', $data ?? [], null);
+        $this->setIfExists('attempt_three_d_secured', $data ?? [], null);
+        $this->setIfExists('soft_descriptor', $data ?? [], null);
+        $this->setIfExists('three_ds_data', $data ?? [], null);
     }
 
     /**
@@ -294,9 +280,6 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         $invalidProperties = [];
 
-        if ($this->container['type'] === null) {
-            $invalidProperties[] = "'type' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -313,146 +296,88 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
 
 
     /**
-     * Gets type
+     * Gets attempt_three_d_secured
      *
-     * @return \Splitit\Model\PaymentMethodType
+     * @return bool|null
      */
-    public function getType()
+    public function getAttemptThreeDSecured()
     {
-        return $this->container['type'];
+        return $this->container['attempt_three_d_secured'];
     }
 
     /**
-     * Sets type
+     * Sets attempt_three_d_secured
      *
-     * @param \Splitit\Model\PaymentMethodType $type type
+     * @param bool|null $attempt_three_d_secured attempt_three_d_secured
      *
      * @return self
      */
-    public function setType($type)
+    public function setAttemptThreeDSecured($attempt_three_d_secured)
     {
 
-        if (is_null($type)) {
-            throw new \InvalidArgumentException('non-nullable type cannot be null');
+        if (is_null($attempt_three_d_secured)) {
+            throw new \InvalidArgumentException('non-nullable attempt_three_d_secured cannot be null');
         }
 
-        $this->container['type'] = $type;
+        $this->container['attempt_three_d_secured'] = $attempt_three_d_secured;
 
         return $this;
     }
 
     /**
-     * Gets card
-     *
-     * @return \Splitit\Model\CardData|null
-     */
-    public function getCard()
-    {
-        return $this->container['card'];
-    }
-
-    /**
-     * Sets card
-     *
-     * @param \Splitit\Model\CardData|null $card card
-     *
-     * @return self
-     */
-    public function setCard($card)
-    {
-
-        if (is_null($card)) {
-            throw new \InvalidArgumentException('non-nullable card cannot be null');
-        }
-
-        $this->container['card'] = $card;
-
-        return $this;
-    }
-
-    /**
-     * Gets token
+     * Gets soft_descriptor
      *
      * @return string|null
      */
-    public function getToken()
+    public function getSoftDescriptor()
     {
-        return $this->container['token'];
+        return $this->container['soft_descriptor'];
     }
 
     /**
-     * Sets token
+     * Sets soft_descriptor
      *
-     * @param string|null $token token
+     * @param string|null $soft_descriptor soft_descriptor
      *
      * @return self
      */
-    public function setToken($token)
+    public function setSoftDescriptor($soft_descriptor)
     {
 
-        if (is_null($token)) {
-            throw new \InvalidArgumentException('non-nullable token cannot be null');
+        if (is_null($soft_descriptor)) {
+            throw new \InvalidArgumentException('non-nullable soft_descriptor cannot be null');
         }
 
-        $this->container['token'] = $token;
+        $this->container['soft_descriptor'] = $soft_descriptor;
 
         return $this;
     }
 
     /**
-     * Gets bluesnap_vaulted_shopper_token
+     * Gets three_ds_data
      *
-     * @return \Splitit\Model\BluesnapVaultedShopperToken|null
+     * @return \Splitit\Model\ThreeDSData|null
      */
-    public function getBluesnapVaultedShopperToken()
+    public function getThreeDsData()
     {
-        return $this->container['bluesnap_vaulted_shopper_token'];
+        return $this->container['three_ds_data'];
     }
 
     /**
-     * Sets bluesnap_vaulted_shopper_token
+     * Sets three_ds_data
      *
-     * @param \Splitit\Model\BluesnapVaultedShopperToken|null $bluesnap_vaulted_shopper_token bluesnap_vaulted_shopper_token
+     * @param \Splitit\Model\ThreeDSData|null $three_ds_data three_ds_data
      *
      * @return self
      */
-    public function setBluesnapVaultedShopperToken($bluesnap_vaulted_shopper_token)
+    public function setThreeDsData($three_ds_data)
     {
 
-        if (is_null($bluesnap_vaulted_shopper_token)) {
-            throw new \InvalidArgumentException('non-nullable bluesnap_vaulted_shopper_token cannot be null');
+        if (is_null($three_ds_data)) {
+            throw new \InvalidArgumentException('non-nullable three_ds_data cannot be null');
         }
 
-        $this->container['bluesnap_vaulted_shopper_token'] = $bluesnap_vaulted_shopper_token;
-
-        return $this;
-    }
-
-    /**
-     * Gets mocker_shopper_token
-     *
-     * @return \Splitit\Model\MockerShopperToken|null
-     */
-    public function getMockerShopperToken()
-    {
-        return $this->container['mocker_shopper_token'];
-    }
-
-    /**
-     * Sets mocker_shopper_token
-     *
-     * @param \Splitit\Model\MockerShopperToken|null $mocker_shopper_token mocker_shopper_token
-     *
-     * @return self
-     */
-    public function setMockerShopperToken($mocker_shopper_token)
-    {
-
-        if (is_null($mocker_shopper_token)) {
-            throw new \InvalidArgumentException('non-nullable mocker_shopper_token cannot be null');
-        }
-
-        $this->container['mocker_shopper_token'] = $mocker_shopper_token;
+        $this->container['three_ds_data'] = $three_ds_data;
 
         return $this;
     }

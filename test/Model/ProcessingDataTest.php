@@ -1,6 +1,6 @@
 <?php
 /**
- * PaymentMethodModelTest
+ * ProcessingDataTest
  *
  * PHP version 7.4
  *
@@ -25,13 +25,13 @@ namespace Splitit\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * PaymentMethodModelTest Class Doc Comment
+ * ProcessingDataTest Class Doc Comment
  *
  * @category    Class
- * @description PaymentMethodModel
+ * @description ProcessingData
  * @package     Splitit
  */
-class PaymentMethodModelTest extends TestCase
+class ProcessingDataTest extends TestCase
 {
 
     /**
@@ -63,54 +63,36 @@ class PaymentMethodModelTest extends TestCase
     }
 
     /**
-     * Test "PaymentMethodModel"
+     * Test "ProcessingData"
      */
-    public function testPaymentMethodModel()
+    public function testProcessingData()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "type"
+     * Test attribute "attempt_three_d_secured"
      */
-    public function testPropertyType()
+    public function testPropertyAttemptThreeDSecured()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "card"
+     * Test attribute "soft_descriptor"
      */
-    public function testPropertyCard()
+    public function testPropertySoftDescriptor()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "token"
+     * Test attribute "three_ds_data"
      */
-    public function testPropertyToken()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "bluesnap_vaulted_shopper_token"
-     */
-    public function testPropertyBluesnapVaultedShopperToken()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "mocker_shopper_token"
-     */
-    public function testPropertyMockerShopperToken()
+    public function testPropertyThreeDsData()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

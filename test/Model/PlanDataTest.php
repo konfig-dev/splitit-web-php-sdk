@@ -153,6 +153,15 @@ class PlanDataTest extends TestCase
     }
 
     /**
+     * Test attribute "processing_data"
+     */
+    public function testPropertyProcessingData()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "first_installment_date"
      */
     public function testPropertyFirstInstallmentDate()

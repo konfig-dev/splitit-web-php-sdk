@@ -13,5 +13,6 @@ Name | Type | Description | Notes
 **three_ds_redirect** | [**\Splitit\Model\ThreeDsRedirectDataV3**](ThreeDsRedirectDataV3.md) |  | [optional]
 **cavv** | **string** |  | [optional]
 **eci** | **string** |  | [optional]
+**gateway_source_response** | **string** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

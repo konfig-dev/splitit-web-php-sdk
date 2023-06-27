@@ -57,7 +57,8 @@ class AuthorizationModel implements ModelInterface, ArrayAccess, \JsonSerializab
         'gateway_result_message' => 'string',
         'three_ds_redirect' => '\Splitit\Model\ThreeDsRedirectDataV3',
         'cavv' => 'string',
-        'eci' => 'string'
+        'eci' => 'string',
+        'gateway_source_response' => 'string'
     ];
 
     /**
@@ -76,7 +77,8 @@ class AuthorizationModel implements ModelInterface, ArrayAccess, \JsonSerializab
         'gateway_result_message' => null,
         'three_ds_redirect' => null,
         'cavv' => null,
-        'eci' => null
+        'eci' => null,
+        'gateway_source_response' => null
     ];
 
     /**
@@ -93,7 +95,8 @@ class AuthorizationModel implements ModelInterface, ArrayAccess, \JsonSerializab
 		'gateway_result_message' => false,
 		'three_ds_redirect' => false,
 		'cavv' => false,
-		'eci' => false
+		'eci' => false,
+		'gateway_source_response' => false
     ];
 
     /**
@@ -190,7 +193,8 @@ class AuthorizationModel implements ModelInterface, ArrayAccess, \JsonSerializab
         'gateway_result_message' => 'GatewayResultMessage',
         'three_ds_redirect' => 'ThreeDSRedirect',
         'cavv' => 'CAVV',
-        'eci' => 'ECI'
+        'eci' => 'ECI',
+        'gateway_source_response' => 'GatewaySourceResponse'
     ];
 
     /**
@@ -207,7 +211,8 @@ class AuthorizationModel implements ModelInterface, ArrayAccess, \JsonSerializab
         'gateway_result_message' => 'setGatewayResultMessage',
         'three_ds_redirect' => 'setThreeDsRedirect',
         'cavv' => 'setCavv',
-        'eci' => 'setEci'
+        'eci' => 'setEci',
+        'gateway_source_response' => 'setGatewaySourceResponse'
     ];
 
     /**
@@ -224,7 +229,8 @@ class AuthorizationModel implements ModelInterface, ArrayAccess, \JsonSerializab
         'gateway_result_message' => 'getGatewayResultMessage',
         'three_ds_redirect' => 'getThreeDsRedirect',
         'cavv' => 'getCavv',
-        'eci' => 'getEci'
+        'eci' => 'getEci',
+        'gateway_source_response' => 'getGatewaySourceResponse'
     ];
 
     /**
@@ -293,6 +299,7 @@ class AuthorizationModel implements ModelInterface, ArrayAccess, \JsonSerializab
         $this->setIfExists('three_ds_redirect', $data ?? [], null);
         $this->setIfExists('cavv', $data ?? [], null);
         $this->setIfExists('eci', $data ?? [], null);
+        $this->setIfExists('gateway_source_response', $data ?? [], null);
     }
 
     /**
@@ -597,6 +604,35 @@ class AuthorizationModel implements ModelInterface, ArrayAccess, \JsonSerializab
         }
 
         $this->container['eci'] = $eci;
+
+        return $this;
+    }
+
+    /**
+     * Gets gateway_source_response
+     *
+     * @return string|null
+     */
+    public function getGatewaySourceResponse()
+    {
+        return $this->container['gateway_source_response'];
+    }
+
+    /**
+     * Sets gateway_source_response
+     *
+     * @param string|null $gateway_source_response gateway_source_response
+     *
+     * @return self
+     */
+    public function setGatewaySourceResponse($gateway_source_response)
+    {
+
+        if (is_null($gateway_source_response)) {
+            throw new \InvalidArgumentException('non-nullable gateway_source_response cannot be null');
+        }
+
+        $this->container['gateway_source_response'] = $gateway_source_response;
 
         return $this;
     }

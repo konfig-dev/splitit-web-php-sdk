@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentPlanCreateRequestTest
+ * ThreeDSData2Test
  *
  * PHP version 7.4
  *
@@ -25,13 +25,13 @@ namespace Splitit\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * InstallmentPlanCreateRequestTest Class Doc Comment
+ * ThreeDSData2Test Class Doc Comment
  *
  * @category    Class
- * @description InstallmentPlanCreateRequest
+ * @description ThreeDSData2
  * @package     Splitit
  */
-class InstallmentPlanCreateRequestTest extends TestCase
+class ThreeDSData2Test extends TestCase
 {
 
     /**
@@ -63,99 +63,63 @@ class InstallmentPlanCreateRequestTest extends TestCase
     }
 
     /**
-     * Test "InstallmentPlanCreateRequest"
+     * Test "ThreeDSData2"
      */
-    public function testInstallmentPlanCreateRequest()
+    public function testThreeDSData2()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "auto_capture"
+     * Test attribute "eci"
      */
-    public function testPropertyAutoCapture()
+    public function testPropertyEci()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "attempt3d_secure"
+     * Test attribute "cavv"
      */
-    public function testPropertyAttempt3dSecure()
+    public function testPropertyCavv()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "terms_and_conditions_accepted"
+     * Test attribute "xid"
      */
-    public function testPropertyTermsAndConditionsAccepted()
+    public function testPropertyXid()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "shopper"
+     * Test attribute "directory_server_txn_id"
      */
-    public function testPropertyShopper()
+    public function testPropertyDirectoryServerTxnId()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "plan_data"
+     * Test attribute "three_ds_version"
      */
-    public function testPropertyPlanData()
+    public function testPropertyThreeDsVersion()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "billing_address"
+     * Test attribute "transaction_id"
      */
-    public function testPropertyBillingAddress()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "payment_method"
-     */
-    public function testPropertyPaymentMethod()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "redirect_urls"
-     */
-    public function testPropertyRedirectUrls()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "processing_data"
-     */
-    public function testPropertyProcessingData()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "events_endpoints"
-     */
-    public function testPropertyEventsEndpoints()
+    public function testPropertyTransactionId()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

@@ -151,4 +151,13 @@ class AuthorizationModelTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "gateway_source_response"
+     */
+    public function testPropertyGatewaySourceResponse()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }

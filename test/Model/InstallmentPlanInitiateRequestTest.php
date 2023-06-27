@@ -142,4 +142,13 @@ class InstallmentPlanInitiateRequestTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "processing_data"
+     */
+    public function testPropertyProcessingData()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }

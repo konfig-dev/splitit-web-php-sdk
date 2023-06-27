@@ -58,6 +58,7 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         'ref_order_number' => 'string',
         'allowed_installment_options' => 'int[]',
         'tags' => 'array<string,string>',
+        'processing_data' => '\Splitit\Model\ProcessingData2',
         'first_installment_date' => '\DateTime'
     ];
 
@@ -78,6 +79,7 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         'ref_order_number' => null,
         'allowed_installment_options' => 'int32',
         'tags' => null,
+        'processing_data' => null,
         'first_installment_date' => 'date-time'
     ];
 
@@ -96,6 +98,7 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
 		'ref_order_number' => false,
 		'allowed_installment_options' => false,
 		'tags' => false,
+		'processing_data' => false,
 		'first_installment_date' => false
     ];
 
@@ -194,6 +197,7 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         'ref_order_number' => 'RefOrderNumber',
         'allowed_installment_options' => 'AllowedInstallmentOptions',
         'tags' => 'Tags',
+        'processing_data' => 'ProcessingData',
         'first_installment_date' => 'FirstInstallmentDate'
     ];
 
@@ -212,6 +216,7 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         'ref_order_number' => 'setRefOrderNumber',
         'allowed_installment_options' => 'setAllowedInstallmentOptions',
         'tags' => 'setTags',
+        'processing_data' => 'setProcessingData',
         'first_installment_date' => 'setFirstInstallmentDate'
     ];
 
@@ -230,6 +235,7 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         'ref_order_number' => 'getRefOrderNumber',
         'allowed_installment_options' => 'getAllowedInstallmentOptions',
         'tags' => 'getTags',
+        'processing_data' => 'getProcessingData',
         'first_installment_date' => 'getFirstInstallmentDate'
     ];
 
@@ -299,6 +305,7 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('ref_order_number', $data ?? [], null);
         $this->setIfExists('allowed_installment_options', $data ?? [], null);
         $this->setIfExists('tags', $data ?? [], null);
+        $this->setIfExists('processing_data', $data ?? [], null);
         $this->setIfExists('first_installment_date', $data ?? [], null);
     }
 
@@ -610,6 +617,35 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['tags'] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Gets processing_data
+     *
+     * @return \Splitit\Model\ProcessingData2|null
+     */
+    public function getProcessingData()
+    {
+        return $this->container['processing_data'];
+    }
+
+    /**
+     * Sets processing_data
+     *
+     * @param \Splitit\Model\ProcessingData2|null $processing_data processing_data
+     *
+     * @return self
+     */
+    public function setProcessingData($processing_data)
+    {
+
+        if (is_null($processing_data)) {
+            throw new \InvalidArgumentException('non-nullable processing_data cannot be null');
+        }
+
+        $this->container['processing_data'] = $processing_data;
 
         return $this;
     }

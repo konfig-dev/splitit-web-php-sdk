@@ -1595,6 +1595,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $redirect_urls = SENTINEL_VALUE,
         $ux_settings = SENTINEL_VALUE,
         $events_endpoints = SENTINEL_VALUE,
+        $processing_data = SENTINEL_VALUE,
         $x_splitit_test_mode = SENTINEL_VALUE,
 
         string $contentType = self::contentTypes['post'][0]
@@ -1610,6 +1611,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "redirect_urls", $redirect_urls);
         $this->setRequestBodyProperty($_body, "ux_settings", $ux_settings);
         $this->setRequestBodyProperty($_body, "events_endpoints", $events_endpoints);
+        $this->setRequestBodyProperty($_body, "processing_data", $processing_data);
         $installment_plan_initiate_request = $_body;
 
         list($response) = $this->postWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType);
@@ -1874,6 +1876,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $redirect_urls = SENTINEL_VALUE,
         $ux_settings = SENTINEL_VALUE,
         $events_endpoints = SENTINEL_VALUE,
+        $processing_data = SENTINEL_VALUE,
         $x_splitit_test_mode = SENTINEL_VALUE,
 
         string $contentType = self::contentTypes['post'][0]
@@ -1889,6 +1892,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "redirect_urls", $redirect_urls);
         $this->setRequestBodyProperty($_body, "ux_settings", $ux_settings);
         $this->setRequestBodyProperty($_body, "events_endpoints", $events_endpoints);
+        $this->setRequestBodyProperty($_body, "processing_data", $processing_data);
         $installment_plan_initiate_request = $_body;
 
         return $this->postAsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType)
@@ -2129,6 +2133,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $billing_address = SENTINEL_VALUE,
         $payment_method = SENTINEL_VALUE,
         $redirect_urls = SENTINEL_VALUE,
+        $processing_data = SENTINEL_VALUE,
         $events_endpoints = SENTINEL_VALUE,
         $x_splitit_test_mode = SENTINEL_VALUE,
 
@@ -2145,6 +2150,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "billing_address", $billing_address);
         $this->setRequestBodyProperty($_body, "payment_method", $payment_method);
         $this->setRequestBodyProperty($_body, "redirect_urls", $redirect_urls);
+        $this->setRequestBodyProperty($_body, "processing_data", $processing_data);
         $this->setRequestBodyProperty($_body, "events_endpoints", $events_endpoints);
         $installment_plan_create_request = $_body;
 
@@ -2410,6 +2416,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $billing_address = SENTINEL_VALUE,
         $payment_method = SENTINEL_VALUE,
         $redirect_urls = SENTINEL_VALUE,
+        $processing_data = SENTINEL_VALUE,
         $events_endpoints = SENTINEL_VALUE,
         $x_splitit_test_mode = SENTINEL_VALUE,
 
@@ -2426,6 +2433,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "billing_address", $billing_address);
         $this->setRequestBodyProperty($_body, "payment_method", $payment_method);
         $this->setRequestBodyProperty($_body, "redirect_urls", $redirect_urls);
+        $this->setRequestBodyProperty($_body, "processing_data", $processing_data);
         $this->setRequestBodyProperty($_body, "events_endpoints", $events_endpoints);
         $installment_plan_create_request = $_body;
 

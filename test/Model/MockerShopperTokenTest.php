@@ -1,6 +1,6 @@
 <?php
 /**
- * PaymentMethodModelTest
+ * MockerShopperTokenTest
  *
  * PHP version 7.4
  *
@@ -25,13 +25,13 @@ namespace Splitit\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * PaymentMethodModelTest Class Doc Comment
+ * MockerShopperTokenTest Class Doc Comment
  *
  * @category    Class
- * @description PaymentMethodModel
+ * @description MockerShopperToken
  * @package     Splitit
  */
-class PaymentMethodModelTest extends TestCase
+class MockerShopperTokenTest extends TestCase
 {
 
     /**
@@ -63,27 +63,9 @@ class PaymentMethodModelTest extends TestCase
     }
 
     /**
-     * Test "PaymentMethodModel"
+     * Test "MockerShopperToken"
      */
-    public function testPaymentMethodModel()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "type"
-     */
-    public function testPropertyType()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "card"
-     */
-    public function testPropertyCard()
+    public function testMockerShopperToken()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -99,18 +81,9 @@ class PaymentMethodModelTest extends TestCase
     }
 
     /**
-     * Test attribute "bluesnap_vaulted_shopper_token"
+     * Test attribute "last4_digit"
      */
-    public function testPropertyBluesnapVaultedShopperToken()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "mocker_shopper_token"
-     */
-    public function testPropertyMockerShopperToken()
+    public function testPropertyLast4Digit()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
