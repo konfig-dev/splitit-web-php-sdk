@@ -1,5 +1,4 @@
 <?php
-
 /**
  * InitiatePlanResponse
  *
@@ -38,17 +37,17 @@ class InitiatePlanResponse implements ModelInterface, ArrayAccess, \JsonSerializ
     public const DISCRIMINATOR = null;
 
     /**
-     * The original name of the model.
-     *
-     * @var string
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static $openAPIModelName = 'InitiatePlanResponse';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static $openAPITypes = [
         'installment_plan_number' => 'string',
         'ref_order_number' => 'string',
@@ -63,12 +62,12 @@ class InitiatePlanResponse implements ModelInterface, ArrayAccess, \JsonSerializ
     ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
-     *
-     * @var string[]
-     * @phpstan-var array<string, string|null>
-     * @psalm-var array<string, string|null>
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      * @phpstan-var array<string, string|null>
+      * @psalm-var array<string, string|null>
+      */
     protected static $openAPIFormats = [
         'installment_plan_number' => null,
         'ref_order_number' => null,
@@ -83,28 +82,28 @@ class InitiatePlanResponse implements ModelInterface, ArrayAccess, \JsonSerializ
     ];
 
     /**
-     * Array of nullable properties. Used for (de)serialization
-     *
-     * @var boolean[]
-     */
+      * Array of nullable properties. Used for (de)serialization
+      *
+      * @var boolean[]
+      */
     protected static $openAPINullables = [
         'installment_plan_number' => false,
-        'ref_order_number' => false,
-        'purchase_method' => false,
-        'status' => false,
-        'currency' => false,
-        'amount' => false,
-        'extended_params' => false,
-        'shopper' => false,
-        'billing_address' => false,
-        'checkout_url' => false
+		'ref_order_number' => false,
+		'purchase_method' => false,
+		'status' => false,
+		'currency' => false,
+		'amount' => false,
+		'extended_params' => false,
+		'shopper' => false,
+		'billing_address' => false,
+		'checkout_url' => false
     ];
 
     /**
-     * If a nullable field gets set to null, insert it here
-     *
-     * @var boolean[]
-     */
+      * If a nullable field gets set to null, insert it here
+      *
+      * @var boolean[]
+      */
     protected $openAPINullablesSetToNull = [];
 
     /**
@@ -304,14 +303,14 @@ class InitiatePlanResponse implements ModelInterface, ArrayAccess, \JsonSerializ
     }
 
     /**
-     * Sets $this->container[$variableName] to the given data or to the given default Value; if $variableName
-     * is nullable and its value is set to null in the $fields array, then mark it as "set to null" in the
-     * $this->openAPINullablesSetToNull array
-     *
-     * @param string $variableName
-     * @param array  $fields
-     * @param mixed  $defaultValue
-     */
+    * Sets $this->container[$variableName] to the given data or to the given default Value; if $variableName
+    * is nullable and its value is set to null in the $fields array, then mark it as "set to null" in the
+    * $this->openAPINullablesSetToNull array
+    *
+    * @param string $variableName
+    * @param array  $fields
+    * @param mixed  $defaultValue
+    */
     private function setIfExists(string $variableName, array $fields, $defaultValue): void
     {
         if (self::isNullable($variableName) && array_key_exists($variableName, $fields) && is_null($fields[$variableName])) {
@@ -701,7 +700,7 @@ class InitiatePlanResponse implements ModelInterface, ArrayAccess, \JsonSerializ
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
-        return ObjectSerializer::sanitizeForSerialization($this);
+       return ObjectSerializer::sanitizeForSerialization($this);
     }
 
     /**
@@ -727,3 +726,5 @@ class InitiatePlanResponse implements ModelInterface, ArrayAccess, \JsonSerializ
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
+
+

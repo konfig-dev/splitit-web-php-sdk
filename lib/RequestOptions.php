@@ -4,8 +4,7 @@ namespace Splitit;
 
 class RequestOptions
 {
-
-    /** @var boolean */
+    /** @var boolean */ 
     private $retryOAuth;
 
     public function __construct(bool $retryOAuth = true)

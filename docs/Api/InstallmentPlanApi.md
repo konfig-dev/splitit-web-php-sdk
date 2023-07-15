@@ -2,24 +2,27 @@
 
 All URIs are relative to https://web-api-v3.production.splitit.com, except if the operation defines another base path.
 
-| Method                                                                 | HTTP request                                                              | Description |
-| ---------------------------------------------------------------------- | ------------------------------------------------------------------------- | ----------- |
-| [**cancel()**](InstallmentPlanApi.md#cancel)                           | **POST** /api/installmentplans/{installmentPlanNumber}/cancel             |             |
-| [**checkEligibility()**](InstallmentPlanApi.md#checkEligibility)       | **POST** /api/installmentplans/check-eligibility                          |             |
-| [**get()**](InstallmentPlanApi.md#get)                                 | **GET** /api/installmentplans/{installmentPlanNumber}                     |             |
-| [**post()**](InstallmentPlanApi.md#post)                               | **POST** /api/installmentplans/initiate                                   |             |
-| [**post2()**](InstallmentPlanApi.md#post2)                             | **POST** /api/installmentplans                                            |             |
-| [**refund()**](InstallmentPlanApi.md#refund)                           | **POST** /api/installmentplans/{installmentPlanNumber}/refund             |             |
-| [**search()**](InstallmentPlanApi.md#search)                           | **GET** /api/installmentplans/search                                      |             |
-| [**updateOrder()**](InstallmentPlanApi.md#updateOrder)                 | **PUT** /api/installmentplans/{installmentPlanNumber}/updateorder         |             |
-| [**updateOrder2()**](InstallmentPlanApi.md#updateOrder2)               | **PUT** /api/installmentplans/updateorder                                 |             |
-| [**verifyAuthorization()**](InstallmentPlanApi.md#verifyAuthorization) | **GET** /api/installmentplans/{installmentPlanNumber}/verifyauthorization |             |
+| Method | HTTP request | Description |
+| ------------- | ------------- | ------------- |
+| [**cancel()**](InstallmentPlanApi.md#cancel) | **POST** /api/installmentplans/{installmentPlanNumber}/cancel |  |
+| [**checkEligibility()**](InstallmentPlanApi.md#checkEligibility) | **POST** /api/installmentplans/check-eligibility |  |
+| [**get()**](InstallmentPlanApi.md#get) | **GET** /api/installmentplans/{installmentPlanNumber} |  |
+| [**post()**](InstallmentPlanApi.md#post) | **POST** /api/installmentplans/initiate |  |
+| [**post2()**](InstallmentPlanApi.md#post2) | **POST** /api/installmentplans |  |
+| [**refund()**](InstallmentPlanApi.md#refund) | **POST** /api/installmentplans/{installmentPlanNumber}/refund |  |
+| [**search()**](InstallmentPlanApi.md#search) | **GET** /api/installmentplans/search |  |
+| [**updateOrder()**](InstallmentPlanApi.md#updateOrder) | **PUT** /api/installmentplans/{installmentPlanNumber}/updateorder |  |
+| [**updateOrder2()**](InstallmentPlanApi.md#updateOrder2) | **PUT** /api/installmentplans/updateorder |  |
+| [**verifyAuthorization()**](InstallmentPlanApi.md#verifyAuthorization) | **GET** /api/installmentplans/{installmentPlanNumber}/verifyauthorization |  |
+
 
 ## `cancel()`
 
 ```php
 cancel($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point): \Splitit\Model\InstallmentPlanCancelResponse
 ```
+
+
 
 ### Example
 
@@ -38,23 +41,24 @@ $x_splitit_touch_point = ""; // TouchPoint
 
 try {
     $result = $splitit->installmentPlan->cancel(
-        installment_plan_number: $installment_plan_number,
-        x_splitit_idempotency_key: $x_splitit_idempotency_key,
-        x_splitit_touch_point: $x_splitit_touch_point
+        $installment_plan_number, 
+        $x_splitit_idempotency_key, 
+        $x_splitit_touch_point
     );
     print_r($result->$getInstallmentPlanNumber());
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->cancel: ', $e->getMessage(), PHP_EOL;
 }
+
 ```
 
 ### Parameters
 
-| Name                          | Type       | Description | Notes                   |
-| ----------------------------- | ---------- | ----------- | ----------------------- |
-| **installment_plan_number**   | **string** |             |                         |
-| **x_splitit_idempotency_key** | **string** |             |                         |
-| **x_splitit_touch_point**     | **string** | TouchPoint  | [default to &#39;&#39;] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **installment_plan_number** | **string**|  | |
+| **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
 
 ### Return type
 
@@ -78,6 +82,8 @@ try {
 ```php
 checkEligibility($x_splitit_idempotency_key, $x_splitit_touch_point, $check_installments_eligibility_request): \Splitit\Model\InstallmentsEligibilityResponse
 ```
+
+
 
 ### Example
 
@@ -106,26 +112,27 @@ $billing_address = [
 
 try {
     $result = $splitit->installmentPlan->checkEligibility(
-        x_splitit_idempotency_key: $x_splitit_idempotency_key,
-        x_splitit_touch_point: $x_splitit_touch_point,
-        plan_data: $plan_data,
-        card_details: $card_details,
-        billing_address: $billing_address
+        $x_splitit_idempotency_key, 
+        $x_splitit_touch_point, 
+        $plan_data, 
+        $card_details, 
+        $billing_address
     );
     print_r($result->$getInstallmentProvider());
     print_r($result->$getPaymentPlanOptions());
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->checkEligibility: ', $e->getMessage(), PHP_EOL;
 }
+
 ```
 
 ### Parameters
 
-| Name                                       | Type                                                                                                      | Description | Notes                   |
-| ------------------------------------------ | --------------------------------------------------------------------------------------------------------- | ----------- | ----------------------- |
-| **x_splitit_idempotency_key**              | **string**                                                                                                |             |                         |
-| **x_splitit_touch_point**                  | **string**                                                                                                | TouchPoint  | [default to &#39;&#39;] |
-| **check_installments_eligibility_request** | [**\Splitit\Model\CheckInstallmentsEligibilityRequest**](../Model/CheckInstallmentsEligibilityRequest.md) |             |                         |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
+| **check_installments_eligibility_request** | [**\Splitit\Model\CheckInstallmentsEligibilityRequest**](../Model/CheckInstallmentsEligibilityRequest.md)|  | |
 
 ### Return type
 
@@ -150,6 +157,8 @@ try {
 get($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point): \Splitit\Model\InstallmentPlanGetResponse
 ```
 
+
+
 ### Example
 
 ```php
@@ -167,9 +176,9 @@ $x_splitit_touch_point = ""; // TouchPoint
 
 try {
     $result = $splitit->installmentPlan->get(
-        installment_plan_number: $installment_plan_number,
-        x_splitit_idempotency_key: $x_splitit_idempotency_key,
-        x_splitit_touch_point: $x_splitit_touch_point
+        $installment_plan_number, 
+        $x_splitit_idempotency_key, 
+        $x_splitit_touch_point
     );
     print_r($result->$getInstallmentPlanNumber());
     print_r($result->$getDateCreated());
@@ -190,15 +199,16 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->get: ', $e->getMessage(), PHP_EOL;
 }
+
 ```
 
 ### Parameters
 
-| Name                          | Type       | Description | Notes                   |
-| ----------------------------- | ---------- | ----------- | ----------------------- |
-| **installment_plan_number**   | **string** |             |                         |
-| **x_splitit_idempotency_key** | **string** |             |                         |
-| **x_splitit_touch_point**     | **string** | TouchPoint  | [default to &#39;&#39;] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **installment_plan_number** | **string**|  | |
+| **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
 
 ### Return type
 
@@ -222,6 +232,8 @@ try {
 ```php
 post($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode): \Splitit\Model\InitiatePlanResponse
 ```
+
+
 
 ### Example
 
@@ -258,18 +270,18 @@ $x_splitit_test_mode = "None";
 
 try {
     $result = $splitit->installmentPlan->post(
-        auto_capture: $auto_capture,
-        x_splitit_idempotency_key: $x_splitit_idempotency_key,
-        x_splitit_touch_point: $x_splitit_touch_point,
-        attempt3d_secure: $attempt3d_secure,
-        shopper: $shopper,
-        plan_data: $plan_data,
-        billing_address: $billing_address,
-        redirect_urls: $redirect_urls,
-        ux_settings: $ux_settings,
-        events_endpoints: $events_endpoints,
-        processing_data: $processing_data,
-        x_splitit_test_mode: $x_splitit_test_mode
+        $auto_capture, 
+        $x_splitit_idempotency_key, 
+        $x_splitit_touch_point, 
+        $attempt3d_secure, 
+        $shopper, 
+        $plan_data, 
+        $billing_address, 
+        $redirect_urls, 
+        $ux_settings, 
+        $events_endpoints, 
+        $processing_data, 
+        $x_splitit_test_mode
     );
     print_r($result->$getInstallmentPlanNumber());
     print_r($result->$getRefOrderNumber());
@@ -284,16 +296,17 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->post: ', $e->getMessage(), PHP_EOL;
 }
+
 ```
 
 ### Parameters
 
-| Name                                  | Type                                                                                            | Description | Notes                   |
-| ------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------- | ----------------------- |
-| **x_splitit_idempotency_key**         | **string**                                                                                      |             |                         |
-| **x_splitit_touch_point**             | **string**                                                                                      | TouchPoint  | [default to &#39;&#39;] |
-| **installment_plan_initiate_request** | [**\Splitit\Model\InstallmentPlanInitiateRequest**](../Model/InstallmentPlanInitiateRequest.md) |             |                         |
-| **x_splitit_test_mode**               | **string**                                                                                      |             | [optional]              |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
+| **installment_plan_initiate_request** | [**\Splitit\Model\InstallmentPlanInitiateRequest**](../Model/InstallmentPlanInitiateRequest.md)|  | |
+| **x_splitit_test_mode** | **string**|  | [optional] |
 
 ### Return type
 
@@ -317,6 +330,8 @@ try {
 ```php
 post2($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode): \Splitit\Model\InstallmentPlanCreateResponse
 ```
+
+
 
 ### Example
 
@@ -355,19 +370,19 @@ $x_splitit_test_mode = "None";
 
 try {
     $result = $splitit->installmentPlan->post2(
-        auto_capture: $auto_capture,
-        terms_and_conditions_accepted: $terms_and_conditions_accepted,
-        x_splitit_idempotency_key: $x_splitit_idempotency_key,
-        x_splitit_touch_point: $x_splitit_touch_point,
-        attempt3d_secure: $attempt3d_secure,
-        shopper: $shopper,
-        plan_data: $plan_data,
-        billing_address: $billing_address,
-        payment_method: $payment_method,
-        redirect_urls: $redirect_urls,
-        processing_data: $processing_data,
-        events_endpoints: $events_endpoints,
-        x_splitit_test_mode: $x_splitit_test_mode
+        $auto_capture, 
+        $terms_and_conditions_accepted, 
+        $x_splitit_idempotency_key, 
+        $x_splitit_touch_point, 
+        $attempt3d_secure, 
+        $shopper, 
+        $plan_data, 
+        $billing_address, 
+        $payment_method, 
+        $redirect_urls, 
+        $processing_data, 
+        $events_endpoints, 
+        $x_splitit_test_mode
     );
     print_r($result->$getInstallmentPlanNumber());
     print_r($result->$getDateCreated());
@@ -387,16 +402,17 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->post2: ', $e->getMessage(), PHP_EOL;
 }
+
 ```
 
 ### Parameters
 
-| Name                                | Type                                                                                        | Description | Notes                   |
-| ----------------------------------- | ------------------------------------------------------------------------------------------- | ----------- | ----------------------- |
-| **x_splitit_idempotency_key**       | **string**                                                                                  |             |                         |
-| **x_splitit_touch_point**           | **string**                                                                                  | TouchPoint  | [default to &#39;&#39;] |
-| **installment_plan_create_request** | [**\Splitit\Model\InstallmentPlanCreateRequest**](../Model/InstallmentPlanCreateRequest.md) |             |                         |
-| **x_splitit_test_mode**             | **string**                                                                                  |             | [optional]              |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
+| **installment_plan_create_request** | [**\Splitit\Model\InstallmentPlanCreateRequest**](../Model/InstallmentPlanCreateRequest.md)|  | |
+| **x_splitit_test_mode** | **string**|  | [optional] |
 
 ### Return type
 
@@ -421,6 +437,8 @@ try {
 refund($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request): \Splitit\Model\InstallmentPlanRefundResponse
 ```
 
+
+
 ### Example
 
 ```php
@@ -440,11 +458,11 @@ $refund_strategy = "FutureInstallmentsFirst";
 
 try {
     $result = $splitit->installmentPlan->refund(
-        amount: $amount,
-        installment_plan_number: $installment_plan_number,
-        x_splitit_idempotency_key: $x_splitit_idempotency_key,
-        x_splitit_touch_point: $x_splitit_touch_point,
-        refund_strategy: $refund_strategy
+        $amount, 
+        $installment_plan_number, 
+        $x_splitit_idempotency_key, 
+        $x_splitit_touch_point, 
+        $refund_strategy
     );
     print_r($result->$getRefundId());
     print_r($result->$getInstallmentPlanNumber());
@@ -455,16 +473,17 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->refund: ', $e->getMessage(), PHP_EOL;
 }
+
 ```
 
 ### Parameters
 
-| Name                                | Type                                                                                        | Description | Notes                   |
-| ----------------------------------- | ------------------------------------------------------------------------------------------- | ----------- | ----------------------- |
-| **installment_plan_number**         | **string**                                                                                  |             |                         |
-| **x_splitit_idempotency_key**       | **string**                                                                                  |             |                         |
-| **x_splitit_touch_point**           | **string**                                                                                  | TouchPoint  | [default to &#39;&#39;] |
-| **installment_plan_refund_request** | [**\Splitit\Model\InstallmentPlanRefundRequest**](../Model/InstallmentPlanRefundRequest.md) |             |                         |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **installment_plan_number** | **string**|  | |
+| **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
+| **installment_plan_refund_request** | [**\Splitit\Model\InstallmentPlanRefundRequest**](../Model/InstallmentPlanRefundRequest.md)|  | |
 
 ### Return type
 
@@ -489,6 +508,8 @@ try {
 search($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_number, $ref_order_number, $extended_params): \Splitit\Model\InstallmentPlanSearchResponse
 ```
 
+
+
 ### Example
 
 ```php
@@ -510,27 +531,28 @@ $extended_params = [
 
 try {
     $result = $splitit->installmentPlan->search(
-        $x_splitit_idempotency_key,
-        $x_splitit_touch_point,
-        $installment_plan_number,
-        $ref_order_number,
+        $x_splitit_idempotency_key, 
+        $x_splitit_touch_point, 
+        $installment_plan_number, 
+        $ref_order_number, 
         $extended_params
     );
     print_r($result->$getPlanList());
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->search: ', $e->getMessage(), PHP_EOL;
 }
+
 ```
 
 ### Parameters
 
-| Name                          | Type                                           | Description | Notes                   |
-| ----------------------------- | ---------------------------------------------- | ----------- | ----------------------- |
-| **x_splitit_idempotency_key** | **string**                                     |             |                         |
-| **x_splitit_touch_point**     | **string**                                     | TouchPoint  | [default to &#39;&#39;] |
-| **installment_plan_number**   | **string**                                     |             | [optional]              |
-| **ref_order_number**          | **string**                                     |             | [optional]              |
-| **extended_params**           | [**array<string,string>**](../Model/string.md) |             | [optional]              |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
+| **installment_plan_number** | **string**|  | [optional] |
+| **ref_order_number** | **string**|  | [optional] |
+| **extended_params** | [**array<string,string>**](../Model/string.md)|  | [optional] |
 
 ### Return type
 
@@ -555,6 +577,8 @@ try {
 updateOrder($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request): \Splitit\Model\InstallmentPlanUpdateResponse
 ```
 
+
+
 ### Example
 
 ```php
@@ -576,13 +600,13 @@ $capture = True;
 
 try {
     $result = $splitit->installmentPlan->updateOrder(
-        installment_plan_number: $installment_plan_number,
-        x_splitit_idempotency_key: $x_splitit_idempotency_key,
-        x_splitit_touch_point: $x_splitit_touch_point,
-        tracking_number: $tracking_number,
-        ref_order_number: $ref_order_number,
-        shipping_status: $shipping_status,
-        capture: $capture
+        $installment_plan_number, 
+        $x_splitit_idempotency_key, 
+        $x_splitit_touch_point, 
+        $tracking_number, 
+        $ref_order_number, 
+        $shipping_status, 
+        $capture
     );
     print_r($result->$getRefOrderNumber());
     print_r($result->$getInstallmentPlanNumber());
@@ -591,16 +615,17 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->updateOrder: ', $e->getMessage(), PHP_EOL;
 }
+
 ```
 
 ### Parameters
 
-| Name                          | Type                                                                    | Description | Notes                   |
-| ----------------------------- | ----------------------------------------------------------------------- | ----------- | ----------------------- |
-| **installment_plan_number**   | **string**                                                              |             |                         |
-| **x_splitit_idempotency_key** | **string**                                                              |             |                         |
-| **x_splitit_touch_point**     | **string**                                                              | TouchPoint  | [default to &#39;&#39;] |
-| **update_order_request**      | [**\Splitit\Model\UpdateOrderRequest**](../Model/UpdateOrderRequest.md) |             |                         |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **installment_plan_number** | **string**|  | |
+| **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
+| **update_order_request** | [**\Splitit\Model\UpdateOrderRequest**](../Model/UpdateOrderRequest.md)|  | |
 
 ### Return type
 
@@ -625,6 +650,8 @@ try {
 updateOrder2($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request_by_identifier): \Splitit\Model\InstallmentPlanUpdateResponse
 ```
 
+
+
 ### Example
 
 ```php
@@ -647,13 +674,13 @@ $identifier = [
 
 try {
     $result = $splitit->installmentPlan->updateOrder2(
-        x_splitit_idempotency_key: $x_splitit_idempotency_key,
-        x_splitit_touch_point: $x_splitit_touch_point,
-        ref_order_number: $ref_order_number,
-        tracking_number: $tracking_number,
-        capture: $capture,
-        shipping_status: $shipping_status,
-        identifier: $identifier
+        $x_splitit_idempotency_key, 
+        $x_splitit_touch_point, 
+        $ref_order_number, 
+        $tracking_number, 
+        $capture, 
+        $shipping_status, 
+        $identifier
     );
     print_r($result->$getRefOrderNumber());
     print_r($result->$getInstallmentPlanNumber());
@@ -662,15 +689,16 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->updateOrder2: ', $e->getMessage(), PHP_EOL;
 }
+
 ```
 
 ### Parameters
 
-| Name                                              | Type                                                                                                                | Description | Notes                   |
-| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------- | ----------------------- |
-| **x_splitit_idempotency_key**                     | **string**                                                                                                          |             |                         |
-| **x_splitit_touch_point**                         | **string**                                                                                                          | TouchPoint  | [default to &#39;&#39;] |
-| **installment_plan_update_request_by_identifier** | [**\Splitit\Model\InstallmentPlanUpdateRequestByIdentifier**](../Model/InstallmentPlanUpdateRequestByIdentifier.md) |             |                         |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
+| **installment_plan_update_request_by_identifier** | [**\Splitit\Model\InstallmentPlanUpdateRequestByIdentifier**](../Model/InstallmentPlanUpdateRequestByIdentifier.md)|  | |
 
 ### Return type
 
@@ -695,6 +723,8 @@ try {
 verifyAuthorization($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point): \Splitit\Model\VerifyAuthorizationResponse
 ```
 
+
+
 ### Example
 
 ```php
@@ -712,9 +742,9 @@ $x_splitit_touch_point = ""; // TouchPoint
 
 try {
     $result = $splitit->installmentPlan->verifyAuthorization(
-        installment_plan_number: $installment_plan_number,
-        x_splitit_idempotency_key: $x_splitit_idempotency_key,
-        x_splitit_touch_point: $x_splitit_touch_point
+        $installment_plan_number, 
+        $x_splitit_idempotency_key, 
+        $x_splitit_touch_point
     );
     print_r($result->$getIsAuthorized());
     print_r($result->$getAuthorizationAmount());
@@ -722,15 +752,16 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->verifyAuthorization: ', $e->getMessage(), PHP_EOL;
 }
+
 ```
 
 ### Parameters
 
-| Name                          | Type       | Description | Notes                   |
-| ----------------------------- | ---------- | ----------- | ----------------------- |
-| **installment_plan_number**   | **string** |             |                         |
-| **x_splitit_idempotency_key** | **string** |             |                         |
-| **x_splitit_touch_point**     | **string** | TouchPoint  | [default to &#39;&#39;] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **installment_plan_number** | **string**|  | |
+| **x_splitit_idempotency_key** | **string**|  | |
+| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
 
 ### Return type
 

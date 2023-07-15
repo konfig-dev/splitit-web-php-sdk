@@ -1,5 +1,4 @@
 <?php
-
 /**
  * VerifyAuthorizationResponse
  *
@@ -38,17 +37,17 @@ class VerifyAuthorizationResponse implements ModelInterface, ArrayAccess, \JsonS
     public const DISCRIMINATOR = null;
 
     /**
-     * The original name of the model.
-     *
-     * @var string
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static $openAPIModelName = 'VerifyAuthorizationResponse';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static $openAPITypes = [
         'is_authorized' => 'bool',
         'authorization_amount' => 'float',
@@ -56,12 +55,12 @@ class VerifyAuthorizationResponse implements ModelInterface, ArrayAccess, \JsonS
     ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
-     *
-     * @var string[]
-     * @phpstan-var array<string, string|null>
-     * @psalm-var array<string, string|null>
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      * @phpstan-var array<string, string|null>
+      * @psalm-var array<string, string|null>
+      */
     protected static $openAPIFormats = [
         'is_authorized' => null,
         'authorization_amount' => 'decimal',
@@ -69,21 +68,21 @@ class VerifyAuthorizationResponse implements ModelInterface, ArrayAccess, \JsonS
     ];
 
     /**
-     * Array of nullable properties. Used for (de)serialization
-     *
-     * @var boolean[]
-     */
+      * Array of nullable properties. Used for (de)serialization
+      *
+      * @var boolean[]
+      */
     protected static $openAPINullables = [
         'is_authorized' => false,
-        'authorization_amount' => false,
-        'authorization' => false
+		'authorization_amount' => false,
+		'authorization' => false
     ];
 
     /**
-     * If a nullable field gets set to null, insert it here
-     *
-     * @var boolean[]
-     */
+      * If a nullable field gets set to null, insert it here
+      *
+      * @var boolean[]
+      */
     protected $openAPINullablesSetToNull = [];
 
     /**
@@ -255,14 +254,14 @@ class VerifyAuthorizationResponse implements ModelInterface, ArrayAccess, \JsonS
     }
 
     /**
-     * Sets $this->container[$variableName] to the given data or to the given default Value; if $variableName
-     * is nullable and its value is set to null in the $fields array, then mark it as "set to null" in the
-     * $this->openAPINullablesSetToNull array
-     *
-     * @param string $variableName
-     * @param array  $fields
-     * @param mixed  $defaultValue
-     */
+    * Sets $this->container[$variableName] to the given data or to the given default Value; if $variableName
+    * is nullable and its value is set to null in the $fields array, then mark it as "set to null" in the
+    * $this->openAPINullablesSetToNull array
+    *
+    * @param string $variableName
+    * @param array  $fields
+    * @param mixed  $defaultValue
+    */
     private function setIfExists(string $variableName, array $fields, $defaultValue): void
     {
         if (self::isNullable($variableName) && array_key_exists($variableName, $fields) && is_null($fields[$variableName])) {
@@ -449,7 +448,7 @@ class VerifyAuthorizationResponse implements ModelInterface, ArrayAccess, \JsonS
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
-        return ObjectSerializer::sanitizeForSerialization($this);
+       return ObjectSerializer::sanitizeForSerialization($this);
     }
 
     /**
@@ -475,3 +474,5 @@ class VerifyAuthorizationResponse implements ModelInterface, ArrayAccess, \JsonS
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
+
+

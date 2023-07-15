@@ -57,14 +57,15 @@ $x_splitit_touch_point = ""; // TouchPoint
 
 try {
     $result = $splitit->installmentPlan->cancel(
-        installment_plan_number: $installment_plan_number, 
-        x_splitit_idempotency_key: $x_splitit_idempotency_key, 
-        x_splitit_touch_point: $x_splitit_touch_point
+        $installment_plan_number, 
+        $x_splitit_idempotency_key, 
+        $x_splitit_touch_point
     );
     print_r($result->$getInstallmentPlanNumber());
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->cancel: ', $e->getMessage(), PHP_EOL;
 }
+
 ```
 
 ## API Endpoints

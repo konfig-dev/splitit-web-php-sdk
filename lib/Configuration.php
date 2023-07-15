@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Configuration
  * PHP version 7.4
@@ -146,7 +145,8 @@ class Configuration
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(
+    )
     {
         $this->tempFolderPath = sys_get_temp_dir();
     }
