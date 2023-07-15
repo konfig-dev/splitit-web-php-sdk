@@ -31,7 +31,8 @@ use Splitit\Model\PurchaseMethod;
 class InstallmentPlanApiTest extends TestCase
 {
 
-    protected \Splitit\Client $splitit;
+    /** @var \Splitit\Client */
+    protected $splitit;
 
     /**
      * Setup before running any test cases
@@ -46,10 +47,11 @@ class InstallmentPlanApiTest extends TestCase
     public function setUp(): void
     {
         $this->splitit = new \Splitit\Client(
-            host: "https://web-api-v3.sandbox.splitit.com",
-            tokenUrl: "https://id.sandbox.splitit.com/connect/token",
-            clientId: getenv("SPLITIT_CLIENT_ID"),
-            clientSecret: getenv("SPLITIT_CLIENT_SECRET"),
+            "https://id.sandbox.splitit.com/connect/token",
+            getenv("SPLITIT_CLIENT_ID"),
+            getenv("SPLITIT_CLIENT_SECRET"),
+            null,
+            "https://web-api-v3.sandbox.splitit.com"
         );
     }
 
@@ -112,27 +114,27 @@ class InstallmentPlanApiTest extends TestCase
     public function testPost()
     {
         $response = $this->splitit->installmentPlan->post(
-            x_splitit_idempotency_key: date("c"),
-            x_splitit_touch_point: date("c"),
-            auto_capture: true,
-            attempt3d_secure: true,
-            shopper: [
+            true,
+            date("c"),
+            date("c"),
+            true,
+            [
                 'email' => 'fake@email.com',
             ],
-            plan_data: [
+            [
                 'total_amount' => 10,
                 'number_of_installments' => 10,
                 'currency' => 'USD',
                 'purchase_method' => "InStore",
             ],
-            billing_address: [
+            [
                 'address_line1' => '144 Union St',
                 'city' => 'Brooklyn',
                 'state' => 'North Dakota',
                 'zip' => '11231',
                 'country' => 'United States',
             ],
-            redirect_urls: [],
+            []
         );
         $this->assertNotNull(
             $response,

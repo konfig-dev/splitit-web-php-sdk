@@ -1,4 +1,5 @@
 <?php
+
 /**
  * InstallmentPlanCreateResponse
  *
@@ -37,17 +38,17 @@ class InstallmentPlanCreateResponse implements ModelInterface, ArrayAccess, \Jso
     public const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $openAPIModelName = 'InstallmentPlanCreateResponse';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization
+     *
+     * @var string[]
+     */
     protected static $openAPITypes = [
         'installment_plan_number' => 'string',
         'date_created' => '\DateTime',
@@ -67,12 +68,12 @@ class InstallmentPlanCreateResponse implements ModelInterface, ArrayAccess, \Jso
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      * @phpstan-var array<string, string|null>
-      * @psalm-var array<string, string|null>
-      */
+     * Array of property to format mappings. Used for (de)serialization
+     *
+     * @var string[]
+     * @phpstan-var array<string, string|null>
+     * @psalm-var array<string, string|null>
+     */
     protected static $openAPIFormats = [
         'installment_plan_number' => null,
         'date_created' => 'date-time',
@@ -92,34 +93,34 @@ class InstallmentPlanCreateResponse implements ModelInterface, ArrayAccess, \Jso
     ];
 
     /**
-      * Array of nullable properties. Used for (de)serialization
-      *
-      * @var boolean[]
-      */
-    protected static array $openAPINullables = [
+     * Array of nullable properties. Used for (de)serialization
+     *
+     * @var boolean[]
+     */
+    protected static $openAPINullables = [
         'installment_plan_number' => false,
-		'date_created' => false,
-		'ref_order_number' => false,
-		'purchase_method' => false,
-		'status' => false,
-		'currency' => false,
-		'original_amount' => false,
-		'amount' => false,
-		'extended_params' => false,
-		'authorization' => false,
-		'shopper' => false,
-		'billing_address' => false,
-		'payment_method' => false,
-		'installments' => false,
-		'links' => false
+        'date_created' => false,
+        'ref_order_number' => false,
+        'purchase_method' => false,
+        'status' => false,
+        'currency' => false,
+        'original_amount' => false,
+        'amount' => false,
+        'extended_params' => false,
+        'authorization' => false,
+        'shopper' => false,
+        'billing_address' => false,
+        'payment_method' => false,
+        'installments' => false,
+        'links' => false
     ];
 
     /**
-      * If a nullable field gets set to null, insert it here
-      *
-      * @var boolean[]
-      */
-    protected array $openAPINullablesSetToNull = [];
+     * If a nullable field gets set to null, insert it here
+     *
+     * @var boolean[]
+     */
+    protected $openAPINullablesSetToNull = [];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -338,14 +339,14 @@ class InstallmentPlanCreateResponse implements ModelInterface, ArrayAccess, \Jso
     }
 
     /**
-    * Sets $this->container[$variableName] to the given data or to the given default Value; if $variableName
-    * is nullable and its value is set to null in the $fields array, then mark it as "set to null" in the
-    * $this->openAPINullablesSetToNull array
-    *
-    * @param string $variableName
-    * @param array  $fields
-    * @param mixed  $defaultValue
-    */
+     * Sets $this->container[$variableName] to the given data or to the given default Value; if $variableName
+     * is nullable and its value is set to null in the $fields array, then mark it as "set to null" in the
+     * $this->openAPINullablesSetToNull array
+     *
+     * @param string $variableName
+     * @param array  $fields
+     * @param mixed  $defaultValue
+     */
     private function setIfExists(string $variableName, array $fields, $defaultValue): void
     {
         if (self::isNullable($variableName) && array_key_exists($variableName, $fields) && is_null($fields[$variableName])) {
@@ -883,7 +884,7 @@ class InstallmentPlanCreateResponse implements ModelInterface, ArrayAccess, \Jso
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
-       return ObjectSerializer::sanitizeForSerialization($this);
+        return ObjectSerializer::sanitizeForSerialization($this);
     }
 
     /**
@@ -909,5 +910,3 @@ class InstallmentPlanCreateResponse implements ModelInterface, ArrayAccess, \Jso
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
-
-

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Configuration
  * PHP version 7.4
@@ -63,21 +64,21 @@ class Configuration
      *
      * @var string
      */
-    protected string $tokenUrl = "https://id.production.splitit.com/connect/token";
+    protected $tokenUrl = "https://id.production.splitit.com/connect/token";
 
     /**
      * Access token for OAuth/Application authentication
      *
      * @var string
      */
-    protected string $clientId = '';
+    protected $clientId = '';
 
     /**
      * Access token for OAuth/Application authentication
      *
      * @var string
      */
-    protected string $clientSecret = '';
+    protected $clientSecret = '';
 
     /**
      * Boolean format for query string
@@ -145,8 +146,7 @@ class Configuration
     /**
      * Constructor
      */
-    public function __construct(
-    )
+    public function __construct()
     {
         $this->tempFolderPath = sys_get_temp_dir();
     }

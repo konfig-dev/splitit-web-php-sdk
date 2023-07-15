@@ -1,4 +1,5 @@
 <?php
+
 /**
  * InstallmentPlanApi
  * PHP version 7.4
@@ -111,7 +112,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         ],
     ];
 
-/**
+    /**
      * @param ClientInterface $client
      * @param Configuration   $config
      * @param HeaderSelector  $selector
@@ -129,7 +130,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         // Do not truncate error messages
         // https://github.com/guzzle/guzzle/issues/2185#issuecomment-800293420
         $stack = new HandlerStack(Utils::chooseHandler());
-        $stack->push(Middleware::httpErrors(new BodySummarizer(10_000)), 'http_errors');
+        $stack->push(Middleware::httpErrors(new BodySummarizer(10000)), 'http_errors');
         $stack->push(Middleware::redirect(), 'allow_redirects');
         $stack->push(Middleware::cookies(), 'cookies');
         $stack->push(Middleware::prepareBody(), 'prepare_body');
@@ -172,7 +173,8 @@ class InstallmentPlanApi extends \Splitit\CustomApi
     /**
      * For initializing request body parameter
      */
-    private function setRequestBodyProperty(&$body, $property, $value) {
+    private function setRequestBodyProperty(&$body, $property, $value)
+    {
         if ($body === null) $body = [];
         // user did not pass in a value for this parameter
         if ($value === SENTINEL_VALUE) return;
@@ -197,12 +199,11 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $x_splitit_touch_point,
 
 
-        string $contentType = self::contentTypes['cancel'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
 
-        list($response) = $this->cancelWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType);
+        list($response) = $this->cancelWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType, null);
         return $response;
     }
 
@@ -213,13 +214,15 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancel'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \Splitit\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanCancelResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function cancelWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = self::contentTypes['cancel'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function cancelWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         ["request" => $request, "serializedBody" => $serializedBody] = $this->cancelRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType);
 
         // Customization hook
@@ -274,7 +277,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanCancelResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -367,7 +370,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -432,12 +434,11 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $x_splitit_touch_point,
 
 
-        string $contentType = self::contentTypes['cancel'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
 
-        return $this->cancelAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType)
+        return $this->cancelAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType, null)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -452,12 +453,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancel'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = self::contentTypes['cancel'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function cancelAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         $returnType = '\Splitit\Model\InstallmentPlanCancelResponse';
         ["request" => $request, "serializedBody" => $serializedBody] = $this->cancelRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType);
 
@@ -574,7 +577,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -594,7 +597,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -659,8 +661,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
         string $contentType = self::contentTypes['checkEligibility'][0]
 
-    )
-    {
+    ) {
         $_body = [];
         $this->setRequestBodyProperty($_body, "plan_data", $plan_data);
         $this->setRequestBodyProperty($_body, "card_details", $card_details);
@@ -678,13 +679,15 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $x_splitit_touch_point TouchPoint (required)
      * @param  \Splitit\Model\CheckInstallmentsEligibilityRequest $check_installments_eligibility_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['checkEligibility'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \Splitit\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentsEligibilityResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function checkEligibilityWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $check_installments_eligibility_request, string $contentType = self::contentTypes['checkEligibility'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function checkEligibilityWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $check_installments_eligibility_request, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         ["request" => $request, "serializedBody" => $serializedBody] = $this->checkEligibilityRequest($x_splitit_idempotency_key, $x_splitit_touch_point, $check_installments_eligibility_request, $contentType);
 
         // Customization hook
@@ -739,7 +742,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentsEligibilityResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -832,7 +835,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -899,10 +901,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $card_details = SENTINEL_VALUE,
         $billing_address = SENTINEL_VALUE,
 
-        string $contentType = self::contentTypes['checkEligibility'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
         $_body = [];
         $this->setRequestBodyProperty($_body, "plan_data", $plan_data);
         $this->setRequestBodyProperty($_body, "card_details", $card_details);
@@ -924,12 +925,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $x_splitit_touch_point TouchPoint (required)
      * @param  \Splitit\Model\CheckInstallmentsEligibilityRequest $check_installments_eligibility_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['checkEligibility'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function checkEligibilityAsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $check_installments_eligibility_request, string $contentType = self::contentTypes['checkEligibility'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function checkEligibilityAsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $check_installments_eligibility_request, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         $returnType = '\Splitit\Model\InstallmentsEligibilityResponse';
         ["request" => $request, "serializedBody" => $serializedBody] = $this->checkEligibilityRequest($x_splitit_idempotency_key, $x_splitit_touch_point, $check_installments_eligibility_request, $contentType);
 
@@ -983,7 +986,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function checkEligibilityRequest($x_splitit_idempotency_key, $x_splitit_touch_point, $check_installments_eligibility_request, string $contentType = self::contentTypes['checkEligibility'][0])
+    public function checkEligibilityRequest($x_splitit_idempotency_key, $x_splitit_touch_point, $check_installments_eligibility_request, string $contentType = 'application/json')
     {
 
         // Check if $x_splitit_idempotency_key is a string
@@ -1042,7 +1045,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -1069,7 +1072,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -1130,10 +1132,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $x_splitit_touch_point,
 
 
-        string $contentType = self::contentTypes['get'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
 
         list($response) = $this->getWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType);
         return $response;
@@ -1146,13 +1147,15 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['get'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \Splitit\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanGetResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = self::contentTypes['get'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function getWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         ["request" => $request, "serializedBody" => $serializedBody] = $this->getRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType);
 
         // Customization hook
@@ -1207,7 +1210,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanGetResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -1300,7 +1303,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -1365,10 +1367,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $x_splitit_touch_point,
 
 
-        string $contentType = self::contentTypes['get'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
 
         return $this->getAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType)
             ->then(
@@ -1385,12 +1386,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['get'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = self::contentTypes['get'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function getAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         $returnType = '\Splitit\Model\InstallmentPlanGetResponse';
         ["request" => $request, "serializedBody" => $serializedBody] = $this->getRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType);
 
@@ -1444,7 +1447,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = self::contentTypes['get'][0])
+    public function getRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = 'application/json')
     {
 
         // Check if $installment_plan_number is a string
@@ -1507,7 +1510,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -1527,7 +1530,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -1598,10 +1600,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $processing_data = SENTINEL_VALUE,
         $x_splitit_test_mode = SENTINEL_VALUE,
 
-        string $contentType = self::contentTypes['post'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
         $_body = [];
         $this->setRequestBodyProperty($_body, "auto_capture", $auto_capture);
         $this->setRequestBodyProperty($_body, "attempt3d_secure", $attempt3d_secure);
@@ -1614,7 +1615,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "processing_data", $processing_data);
         $installment_plan_initiate_request = $_body;
 
-        list($response) = $this->postWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType);
+        list($response) = $this->postWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType, null);
         return $response;
     }
 
@@ -1626,13 +1627,15 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  \Splitit\Model\InstallmentPlanInitiateRequest $installment_plan_initiate_request (required)
      * @param  string $x_splitit_test_mode (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['post'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \Splitit\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InitiatePlanResponse|\Splitit\Model\PlanErrorResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function postWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         ["request" => $request, "serializedBody" => $serializedBody] = $this->postRequest($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType);
 
         // Customization hook
@@ -1688,7 +1691,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InitiatePlanResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -1796,7 +1799,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -1879,10 +1881,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $processing_data = SENTINEL_VALUE,
         $x_splitit_test_mode = SENTINEL_VALUE,
 
-        string $contentType = self::contentTypes['post'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
         $_body = [];
         $this->setRequestBodyProperty($_body, "auto_capture", $auto_capture);
         $this->setRequestBodyProperty($_body, "attempt3d_secure", $attempt3d_secure);
@@ -1895,7 +1896,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "processing_data", $processing_data);
         $installment_plan_initiate_request = $_body;
 
-        return $this->postAsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType)
+        return $this->postAsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType, null)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1911,12 +1912,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  \Splitit\Model\InstallmentPlanInitiateRequest $installment_plan_initiate_request (required)
      * @param  string $x_splitit_test_mode (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['post'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function postAsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode = null, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         $returnType = '\Splitit\Model\InitiatePlanResponse';
         ["request" => $request, "serializedBody" => $serializedBody] = $this->postRequest($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode, $contentType);
 
@@ -1971,7 +1974,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postRequest($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode = SENTINEL_VALUE, string $contentType = self::contentTypes['post'][0])
+    public function postRequest($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode = SENTINEL_VALUE, string $contentType = 'application/json')
     {
 
         // Check if $x_splitit_idempotency_key is a string
@@ -2038,7 +2041,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -2065,7 +2068,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -2137,10 +2139,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $events_endpoints = SENTINEL_VALUE,
         $x_splitit_test_mode = SENTINEL_VALUE,
 
-        string $contentType = self::contentTypes['post2'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
         $_body = [];
         $this->setRequestBodyProperty($_body, "auto_capture", $auto_capture);
         $this->setRequestBodyProperty($_body, "attempt3d_secure", $attempt3d_secure);
@@ -2154,7 +2155,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "events_endpoints", $events_endpoints);
         $installment_plan_create_request = $_body;
 
-        list($response) = $this->post2WithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode, $contentType);
+        list($response) = $this->post2WithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode, $contentType, null);
         return $response;
     }
 
@@ -2166,13 +2167,15 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  \Splitit\Model\InstallmentPlanCreateRequest $installment_plan_create_request (required)
      * @param  string $x_splitit_test_mode (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['post2'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \Splitit\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanCreateResponse|\Splitit\Model\PlanErrorResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function post2WithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post2'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function post2WithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         ["request" => $request, "serializedBody" => $serializedBody] = $this->post2Request($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode, $contentType);
 
         // Customization hook
@@ -2228,7 +2231,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanCreateResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -2336,7 +2339,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -2420,10 +2422,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $events_endpoints = SENTINEL_VALUE,
         $x_splitit_test_mode = SENTINEL_VALUE,
 
-        string $contentType = self::contentTypes['post2'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
         $_body = [];
         $this->setRequestBodyProperty($_body, "auto_capture", $auto_capture);
         $this->setRequestBodyProperty($_body, "attempt3d_secure", $attempt3d_secure);
@@ -2437,7 +2438,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "events_endpoints", $events_endpoints);
         $installment_plan_create_request = $_body;
 
-        return $this->post2AsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode, $contentType)
+        return $this->post2AsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode, $contentType, null)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2453,12 +2454,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  \Splitit\Model\InstallmentPlanCreateRequest $installment_plan_create_request (required)
      * @param  string $x_splitit_test_mode (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['post2'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function post2AsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = self::contentTypes['post2'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function post2AsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode = null, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         $returnType = '\Splitit\Model\InstallmentPlanCreateResponse';
         ["request" => $request, "serializedBody" => $serializedBody] = $this->post2Request($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode, $contentType);
 
@@ -2513,7 +2516,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function post2Request($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode = SENTINEL_VALUE, string $contentType = self::contentTypes['post2'][0])
+    public function post2Request($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode = SENTINEL_VALUE, string $contentType = 'application/json')
     {
 
         // Check if $x_splitit_idempotency_key is a string
@@ -2580,7 +2583,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -2607,7 +2610,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -2671,16 +2673,15 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $x_splitit_touch_point,
         $refund_strategy = SENTINEL_VALUE,
 
-        string $contentType = self::contentTypes['refund'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
         $_body = [];
         $this->setRequestBodyProperty($_body, "amount", $amount);
         $this->setRequestBodyProperty($_body, "refund_strategy", $refund_strategy);
         $installment_plan_refund_request = $_body;
 
-        list($response) = $this->refundWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request, $contentType);
+        list($response) = $this->refundWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request, $contentType, null);
         return $response;
     }
 
@@ -2692,13 +2693,15 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $x_splitit_touch_point TouchPoint (required)
      * @param  \Splitit\Model\InstallmentPlanRefundRequest $installment_plan_refund_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['refund'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \Splitit\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanRefundResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function refundWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request, string $contentType = self::contentTypes['refund'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function refundWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         ["request" => $request, "serializedBody" => $serializedBody] = $this->refundRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request, $contentType);
 
         // Customization hook
@@ -2754,7 +2757,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanRefundResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -2847,7 +2850,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -2915,16 +2917,15 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $x_splitit_touch_point,
         $refund_strategy = SENTINEL_VALUE,
 
-        string $contentType = self::contentTypes['refund'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
         $_body = [];
         $this->setRequestBodyProperty($_body, "amount", $amount);
         $this->setRequestBodyProperty($_body, "refund_strategy", $refund_strategy);
         $installment_plan_refund_request = $_body;
 
-        return $this->refundAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request, $contentType)
+        return $this->refundAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request, $contentType, null)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2940,12 +2941,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $x_splitit_touch_point TouchPoint (required)
      * @param  \Splitit\Model\InstallmentPlanRefundRequest $installment_plan_refund_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['refund'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function refundAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request, string $contentType = self::contentTypes['refund'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function refundAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         $returnType = '\Splitit\Model\InstallmentPlanRefundResponse';
         ["request" => $request, "serializedBody" => $serializedBody] = $this->refundRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request, $contentType);
 
@@ -3000,7 +3003,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function refundRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request, string $contentType = self::contentTypes['refund'][0])
+    public function refundRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request, string $contentType = 'application/json')
     {
 
         // Check if $installment_plan_number is a string
@@ -3077,7 +3080,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -3104,7 +3107,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -3169,12 +3171,11 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $extended_params = SENTINEL_VALUE,
 
 
-        string $contentType = self::contentTypes['search'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
 
-        list($response) = $this->searchWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_number, $ref_order_number, $extended_params, $contentType);
+        list($response) = $this->searchWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_number, $ref_order_number, $extended_params, $contentType, null);
         return $response;
     }
 
@@ -3187,13 +3188,15 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $ref_order_number (optional)
      * @param  array<string,string> $extended_params (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['search'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \Splitit\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanSearchResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function searchWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = self::contentTypes['search'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function searchWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         ["request" => $request, "serializedBody" => $serializedBody] = $this->searchRequest($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_number, $ref_order_number, $extended_params, $contentType);
 
         // Customization hook
@@ -3250,7 +3253,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanSearchResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -3343,7 +3346,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -3412,12 +3414,11 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $extended_params = SENTINEL_VALUE,
 
 
-        string $contentType = self::contentTypes['search'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
 
-        return $this->searchAsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_number, $ref_order_number, $extended_params, $contentType)
+        return $this->searchAsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_number, $ref_order_number, $extended_params, $contentType, null)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3434,12 +3435,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $ref_order_number (optional)
      * @param  array<string,string> $extended_params (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['search'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function searchAsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = self::contentTypes['search'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function searchAsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_number = null, $ref_order_number = null, $extended_params = null, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         $returnType = '\Splitit\Model\InstallmentPlanSearchResponse';
         ["request" => $request, "serializedBody" => $serializedBody] = $this->searchRequest($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_number, $ref_order_number, $extended_params, $contentType);
 
@@ -3495,7 +3498,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function searchRequest($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_number = SENTINEL_VALUE, $ref_order_number = SENTINEL_VALUE, $extended_params = SENTINEL_VALUE, string $contentType = self::contentTypes['search'][0])
+    public function searchRequest($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_number = SENTINEL_VALUE, $ref_order_number = SENTINEL_VALUE, $extended_params = SENTINEL_VALUE, string $contentType = 'application/json')
     {
 
         // Check if $x_splitit_idempotency_key is a string
@@ -3581,7 +3584,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -3601,7 +3604,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -3667,10 +3669,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $shipping_status = SENTINEL_VALUE,
         $capture = SENTINEL_VALUE,
 
-        string $contentType = self::contentTypes['updateOrder'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
         $_body = [];
         $this->setRequestBodyProperty($_body, "tracking_number", $tracking_number);
         $this->setRequestBodyProperty($_body, "ref_order_number", $ref_order_number);
@@ -3678,7 +3679,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "capture", $capture);
         $update_order_request = $_body;
 
-        list($response) = $this->updateOrderWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, $contentType);
+        list($response) = $this->updateOrderWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, $contentType, null);
         return $response;
     }
 
@@ -3690,13 +3691,15 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $x_splitit_touch_point TouchPoint (required)
      * @param  \Splitit\Model\UpdateOrderRequest $update_order_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOrder'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \Splitit\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanUpdateResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateOrderWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function updateOrderWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         ["request" => $request, "serializedBody" => $serializedBody] = $this->updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, $contentType);
 
         // Customization hook
@@ -3752,7 +3755,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanUpdateResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -3845,7 +3848,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -3915,10 +3917,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $shipping_status = SENTINEL_VALUE,
         $capture = SENTINEL_VALUE,
 
-        string $contentType = self::contentTypes['updateOrder'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
         $_body = [];
         $this->setRequestBodyProperty($_body, "tracking_number", $tracking_number);
         $this->setRequestBodyProperty($_body, "ref_order_number", $ref_order_number);
@@ -3926,7 +3927,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "capture", $capture);
         $update_order_request = $_body;
 
-        return $this->updateOrderAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, $contentType)
+        return $this->updateOrderAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, $contentType, null)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3942,12 +3943,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $x_splitit_touch_point TouchPoint (required)
      * @param  \Splitit\Model\UpdateOrderRequest $update_order_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOrder'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateOrderAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function updateOrderAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         $returnType = '\Splitit\Model\InstallmentPlanUpdateResponse';
         ["request" => $request, "serializedBody" => $serializedBody] = $this->updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, $contentType);
 
@@ -4002,7 +4005,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0])
+    public function updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, string $contentType = 'application/json')
     {
 
         // Check if $installment_plan_number is a string
@@ -4079,7 +4082,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -4106,7 +4109,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -4171,10 +4173,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $shipping_status = SENTINEL_VALUE,
         $identifier = SENTINEL_VALUE,
 
-        string $contentType = self::contentTypes['updateOrder2'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
         $_body = [];
         $this->setRequestBodyProperty($_body, "ref_order_number", $ref_order_number);
         $this->setRequestBodyProperty($_body, "tracking_number", $tracking_number);
@@ -4183,7 +4184,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "identifier", $identifier);
         $installment_plan_update_request_by_identifier = $_body;
 
-        list($response) = $this->updateOrder2WithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request_by_identifier, $contentType);
+        list($response) = $this->updateOrder2WithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request_by_identifier, $contentType, null);
         return $response;
     }
 
@@ -4194,13 +4195,15 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $x_splitit_touch_point TouchPoint (required)
      * @param  \Splitit\Model\InstallmentPlanUpdateRequestByIdentifier $installment_plan_update_request_by_identifier (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOrder2'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \Splitit\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanUpdateResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateOrder2WithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request_by_identifier, string $contentType = self::contentTypes['updateOrder2'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function updateOrder2WithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request_by_identifier, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         ["request" => $request, "serializedBody" => $serializedBody] = $this->updateOrder2Request($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request_by_identifier, $contentType);
 
         // Customization hook
@@ -4255,7 +4258,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\InstallmentPlanUpdateResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -4348,7 +4351,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -4417,10 +4419,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $shipping_status = SENTINEL_VALUE,
         $identifier = SENTINEL_VALUE,
 
-        string $contentType = self::contentTypes['updateOrder2'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
         $_body = [];
         $this->setRequestBodyProperty($_body, "ref_order_number", $ref_order_number);
         $this->setRequestBodyProperty($_body, "tracking_number", $tracking_number);
@@ -4429,7 +4430,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "identifier", $identifier);
         $installment_plan_update_request_by_identifier = $_body;
 
-        return $this->updateOrder2AsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request_by_identifier, $contentType)
+        return $this->updateOrder2AsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request_by_identifier, $contentType, null)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4444,12 +4445,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $x_splitit_touch_point TouchPoint (required)
      * @param  \Splitit\Model\InstallmentPlanUpdateRequestByIdentifier $installment_plan_update_request_by_identifier (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOrder2'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateOrder2AsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request_by_identifier, string $contentType = self::contentTypes['updateOrder2'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function updateOrder2AsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request_by_identifier, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         $returnType = '\Splitit\Model\InstallmentPlanUpdateResponse';
         ["request" => $request, "serializedBody" => $serializedBody] = $this->updateOrder2Request($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request_by_identifier, $contentType);
 
@@ -4503,7 +4506,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function updateOrder2Request($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request_by_identifier, string $contentType = self::contentTypes['updateOrder2'][0])
+    public function updateOrder2Request($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request_by_identifier, string $contentType = 'application/json')
     {
 
         // Check if $x_splitit_idempotency_key is a string
@@ -4562,7 +4565,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -4589,7 +4592,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);
@@ -4650,12 +4652,11 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $x_splitit_touch_point,
 
 
-        string $contentType = self::contentTypes['verifyAuthorization'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
 
-        list($response) = $this->verifyAuthorizationWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType);
+        list($response) = $this->verifyAuthorizationWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType, null);
         return $response;
     }
 
@@ -4666,13 +4667,15 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['verifyAuthorization'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \Splitit\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\VerifyAuthorizationResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function verifyAuthorizationWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = self::contentTypes['verifyAuthorization'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function verifyAuthorizationWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         ["request" => $request, "serializedBody" => $serializedBody] = $this->verifyAuthorizationRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType);
 
         // Customization hook
@@ -4727,7 +4730,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 );
             }
 
-            switch($statusCode) {
+            switch ($statusCode) {
                 case 200:
                     if ('\Splitit\Model\VerifyAuthorizationResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -4820,7 +4823,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -4885,12 +4887,11 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $x_splitit_touch_point,
 
 
-        string $contentType = self::contentTypes['verifyAuthorization'][0]
+        string $contentType = 'application/json'
 
-    )
-    {
+    ) {
 
-        return $this->verifyAuthorizationAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType)
+        return $this->verifyAuthorizationAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType, null)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4905,12 +4906,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['verifyAuthorization'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function verifyAuthorizationAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = self::contentTypes['verifyAuthorization'][0], \Splitit\RequestOptions $requestOptions = new \Splitit\RequestOptions())
+    public function verifyAuthorizationAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = 'application/json', $requestOptions = null)
     {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         $returnType = '\Splitit\Model\VerifyAuthorizationResponse';
         ["request" => $request, "serializedBody" => $serializedBody] = $this->verifyAuthorizationRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType);
 
@@ -4964,7 +4967,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function verifyAuthorizationRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = self::contentTypes['verifyAuthorization'][0])
+    public function verifyAuthorizationRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = 'application/json')
     {
 
         // Check if $installment_plan_number is a string
@@ -5027,7 +5030,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['text/plain', 'application/json', 'text/json',],
             $contentType,
             $multipart
         );
@@ -5047,7 +5050,6 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\json_encode($formParams);

@@ -4,7 +4,9 @@ namespace Splitit;
 
 class Client
 {
-    public readonly \Splitit\Api\InstallmentPlanApi $installmentPlan;
+
+    /** @var \Splitit\Api\InstallmentPlanApi */
+    public $installmentPlan;
 
     /**
      * Constructor
@@ -16,11 +18,9 @@ class Client
         bool $verifySsl = null,
         string $host = 'https://web-api-v3.production.splitit.com',
         \Splitit\Configuration $config = null
-    )
-    {
+    ) {
         if ($config == null) {
-            $config = new \Splitit\Configuration(
-            );
+            $config = new \Splitit\Configuration();
             if ($host !== null) $config->setHost($host);
             if ($verifySsl !== null) $config->setVerifySsl($verifySsl);
             if ($tokenUrl !== null) $config->setTokenUrl($tokenUrl);
