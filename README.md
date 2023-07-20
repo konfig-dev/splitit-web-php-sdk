@@ -22,7 +22,7 @@ To install the bindings via [Composer](https://getcomposer.org/), add the follow
     }
   ],
   "require": {
-    "konfig/splitit-web-php-sdk": "2.1.0"
+    "konfig/splitit-web-php-sdk": "2.2.0"
   }
 }
 ```
@@ -47,6 +47,8 @@ Please follow the [installation procedure](#installation--usage) and then run th
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $splitit = new \Splitit\Client(
+    getenv("SPLITIT_CLIENT_ID"),
+    getenv("SPLITIT_CLIENT_SECRET")
 );
 
 $installment_plan_number = "installmentPlanNumber_example";

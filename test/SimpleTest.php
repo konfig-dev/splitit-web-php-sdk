@@ -64,6 +64,8 @@ class SimpleTest extends TestCase
     public function testClient()
     {
         $splitit = new \Splitit\Client(
+    getenv("SPLITIT_CLIENT_ID"),
+    getenv("SPLITIT_CLIENT_SECRET")
 );
     }
 }

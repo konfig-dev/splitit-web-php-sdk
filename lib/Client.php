@@ -11,9 +11,9 @@ class Client
      * Constructor
      */
     public function __construct(
-        string $tokenUrl = 'https://id.production.splitit.com/connect/token',
         string $clientId = null,
         string $clientSecret = null,
+        string $tokenUrl = 'https://id.production.splitit.com/connect/token',
         bool $verifySsl = null,
         string $host = 'https://web-api-v3.production.splitit.com',
         \Splitit\Configuration $config = null

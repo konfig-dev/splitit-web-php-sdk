@@ -47,9 +47,9 @@ class InstallmentPlanApiTest extends TestCase
     public function setUp(): void
     {
         $this->splitit = new \Splitit\Client(
-            "https://id.sandbox.splitit.com/connect/token",
             getenv("SPLITIT_CLIENT_ID"),
             getenv("SPLITIT_CLIENT_SECRET"),
+            "https://id.sandbox.splitit.com/connect/token",
             null,
             "https://web-api-v3.sandbox.splitit.com"
         );
