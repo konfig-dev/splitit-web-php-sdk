@@ -31,8 +31,6 @@ cancel($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_po
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $splitit = new \Splitit\Client(
-    clientId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $installment_plan_number = "installmentPlanNumber_example";
@@ -92,8 +90,6 @@ checkEligibility($x_splitit_idempotency_key, $x_splitit_touch_point, $check_inst
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $splitit = new \Splitit\Client(
-    clientId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
@@ -166,8 +162,6 @@ get($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $splitit = new \Splitit\Client(
-    clientId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $installment_plan_number = "installmentPlanNumber_example";
@@ -242,8 +236,6 @@ post($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initi
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $splitit = new \Splitit\Client(
-    clientId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $auto_capture = True;
@@ -340,8 +332,6 @@ post2($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_crea
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $splitit = new \Splitit\Client(
-    clientId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $auto_capture = True;
@@ -446,8 +436,6 @@ refund($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_po
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $splitit = new \Splitit\Client(
-    clientId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $amount = 3.14;
@@ -517,8 +505,6 @@ search($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_num
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $splitit = new \Splitit\Client(
-    clientId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
@@ -586,8 +572,6 @@ updateOrder($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_tou
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $splitit = new \Splitit\Client(
-    clientId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $installment_plan_number = "installmentPlanNumber_example";
@@ -659,8 +643,6 @@ updateOrder2($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_pl
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $splitit = new \Splitit\Client(
-    clientId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
@@ -732,8 +714,6 @@ verifyAuthorization($installment_plan_number, $x_splitit_idempotency_key, $x_spl
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $splitit = new \Splitit\Client(
-    clientId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $installment_plan_number = "installmentPlanNumber_example";

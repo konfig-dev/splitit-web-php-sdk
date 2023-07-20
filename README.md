@@ -7,7 +7,7 @@ Splitit's Web API
 
 ### Requirements
 
-This library requires `PHP ^8.0`
+This library requires `PHP ^7.0`
 
 ### Composer
 
@@ -47,8 +47,6 @@ Please follow the [installation procedure](#installation--usage) and then run th
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $splitit = new \Splitit\Client(
-    clientId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_ID",
 );
 
 $installment_plan_number = "installmentPlanNumber_example";
