@@ -1,6 +1,6 @@
 <?php
 /**
- * PaymentMethodModelTest
+ * SpreedlyTokenTest
  *
  * PHP version 7.4
  *
@@ -25,13 +25,13 @@ namespace Splitit\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * PaymentMethodModelTest Class Doc Comment
+ * SpreedlyTokenTest Class Doc Comment
  *
  * @category    Class
- * @description PaymentMethodModel
+ * @description SpreedlyToken
  * @package     Splitit
  */
-class PaymentMethodModelTest extends TestCase
+class SpreedlyTokenTest extends TestCase
 {
 
     /**
@@ -63,27 +63,9 @@ class PaymentMethodModelTest extends TestCase
     }
 
     /**
-     * Test "PaymentMethodModel"
+     * Test "SpreedlyToken"
      */
-    public function testPaymentMethodModel()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "type"
-     */
-    public function testPropertyType()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "card"
-     */
-    public function testPropertyCard()
+    public function testSpreedlyToken()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -99,27 +81,9 @@ class PaymentMethodModelTest extends TestCase
     }
 
     /**
-     * Test attribute "bluesnap_vaulted_shopper_token"
+     * Test attribute "last4_digit"
      */
-    public function testPropertyBluesnapVaultedShopperToken()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "mocker_shopper_token"
-     */
-    public function testPropertyMockerShopperToken()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "spreedly_token"
-     */
-    public function testPropertySpreedlyToken()
+    public function testPropertyLast4Digit()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

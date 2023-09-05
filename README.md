@@ -65,7 +65,6 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->cancel: ', $e->getMessage(), PHP_EOL;
 }
-
 ```
 
 ## API Endpoints
@@ -143,6 +142,7 @@ Class | Method | HTTP request | Description
 - [ShippingStatus](docs/Model/ShippingStatus.md)
 - [ShippingStatus2](docs/Model/ShippingStatus2.md)
 - [ShopperData](docs/Model/ShopperData.md)
+- [SpreedlyToken](docs/Model/SpreedlyToken.md)
 - [TestModes](docs/Model/TestModes.md)
 - [ThreeDSData](docs/Model/ThreeDSData.md)
 - [ThreeDSData2](docs/Model/ThreeDSData2.md)

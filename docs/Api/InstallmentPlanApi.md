@@ -49,7 +49,6 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->cancel: ', $e->getMessage(), PHP_EOL;
 }
-
 ```
 
 ### Parameters
@@ -123,7 +122,6 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->checkEligibility: ', $e->getMessage(), PHP_EOL;
 }
-
 ```
 
 ### Parameters
@@ -199,7 +197,6 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->get: ', $e->getMessage(), PHP_EOL;
 }
-
 ```
 
 ### Parameters
@@ -296,7 +293,6 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->post: ', $e->getMessage(), PHP_EOL;
 }
-
 ```
 
 ### Parameters
@@ -402,7 +398,6 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->post2: ', $e->getMessage(), PHP_EOL;
 }
-
 ```
 
 ### Parameters
@@ -473,7 +468,6 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->refund: ', $e->getMessage(), PHP_EOL;
 }
-
 ```
 
 ### Parameters
@@ -541,7 +535,6 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->search: ', $e->getMessage(), PHP_EOL;
 }
-
 ```
 
 ### Parameters
@@ -615,7 +608,6 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->updateOrder: ', $e->getMessage(), PHP_EOL;
 }
-
 ```
 
 ### Parameters
@@ -689,7 +681,6 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->updateOrder2: ', $e->getMessage(), PHP_EOL;
 }
-
 ```
 
 ### Parameters
@@ -752,7 +743,6 @@ try {
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->verifyAuthorization: ', $e->getMessage(), PHP_EOL;
 }
-
 ```
 
 ### Parameters

@@ -146,8 +146,10 @@ class Configuration
      * Constructor
      */
     public function __construct(
+        string $host = 'https://web-api-v3.production.splitit.com'
     )
     {
+        $this->host = $host;
         $this->tempFolderPath = sys_get_temp_dir();
     }
 

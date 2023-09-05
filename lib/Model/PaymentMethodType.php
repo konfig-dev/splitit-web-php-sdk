@@ -43,6 +43,8 @@ class PaymentMethodType
 
     public const SPLITIT_MOCKER_V2_TOKEN = 'SplititMockerV2Token';
 
+    public const SPREEDLY_TOKEN = 'SpreedlyToken';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -53,7 +55,8 @@ class PaymentMethodType
             self::CARD,
             self::SPLITIT_TOKEN,
             self::BLUESNAP_VAULTED_SHOPPER_TOKEN,
-            self::SPLITIT_MOCKER_V2_TOKEN
+            self::SPLITIT_MOCKER_V2_TOKEN,
+            self::SPREEDLY_TOKEN
         ];
     }
 }
