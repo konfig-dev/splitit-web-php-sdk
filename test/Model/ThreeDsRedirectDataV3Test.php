@@ -97,4 +97,13 @@ class ThreeDsRedirectDataV3Test extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "client_redirect_url"
+     */
+    public function testPropertyClientRedirectUrl()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }

@@ -7,5 +7,6 @@ Name | Type | Description | Notes
 **url** | **string** |  | [optional]
 **verb** | **string** |  | [optional]
 **params** | **array<string,string>** |  | [optional]
+**client_redirect_url** | **string** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

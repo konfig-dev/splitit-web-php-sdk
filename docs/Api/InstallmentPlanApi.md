@@ -227,7 +227,7 @@ try {
 ## `post()`
 
 ```php
-post($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode): \Splitit\Model\InitiatePlanResponse
+post($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_initiate_request, $x_splitit_test_mode, $splititclientinfo): \Splitit\Model\InitiatePlanResponse
 ```
 
 
@@ -264,6 +264,7 @@ $events_endpoints = [
 $processing_data = [
     ];
 $x_splitit_test_mode = "None";
+$splititclientinfo = "string_example";
 
 try {
     $result = $splitit->installmentPlan->post(
@@ -278,7 +279,8 @@ try {
         $ux_settings, 
         $events_endpoints, 
         $processing_data, 
-        $x_splitit_test_mode
+        $x_splitit_test_mode, 
+        $splititclientinfo
     );
     print_r($result->$getInstallmentPlanNumber());
     print_r($result->$getRefOrderNumber());
@@ -303,6 +305,7 @@ try {
 | **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
 | **installment_plan_initiate_request** | [**\Splitit\Model\InstallmentPlanInitiateRequest**](../Model/InstallmentPlanInitiateRequest.md)|  | |
 | **x_splitit_test_mode** | **string**|  | [optional] |
+| **splititclientinfo** | **string**|  | [optional] |
 
 ### Return type
 
@@ -324,7 +327,7 @@ try {
 ## `post2()`
 
 ```php
-post2($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode): \Splitit\Model\InstallmentPlanCreateResponse
+post2($x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_create_request, $x_splitit_test_mode, $splititclientinfo): \Splitit\Model\InstallmentPlanCreateResponse
 ```
 
 
@@ -363,6 +366,7 @@ $processing_data = [
 $events_endpoints = [
     ];
 $x_splitit_test_mode = "None";
+$splititclientinfo = "string_example";
 
 try {
     $result = $splitit->installmentPlan->post2(
@@ -378,7 +382,8 @@ try {
         $redirect_urls, 
         $processing_data, 
         $events_endpoints, 
-        $x_splitit_test_mode
+        $x_splitit_test_mode, 
+        $splititclientinfo
     );
     print_r($result->$getInstallmentPlanNumber());
     print_r($result->$getDateCreated());
@@ -408,6 +413,7 @@ try {
 | **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
 | **installment_plan_create_request** | [**\Splitit\Model\InstallmentPlanCreateRequest**](../Model/InstallmentPlanCreateRequest.md)|  | |
 | **x_splitit_test_mode** | **string**|  | [optional] |
+| **splititclientinfo** | **string**|  | [optional] |
 
 ### Return type
 

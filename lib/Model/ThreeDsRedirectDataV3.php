@@ -51,7 +51,8 @@ class ThreeDsRedirectDataV3 implements ModelInterface, ArrayAccess, \JsonSeriali
     protected static $openAPITypes = [
         'url' => 'string',
         'verb' => 'string',
-        'params' => 'array<string,string>'
+        'params' => 'array<string,string>',
+        'client_redirect_url' => 'string'
     ];
 
     /**
@@ -64,7 +65,8 @@ class ThreeDsRedirectDataV3 implements ModelInterface, ArrayAccess, \JsonSeriali
     protected static $openAPIFormats = [
         'url' => null,
         'verb' => null,
-        'params' => null
+        'params' => null,
+        'client_redirect_url' => null
     ];
 
     /**
@@ -75,7 +77,8 @@ class ThreeDsRedirectDataV3 implements ModelInterface, ArrayAccess, \JsonSeriali
     protected static $openAPINullables = [
         'url' => false,
 		'verb' => false,
-		'params' => false
+		'params' => false,
+		'client_redirect_url' => false
     ];
 
     /**
@@ -166,7 +169,8 @@ class ThreeDsRedirectDataV3 implements ModelInterface, ArrayAccess, \JsonSeriali
     protected static $attributeMap = [
         'url' => 'Url',
         'verb' => 'Verb',
-        'params' => 'Params'
+        'params' => 'Params',
+        'client_redirect_url' => 'ClientRedirectUrl'
     ];
 
     /**
@@ -177,7 +181,8 @@ class ThreeDsRedirectDataV3 implements ModelInterface, ArrayAccess, \JsonSeriali
     protected static $setters = [
         'url' => 'setUrl',
         'verb' => 'setVerb',
-        'params' => 'setParams'
+        'params' => 'setParams',
+        'client_redirect_url' => 'setClientRedirectUrl'
     ];
 
     /**
@@ -188,7 +193,8 @@ class ThreeDsRedirectDataV3 implements ModelInterface, ArrayAccess, \JsonSeriali
     protected static $getters = [
         'url' => 'getUrl',
         'verb' => 'getVerb',
-        'params' => 'getParams'
+        'params' => 'getParams',
+        'client_redirect_url' => 'getClientRedirectUrl'
     ];
 
     /**
@@ -251,6 +257,7 @@ class ThreeDsRedirectDataV3 implements ModelInterface, ArrayAccess, \JsonSeriali
         $this->setIfExists('url', $data ?? [], null);
         $this->setIfExists('verb', $data ?? [], null);
         $this->setIfExists('params', $data ?? [], null);
+        $this->setIfExists('client_redirect_url', $data ?? [], null);
     }
 
     /**
@@ -378,6 +385,35 @@ class ThreeDsRedirectDataV3 implements ModelInterface, ArrayAccess, \JsonSeriali
         }
 
         $this->container['params'] = $params;
+
+        return $this;
+    }
+
+    /**
+     * Gets client_redirect_url
+     *
+     * @return string|null
+     */
+    public function getClientRedirectUrl()
+    {
+        return $this->container['client_redirect_url'];
+    }
+
+    /**
+     * Sets client_redirect_url
+     *
+     * @param string|null $client_redirect_url client_redirect_url
+     *
+     * @return self
+     */
+    public function setClientRedirectUrl($client_redirect_url)
+    {
+
+        if (is_null($client_redirect_url)) {
+            throw new \InvalidArgumentException('non-nullable client_redirect_url cannot be null');
+        }
+
+        $this->container['client_redirect_url'] = $client_redirect_url;
 
         return $this;
     }
