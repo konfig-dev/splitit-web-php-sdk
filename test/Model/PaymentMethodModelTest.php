@@ -124,4 +124,13 @@ class PaymentMethodModelTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "card_par"
+     */
+    public function testPropertyCardPar()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }

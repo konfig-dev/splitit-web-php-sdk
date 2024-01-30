@@ -54,7 +54,8 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
         'token' => 'string',
         'bluesnap_vaulted_shopper_token' => '\Splitit\Model\BluesnapVaultedShopperToken',
         'mocker_shopper_token' => '\Splitit\Model\MockerShopperToken',
-        'spreedly_token' => '\Splitit\Model\SpreedlyToken'
+        'spreedly_token' => '\Splitit\Model\SpreedlyToken',
+        'card_par' => 'string'
     ];
 
     /**
@@ -70,7 +71,8 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
         'token' => null,
         'bluesnap_vaulted_shopper_token' => null,
         'mocker_shopper_token' => null,
-        'spreedly_token' => null
+        'spreedly_token' => null,
+        'card_par' => null
     ];
 
     /**
@@ -84,7 +86,8 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
 		'token' => false,
 		'bluesnap_vaulted_shopper_token' => false,
 		'mocker_shopper_token' => false,
-		'spreedly_token' => false
+		'spreedly_token' => false,
+		'card_par' => false
     ];
 
     /**
@@ -178,7 +181,8 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
         'token' => 'Token',
         'bluesnap_vaulted_shopper_token' => 'BluesnapVaultedShopperToken',
         'mocker_shopper_token' => 'MockerShopperToken',
-        'spreedly_token' => 'SpreedlyToken'
+        'spreedly_token' => 'SpreedlyToken',
+        'card_par' => 'CardPAR'
     ];
 
     /**
@@ -192,7 +196,8 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
         'token' => 'setToken',
         'bluesnap_vaulted_shopper_token' => 'setBluesnapVaultedShopperToken',
         'mocker_shopper_token' => 'setMockerShopperToken',
-        'spreedly_token' => 'setSpreedlyToken'
+        'spreedly_token' => 'setSpreedlyToken',
+        'card_par' => 'setCardPar'
     ];
 
     /**
@@ -206,7 +211,8 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
         'token' => 'getToken',
         'bluesnap_vaulted_shopper_token' => 'getBluesnapVaultedShopperToken',
         'mocker_shopper_token' => 'getMockerShopperToken',
-        'spreedly_token' => 'getSpreedlyToken'
+        'spreedly_token' => 'getSpreedlyToken',
+        'card_par' => 'getCardPar'
     ];
 
     /**
@@ -272,6 +278,7 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
         $this->setIfExists('bluesnap_vaulted_shopper_token', $data ?? [], null);
         $this->setIfExists('mocker_shopper_token', $data ?? [], null);
         $this->setIfExists('spreedly_token', $data ?? [], null);
+        $this->setIfExists('card_par', $data ?? [], null);
     }
 
     /**
@@ -489,6 +496,35 @@ class PaymentMethodModel implements ModelInterface, ArrayAccess, \JsonSerializab
         }
 
         $this->container['spreedly_token'] = $spreedly_token;
+
+        return $this;
+    }
+
+    /**
+     * Gets card_par
+     *
+     * @return string|null
+     */
+    public function getCardPar()
+    {
+        return $this->container['card_par'];
+    }
+
+    /**
+     * Sets card_par
+     *
+     * @param string|null $card_par card_par
+     *
+     * @return self
+     */
+    public function setCardPar($card_par)
+    {
+
+        if (is_null($card_par)) {
+            throw new \InvalidArgumentException('non-nullable card_par cannot be null');
+        }
+
+        $this->container['card_par'] = $card_par;
 
         return $this;
     }

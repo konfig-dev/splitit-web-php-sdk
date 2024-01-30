@@ -10,5 +10,6 @@ Name | Type | Description | Notes
 **bluesnap_vaulted_shopper_token** | [**\Splitit\Model\BluesnapVaultedShopperToken**](BluesnapVaultedShopperToken.md) |  | [optional]
 **mocker_shopper_token** | [**\Splitit\Model\MockerShopperToken**](MockerShopperToken.md) |  | [optional]
 **spreedly_token** | [**\Splitit\Model\SpreedlyToken**](SpreedlyToken.md) |  | [optional]
+**card_par** | **string** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)
