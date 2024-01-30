@@ -51,7 +51,7 @@ class InstallmentPlanApiTest extends TestCase
             getenv("SPLITIT_CLIENT_SECRET"),
             "https://id.sandbox.splitit.com/connect/token",
             null,
-            "https://web-api-v3.sandbox.splitit.com"
+            "http://127.0.0.1:4010"
         );
     }
 
