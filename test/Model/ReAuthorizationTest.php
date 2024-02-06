@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentPlanCancelResponseTest
+ * ReAuthorizationTest
  *
  * PHP version 7.4
  *
@@ -25,13 +25,13 @@ namespace Splitit\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * InstallmentPlanCancelResponseTest Class Doc Comment
+ * ReAuthorizationTest Class Doc Comment
  *
  * @category    Class
- * @description InstallmentPlanCancelResponse
+ * @description ReAuthorization
  * @package     Splitit
  */
-class InstallmentPlanCancelResponseTest extends TestCase
+class ReAuthorizationTest extends TestCase
 {
 
     /**
@@ -63,27 +63,54 @@ class InstallmentPlanCancelResponseTest extends TestCase
     }
 
     /**
-     * Test "InstallmentPlanCancelResponse"
+     * Test "ReAuthorization"
      */
-    public function testInstallmentPlanCancelResponse()
+    public function testReAuthorization()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "installment_plan_number"
+     * Test attribute "processing_date"
      */
-    public function testPropertyInstallmentPlanNumber()
+    public function testPropertyProcessingDate()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "installment_plan_response"
+     * Test attribute "amount"
      */
-    public function testPropertyInstallmentPlanResponse()
+    public function testPropertyAmount()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "transaction_results"
+     */
+    public function testPropertyTransactionResults()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "card_details"
+     */
+    public function testPropertyCardDetails()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "result"
+     */
+    public function testPropertyResult()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

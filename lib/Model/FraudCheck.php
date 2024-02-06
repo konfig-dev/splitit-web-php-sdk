@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentPlanCancelResponse
+ * FraudCheck
  *
  * PHP version 7.4
  *
@@ -26,13 +26,13 @@ use \ArrayAccess;
 use \Splitit\ObjectSerializer;
 
 /**
- * InstallmentPlanCancelResponse Class Doc Comment
+ * FraudCheck Class Doc Comment
  *
  * @category Class
  * @package  Splitit
  * @implements \ArrayAccess<string, mixed>
  */
-class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \JsonSerializable
+class FraudCheck implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       *
       * @var string
       */
-    protected static $openAPIModelName = 'InstallmentPlanCancelResponse';
+    protected static $openAPIModelName = 'FraudCheck';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,8 +49,10 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var string[]
       */
     protected static $openAPITypes = [
-        'installment_plan_number' => 'string',
-        'installment_plan_response' => '\Splitit\Model\InstallmentPlanResponse'
+        'fraud_check_result' => '\Splitit\Model\ReferenceEntityBase',
+        'provider_result_code' => 'string',
+        'provider_result_desc' => 'string',
+        'provider_reference_id' => 'string'
     ];
 
     /**
@@ -61,8 +63,10 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'installment_plan_number' => null,
-        'installment_plan_response' => null
+        'fraud_check_result' => null,
+        'provider_result_code' => null,
+        'provider_result_desc' => null,
+        'provider_reference_id' => null
     ];
 
     /**
@@ -71,8 +75,10 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var boolean[]
       */
     protected static $openAPINullables = [
-        'installment_plan_number' => false,
-		'installment_plan_response' => false
+        'fraud_check_result' => false,
+		'provider_result_code' => false,
+		'provider_result_desc' => false,
+		'provider_reference_id' => false
     ];
 
     /**
@@ -161,8 +167,10 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $attributeMap = [
-        'installment_plan_number' => 'InstallmentPlanNumber',
-        'installment_plan_response' => 'installmentPlanResponse'
+        'fraud_check_result' => 'FraudCheckResult',
+        'provider_result_code' => 'ProviderResultCode',
+        'provider_result_desc' => 'ProviderResultDesc',
+        'provider_reference_id' => 'ProviderReferenceId'
     ];
 
     /**
@@ -171,8 +179,10 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $setters = [
-        'installment_plan_number' => 'setInstallmentPlanNumber',
-        'installment_plan_response' => 'setInstallmentPlanResponse'
+        'fraud_check_result' => 'setFraudCheckResult',
+        'provider_result_code' => 'setProviderResultCode',
+        'provider_result_desc' => 'setProviderResultDesc',
+        'provider_reference_id' => 'setProviderReferenceId'
     ];
 
     /**
@@ -181,8 +191,10 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $getters = [
-        'installment_plan_number' => 'getInstallmentPlanNumber',
-        'installment_plan_response' => 'getInstallmentPlanResponse'
+        'fraud_check_result' => 'getFraudCheckResult',
+        'provider_result_code' => 'getProviderResultCode',
+        'provider_result_desc' => 'getProviderResultDesc',
+        'provider_reference_id' => 'getProviderReferenceId'
     ];
 
     /**
@@ -242,8 +254,10 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('installment_plan_number', $data ?? [], null);
-        $this->setIfExists('installment_plan_response', $data ?? [], null);
+        $this->setIfExists('fraud_check_result', $data ?? [], null);
+        $this->setIfExists('provider_result_code', $data ?? [], null);
+        $this->setIfExists('provider_result_desc', $data ?? [], null);
+        $this->setIfExists('provider_reference_id', $data ?? [], null);
     }
 
     /**
@@ -289,59 +303,117 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
 
 
     /**
-     * Gets installment_plan_number
+     * Gets fraud_check_result
      *
-     * @return string|null
+     * @return \Splitit\Model\ReferenceEntityBase|null
      */
-    public function getInstallmentPlanNumber()
+    public function getFraudCheckResult()
     {
-        return $this->container['installment_plan_number'];
+        return $this->container['fraud_check_result'];
     }
 
     /**
-     * Sets installment_plan_number
+     * Sets fraud_check_result
      *
-     * @param string|null $installment_plan_number installment_plan_number
+     * @param \Splitit\Model\ReferenceEntityBase|null $fraud_check_result fraud_check_result
      *
      * @return self
      */
-    public function setInstallmentPlanNumber($installment_plan_number)
+    public function setFraudCheckResult($fraud_check_result)
     {
 
-        if (is_null($installment_plan_number)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_number cannot be null');
+        if (is_null($fraud_check_result)) {
+            throw new \InvalidArgumentException('non-nullable fraud_check_result cannot be null');
         }
 
-        $this->container['installment_plan_number'] = $installment_plan_number;
+        $this->container['fraud_check_result'] = $fraud_check_result;
 
         return $this;
     }
 
     /**
-     * Gets installment_plan_response
+     * Gets provider_result_code
      *
-     * @return \Splitit\Model\InstallmentPlanResponse|null
+     * @return string|null
      */
-    public function getInstallmentPlanResponse()
+    public function getProviderResultCode()
     {
-        return $this->container['installment_plan_response'];
+        return $this->container['provider_result_code'];
     }
 
     /**
-     * Sets installment_plan_response
+     * Sets provider_result_code
      *
-     * @param \Splitit\Model\InstallmentPlanResponse|null $installment_plan_response installment_plan_response
+     * @param string|null $provider_result_code provider_result_code
      *
      * @return self
      */
-    public function setInstallmentPlanResponse($installment_plan_response)
+    public function setProviderResultCode($provider_result_code)
     {
 
-        if (is_null($installment_plan_response)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_response cannot be null');
+        if (is_null($provider_result_code)) {
+            throw new \InvalidArgumentException('non-nullable provider_result_code cannot be null');
         }
 
-        $this->container['installment_plan_response'] = $installment_plan_response;
+        $this->container['provider_result_code'] = $provider_result_code;
+
+        return $this;
+    }
+
+    /**
+     * Gets provider_result_desc
+     *
+     * @return string|null
+     */
+    public function getProviderResultDesc()
+    {
+        return $this->container['provider_result_desc'];
+    }
+
+    /**
+     * Sets provider_result_desc
+     *
+     * @param string|null $provider_result_desc provider_result_desc
+     *
+     * @return self
+     */
+    public function setProviderResultDesc($provider_result_desc)
+    {
+
+        if (is_null($provider_result_desc)) {
+            throw new \InvalidArgumentException('non-nullable provider_result_desc cannot be null');
+        }
+
+        $this->container['provider_result_desc'] = $provider_result_desc;
+
+        return $this;
+    }
+
+    /**
+     * Gets provider_reference_id
+     *
+     * @return string|null
+     */
+    public function getProviderReferenceId()
+    {
+        return $this->container['provider_reference_id'];
+    }
+
+    /**
+     * Sets provider_reference_id
+     *
+     * @param string|null $provider_reference_id provider_reference_id
+     *
+     * @return self
+     */
+    public function setProviderReferenceId($provider_reference_id)
+    {
+
+        if (is_null($provider_reference_id)) {
+            throw new \InvalidArgumentException('non-nullable provider_reference_id cannot be null');
+        }
+
+        $this->container['provider_reference_id'] = $provider_reference_id;
 
         return $this;
     }

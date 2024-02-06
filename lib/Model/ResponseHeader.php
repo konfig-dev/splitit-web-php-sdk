@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentPlanCancelResponse
+ * ResponseHeader
  *
  * PHP version 7.4
  *
@@ -26,13 +26,13 @@ use \ArrayAccess;
 use \Splitit\ObjectSerializer;
 
 /**
- * InstallmentPlanCancelResponse Class Doc Comment
+ * ResponseHeader Class Doc Comment
  *
  * @category Class
  * @package  Splitit
  * @implements \ArrayAccess<string, mixed>
  */
-class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \JsonSerializable
+class ResponseHeader implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       *
       * @var string
       */
-    protected static $openAPIModelName = 'InstallmentPlanCancelResponse';
+    protected static $openAPIModelName = 'ResponseHeader';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,8 +49,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var string[]
       */
     protected static $openAPITypes = [
-        'installment_plan_number' => 'string',
-        'installment_plan_response' => '\Splitit\Model\InstallmentPlanResponse'
+        'succeeded' => 'bool',
+        'errors' => '\Splitit\Model\Error2[]',
+        'trace_id' => 'string'
     ];
 
     /**
@@ -61,8 +62,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'installment_plan_number' => null,
-        'installment_plan_response' => null
+        'succeeded' => null,
+        'errors' => null,
+        'trace_id' => null
     ];
 
     /**
@@ -71,8 +73,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var boolean[]
       */
     protected static $openAPINullables = [
-        'installment_plan_number' => false,
-		'installment_plan_response' => false
+        'succeeded' => false,
+		'errors' => false,
+		'trace_id' => false
     ];
 
     /**
@@ -161,8 +164,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $attributeMap = [
-        'installment_plan_number' => 'InstallmentPlanNumber',
-        'installment_plan_response' => 'installmentPlanResponse'
+        'succeeded' => 'Succeeded',
+        'errors' => 'Errors',
+        'trace_id' => 'TraceId'
     ];
 
     /**
@@ -171,8 +175,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $setters = [
-        'installment_plan_number' => 'setInstallmentPlanNumber',
-        'installment_plan_response' => 'setInstallmentPlanResponse'
+        'succeeded' => 'setSucceeded',
+        'errors' => 'setErrors',
+        'trace_id' => 'setTraceId'
     ];
 
     /**
@@ -181,8 +186,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $getters = [
-        'installment_plan_number' => 'getInstallmentPlanNumber',
-        'installment_plan_response' => 'getInstallmentPlanResponse'
+        'succeeded' => 'getSucceeded',
+        'errors' => 'getErrors',
+        'trace_id' => 'getTraceId'
     ];
 
     /**
@@ -242,8 +248,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('installment_plan_number', $data ?? [], null);
-        $this->setIfExists('installment_plan_response', $data ?? [], null);
+        $this->setIfExists('succeeded', $data ?? [], null);
+        $this->setIfExists('errors', $data ?? [], null);
+        $this->setIfExists('trace_id', $data ?? [], null);
     }
 
     /**
@@ -273,6 +280,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
     {
         $invalidProperties = [];
 
+        if ($this->container['succeeded'] === null) {
+            $invalidProperties[] = "'succeeded' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -289,59 +299,88 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
 
 
     /**
-     * Gets installment_plan_number
+     * Gets succeeded
      *
-     * @return string|null
+     * @return bool
      */
-    public function getInstallmentPlanNumber()
+    public function getSucceeded()
     {
-        return $this->container['installment_plan_number'];
+        return $this->container['succeeded'];
     }
 
     /**
-     * Sets installment_plan_number
+     * Sets succeeded
      *
-     * @param string|null $installment_plan_number installment_plan_number
+     * @param bool $succeeded succeeded
      *
      * @return self
      */
-    public function setInstallmentPlanNumber($installment_plan_number)
+    public function setSucceeded($succeeded)
     {
 
-        if (is_null($installment_plan_number)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_number cannot be null');
+        if (is_null($succeeded)) {
+            throw new \InvalidArgumentException('non-nullable succeeded cannot be null');
         }
 
-        $this->container['installment_plan_number'] = $installment_plan_number;
+        $this->container['succeeded'] = $succeeded;
 
         return $this;
     }
 
     /**
-     * Gets installment_plan_response
+     * Gets errors
      *
-     * @return \Splitit\Model\InstallmentPlanResponse|null
+     * @return \Splitit\Model\Error2[]|null
      */
-    public function getInstallmentPlanResponse()
+    public function getErrors()
     {
-        return $this->container['installment_plan_response'];
+        return $this->container['errors'];
     }
 
     /**
-     * Sets installment_plan_response
+     * Sets errors
      *
-     * @param \Splitit\Model\InstallmentPlanResponse|null $installment_plan_response installment_plan_response
+     * @param \Splitit\Model\Error2[]|null $errors errors
      *
      * @return self
      */
-    public function setInstallmentPlanResponse($installment_plan_response)
+    public function setErrors($errors)
     {
 
-        if (is_null($installment_plan_response)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_response cannot be null');
+        if (is_null($errors)) {
+            throw new \InvalidArgumentException('non-nullable errors cannot be null');
         }
 
-        $this->container['installment_plan_response'] = $installment_plan_response;
+        $this->container['errors'] = $errors;
+
+        return $this;
+    }
+
+    /**
+     * Gets trace_id
+     *
+     * @return string|null
+     */
+    public function getTraceId()
+    {
+        return $this->container['trace_id'];
+    }
+
+    /**
+     * Sets trace_id
+     *
+     * @param string|null $trace_id trace_id
+     *
+     * @return self
+     */
+    public function setTraceId($trace_id)
+    {
+
+        if (is_null($trace_id)) {
+            throw new \InvalidArgumentException('non-nullable trace_id cannot be null');
+        }
+
+        $this->container['trace_id'] = $trace_id;
 
         return $this;
     }

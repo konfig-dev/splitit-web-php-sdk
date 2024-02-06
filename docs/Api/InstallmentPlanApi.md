@@ -46,6 +46,7 @@ try {
         $x_splitit_touch_point
     );
     print_r($result->$getInstallmentPlanNumber());
+    print_r($result->$getInstallmentPlanResponse());
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->cancel: ', $e->getMessage(), PHP_EOL;
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentPlanCancelResponseTest
+ * FraudCheckTest
  *
  * PHP version 7.4
  *
@@ -25,13 +25,13 @@ namespace Splitit\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * InstallmentPlanCancelResponseTest Class Doc Comment
+ * FraudCheckTest Class Doc Comment
  *
  * @category    Class
- * @description InstallmentPlanCancelResponse
+ * @description FraudCheck
  * @package     Splitit
  */
-class InstallmentPlanCancelResponseTest extends TestCase
+class FraudCheckTest extends TestCase
 {
 
     /**
@@ -63,27 +63,45 @@ class InstallmentPlanCancelResponseTest extends TestCase
     }
 
     /**
-     * Test "InstallmentPlanCancelResponse"
+     * Test "FraudCheck"
      */
-    public function testInstallmentPlanCancelResponse()
+    public function testFraudCheck()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "installment_plan_number"
+     * Test attribute "fraud_check_result"
      */
-    public function testPropertyInstallmentPlanNumber()
+    public function testPropertyFraudCheckResult()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "installment_plan_response"
+     * Test attribute "provider_result_code"
      */
-    public function testPropertyInstallmentPlanResponse()
+    public function testPropertyProviderResultCode()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "provider_result_desc"
+     */
+    public function testPropertyProviderResultDesc()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "provider_reference_id"
+     */
+    public function testPropertyProviderReferenceId()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentPlanCancelResponseTest
+ * MoneyTest
  *
  * PHP version 7.4
  *
@@ -25,13 +25,13 @@ namespace Splitit\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * InstallmentPlanCancelResponseTest Class Doc Comment
+ * MoneyTest Class Doc Comment
  *
  * @category    Class
- * @description InstallmentPlanCancelResponse
+ * @description Money
  * @package     Splitit
  */
-class InstallmentPlanCancelResponseTest extends TestCase
+class MoneyTest extends TestCase
 {
 
     /**
@@ -63,27 +63,27 @@ class InstallmentPlanCancelResponseTest extends TestCase
     }
 
     /**
-     * Test "InstallmentPlanCancelResponse"
+     * Test "Money"
      */
-    public function testInstallmentPlanCancelResponse()
+    public function testMoney()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "installment_plan_number"
+     * Test attribute "value"
      */
-    public function testPropertyInstallmentPlanNumber()
+    public function testPropertyValue()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "installment_plan_response"
+     * Test attribute "currency"
      */
-    public function testPropertyInstallmentPlanResponse()
+    public function testPropertyCurrency()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

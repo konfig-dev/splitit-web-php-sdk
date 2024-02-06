@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentPlanCancelResponse
+ * InstallmentPlanResponse
  *
  * PHP version 7.4
  *
@@ -26,13 +26,13 @@ use \ArrayAccess;
 use \Splitit\ObjectSerializer;
 
 /**
- * InstallmentPlanCancelResponse Class Doc Comment
+ * InstallmentPlanResponse Class Doc Comment
  *
  * @category Class
  * @package  Splitit
  * @implements \ArrayAccess<string, mixed>
  */
-class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \JsonSerializable
+class InstallmentPlanResponse implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       *
       * @var string
       */
-    protected static $openAPIModelName = 'InstallmentPlanCancelResponse';
+    protected static $openAPIModelName = 'InstallmentPlanResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,8 +49,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var string[]
       */
     protected static $openAPITypes = [
-        'installment_plan_number' => 'string',
-        'installment_plan_response' => '\Splitit\Model\InstallmentPlanResponse'
+        'response_header' => '\Splitit\Model\ResponseHeader',
+        'installment_plan' => '\Splitit\Model\InstallmentPlan',
+        'gateway_transaction_results' => '\Splitit\Model\TransactionResult[]'
     ];
 
     /**
@@ -61,8 +62,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'installment_plan_number' => null,
-        'installment_plan_response' => null
+        'response_header' => null,
+        'installment_plan' => null,
+        'gateway_transaction_results' => null
     ];
 
     /**
@@ -71,8 +73,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var boolean[]
       */
     protected static $openAPINullables = [
-        'installment_plan_number' => false,
-		'installment_plan_response' => false
+        'response_header' => false,
+		'installment_plan' => false,
+		'gateway_transaction_results' => false
     ];
 
     /**
@@ -161,8 +164,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $attributeMap = [
-        'installment_plan_number' => 'InstallmentPlanNumber',
-        'installment_plan_response' => 'installmentPlanResponse'
+        'response_header' => 'ResponseHeader',
+        'installment_plan' => 'InstallmentPlan',
+        'gateway_transaction_results' => 'GatewayTransactionResults'
     ];
 
     /**
@@ -171,8 +175,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $setters = [
-        'installment_plan_number' => 'setInstallmentPlanNumber',
-        'installment_plan_response' => 'setInstallmentPlanResponse'
+        'response_header' => 'setResponseHeader',
+        'installment_plan' => 'setInstallmentPlan',
+        'gateway_transaction_results' => 'setGatewayTransactionResults'
     ];
 
     /**
@@ -181,8 +186,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $getters = [
-        'installment_plan_number' => 'getInstallmentPlanNumber',
-        'installment_plan_response' => 'getInstallmentPlanResponse'
+        'response_header' => 'getResponseHeader',
+        'installment_plan' => 'getInstallmentPlan',
+        'gateway_transaction_results' => 'getGatewayTransactionResults'
     ];
 
     /**
@@ -242,8 +248,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('installment_plan_number', $data ?? [], null);
-        $this->setIfExists('installment_plan_response', $data ?? [], null);
+        $this->setIfExists('response_header', $data ?? [], null);
+        $this->setIfExists('installment_plan', $data ?? [], null);
+        $this->setIfExists('gateway_transaction_results', $data ?? [], null);
     }
 
     /**
@@ -289,59 +296,88 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
 
 
     /**
-     * Gets installment_plan_number
+     * Gets response_header
      *
-     * @return string|null
+     * @return \Splitit\Model\ResponseHeader|null
      */
-    public function getInstallmentPlanNumber()
+    public function getResponseHeader()
     {
-        return $this->container['installment_plan_number'];
+        return $this->container['response_header'];
     }
 
     /**
-     * Sets installment_plan_number
+     * Sets response_header
      *
-     * @param string|null $installment_plan_number installment_plan_number
+     * @param \Splitit\Model\ResponseHeader|null $response_header response_header
      *
      * @return self
      */
-    public function setInstallmentPlanNumber($installment_plan_number)
+    public function setResponseHeader($response_header)
     {
 
-        if (is_null($installment_plan_number)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_number cannot be null');
+        if (is_null($response_header)) {
+            throw new \InvalidArgumentException('non-nullable response_header cannot be null');
         }
 
-        $this->container['installment_plan_number'] = $installment_plan_number;
+        $this->container['response_header'] = $response_header;
 
         return $this;
     }
 
     /**
-     * Gets installment_plan_response
+     * Gets installment_plan
      *
-     * @return \Splitit\Model\InstallmentPlanResponse|null
+     * @return \Splitit\Model\InstallmentPlan|null
      */
-    public function getInstallmentPlanResponse()
+    public function getInstallmentPlan()
     {
-        return $this->container['installment_plan_response'];
+        return $this->container['installment_plan'];
     }
 
     /**
-     * Sets installment_plan_response
+     * Sets installment_plan
      *
-     * @param \Splitit\Model\InstallmentPlanResponse|null $installment_plan_response installment_plan_response
+     * @param \Splitit\Model\InstallmentPlan|null $installment_plan installment_plan
      *
      * @return self
      */
-    public function setInstallmentPlanResponse($installment_plan_response)
+    public function setInstallmentPlan($installment_plan)
     {
 
-        if (is_null($installment_plan_response)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_response cannot be null');
+        if (is_null($installment_plan)) {
+            throw new \InvalidArgumentException('non-nullable installment_plan cannot be null');
         }
 
-        $this->container['installment_plan_response'] = $installment_plan_response;
+        $this->container['installment_plan'] = $installment_plan;
+
+        return $this;
+    }
+
+    /**
+     * Gets gateway_transaction_results
+     *
+     * @return \Splitit\Model\TransactionResult[]|null
+     */
+    public function getGatewayTransactionResults()
+    {
+        return $this->container['gateway_transaction_results'];
+    }
+
+    /**
+     * Sets gateway_transaction_results
+     *
+     * @param \Splitit\Model\TransactionResult[]|null $gateway_transaction_results gateway_transaction_results
+     *
+     * @return self
+     */
+    public function setGatewayTransactionResults($gateway_transaction_results)
+    {
+
+        if (is_null($gateway_transaction_results)) {
+            throw new \InvalidArgumentException('non-nullable gateway_transaction_results cannot be null');
+        }
+
+        $this->container['gateway_transaction_results'] = $gateway_transaction_results;
 
         return $this;
     }

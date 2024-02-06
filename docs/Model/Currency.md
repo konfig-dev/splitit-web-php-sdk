@@ -1,10 +1,12 @@
-# # InstallmentPlanCancelResponse
+# # Currency
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**installment_plan_number** | **string** |  | [optional]
-**installment_plan_response** | [**\Splitit\Model\InstallmentPlanResponse**](InstallmentPlanResponse.md) |  | [optional]
+**id** | **int** |  |
+**code** | **string** |  | [optional]
+**description** | **string** |  | [optional]
+**symbol** | **string** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentPlanCancelResponse
+ * Money
  *
  * PHP version 7.4
  *
@@ -26,13 +26,13 @@ use \ArrayAccess;
 use \Splitit\ObjectSerializer;
 
 /**
- * InstallmentPlanCancelResponse Class Doc Comment
+ * Money Class Doc Comment
  *
  * @category Class
  * @package  Splitit
  * @implements \ArrayAccess<string, mixed>
  */
-class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \JsonSerializable
+class Money implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       *
       * @var string
       */
-    protected static $openAPIModelName = 'InstallmentPlanCancelResponse';
+    protected static $openAPIModelName = 'Money';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,8 +49,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var string[]
       */
     protected static $openAPITypes = [
-        'installment_plan_number' => 'string',
-        'installment_plan_response' => '\Splitit\Model\InstallmentPlanResponse'
+        'value' => 'float',
+        'currency' => '\Splitit\Model\Currency'
     ];
 
     /**
@@ -61,8 +61,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'installment_plan_number' => null,
-        'installment_plan_response' => null
+        'value' => 'decimal',
+        'currency' => null
     ];
 
     /**
@@ -71,8 +71,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var boolean[]
       */
     protected static $openAPINullables = [
-        'installment_plan_number' => false,
-		'installment_plan_response' => false
+        'value' => false,
+		'currency' => false
     ];
 
     /**
@@ -161,8 +161,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $attributeMap = [
-        'installment_plan_number' => 'InstallmentPlanNumber',
-        'installment_plan_response' => 'installmentPlanResponse'
+        'value' => 'Value',
+        'currency' => 'Currency'
     ];
 
     /**
@@ -171,8 +171,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $setters = [
-        'installment_plan_number' => 'setInstallmentPlanNumber',
-        'installment_plan_response' => 'setInstallmentPlanResponse'
+        'value' => 'setValue',
+        'currency' => 'setCurrency'
     ];
 
     /**
@@ -181,8 +181,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $getters = [
-        'installment_plan_number' => 'getInstallmentPlanNumber',
-        'installment_plan_response' => 'getInstallmentPlanResponse'
+        'value' => 'getValue',
+        'currency' => 'getCurrency'
     ];
 
     /**
@@ -242,8 +242,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('installment_plan_number', $data ?? [], null);
-        $this->setIfExists('installment_plan_response', $data ?? [], null);
+        $this->setIfExists('value', $data ?? [], null);
+        $this->setIfExists('currency', $data ?? [], null);
     }
 
     /**
@@ -273,6 +273,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
     {
         $invalidProperties = [];
 
+        if ($this->container['value'] === null) {
+            $invalidProperties[] = "'value' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -289,59 +292,59 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
 
 
     /**
-     * Gets installment_plan_number
+     * Gets value
      *
-     * @return string|null
+     * @return float
      */
-    public function getInstallmentPlanNumber()
+    public function getValue()
     {
-        return $this->container['installment_plan_number'];
+        return $this->container['value'];
     }
 
     /**
-     * Sets installment_plan_number
+     * Sets value
      *
-     * @param string|null $installment_plan_number installment_plan_number
+     * @param float $value value
      *
      * @return self
      */
-    public function setInstallmentPlanNumber($installment_plan_number)
+    public function setValue($value)
     {
 
-        if (is_null($installment_plan_number)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_number cannot be null');
+        if (is_null($value)) {
+            throw new \InvalidArgumentException('non-nullable value cannot be null');
         }
 
-        $this->container['installment_plan_number'] = $installment_plan_number;
+        $this->container['value'] = $value;
 
         return $this;
     }
 
     /**
-     * Gets installment_plan_response
+     * Gets currency
      *
-     * @return \Splitit\Model\InstallmentPlanResponse|null
+     * @return \Splitit\Model\Currency|null
      */
-    public function getInstallmentPlanResponse()
+    public function getCurrency()
     {
-        return $this->container['installment_plan_response'];
+        return $this->container['currency'];
     }
 
     /**
-     * Sets installment_plan_response
+     * Sets currency
      *
-     * @param \Splitit\Model\InstallmentPlanResponse|null $installment_plan_response installment_plan_response
+     * @param \Splitit\Model\Currency|null $currency currency
      *
      * @return self
      */
-    public function setInstallmentPlanResponse($installment_plan_response)
+    public function setCurrency($currency)
     {
 
-        if (is_null($installment_plan_response)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_response cannot be null');
+        if (is_null($currency)) {
+            throw new \InvalidArgumentException('non-nullable currency cannot be null');
         }
 
-        $this->container['installment_plan_response'] = $installment_plan_response;
+        $this->container['currency'] = $currency;
 
         return $this;
     }

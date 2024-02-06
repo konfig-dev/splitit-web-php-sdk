@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentPlanCancelResponseTest
+ * InstallmentPlanResponseTest
  *
  * PHP version 7.4
  *
@@ -25,13 +25,13 @@ namespace Splitit\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * InstallmentPlanCancelResponseTest Class Doc Comment
+ * InstallmentPlanResponseTest Class Doc Comment
  *
  * @category    Class
- * @description InstallmentPlanCancelResponse
+ * @description InstallmentPlanResponse
  * @package     Splitit
  */
-class InstallmentPlanCancelResponseTest extends TestCase
+class InstallmentPlanResponseTest extends TestCase
 {
 
     /**
@@ -63,27 +63,36 @@ class InstallmentPlanCancelResponseTest extends TestCase
     }
 
     /**
-     * Test "InstallmentPlanCancelResponse"
+     * Test "InstallmentPlanResponse"
      */
-    public function testInstallmentPlanCancelResponse()
+    public function testInstallmentPlanResponse()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "installment_plan_number"
+     * Test attribute "response_header"
      */
-    public function testPropertyInstallmentPlanNumber()
+    public function testPropertyResponseHeader()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "installment_plan_response"
+     * Test attribute "installment_plan"
      */
-    public function testPropertyInstallmentPlanResponse()
+    public function testPropertyInstallmentPlan()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "gateway_transaction_results"
+     */
+    public function testPropertyGatewayTransactionResults()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

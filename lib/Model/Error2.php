@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentPlanCancelResponse
+ * Error2
  *
  * PHP version 7.4
  *
@@ -26,13 +26,13 @@ use \ArrayAccess;
 use \Splitit\ObjectSerializer;
 
 /**
- * InstallmentPlanCancelResponse Class Doc Comment
+ * Error2 Class Doc Comment
  *
  * @category Class
  * @package  Splitit
  * @implements \ArrayAccess<string, mixed>
  */
-class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \JsonSerializable
+class Error2 implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       *
       * @var string
       */
-    protected static $openAPIModelName = 'InstallmentPlanCancelResponse';
+    protected static $openAPIModelName = 'Error2';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,8 +49,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var string[]
       */
     protected static $openAPITypes = [
-        'installment_plan_number' => 'string',
-        'installment_plan_response' => '\Splitit\Model\InstallmentPlanResponse'
+        'error_code' => 'string',
+        'message' => 'string',
+        'additional_info' => 'string'
     ];
 
     /**
@@ -61,8 +62,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'installment_plan_number' => null,
-        'installment_plan_response' => null
+        'error_code' => null,
+        'message' => null,
+        'additional_info' => null
     ];
 
     /**
@@ -71,8 +73,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var boolean[]
       */
     protected static $openAPINullables = [
-        'installment_plan_number' => false,
-		'installment_plan_response' => false
+        'error_code' => false,
+		'message' => false,
+		'additional_info' => false
     ];
 
     /**
@@ -161,8 +164,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $attributeMap = [
-        'installment_plan_number' => 'InstallmentPlanNumber',
-        'installment_plan_response' => 'installmentPlanResponse'
+        'error_code' => 'ErrorCode',
+        'message' => 'Message',
+        'additional_info' => 'AdditionalInfo'
     ];
 
     /**
@@ -171,8 +175,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $setters = [
-        'installment_plan_number' => 'setInstallmentPlanNumber',
-        'installment_plan_response' => 'setInstallmentPlanResponse'
+        'error_code' => 'setErrorCode',
+        'message' => 'setMessage',
+        'additional_info' => 'setAdditionalInfo'
     ];
 
     /**
@@ -181,8 +186,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $getters = [
-        'installment_plan_number' => 'getInstallmentPlanNumber',
-        'installment_plan_response' => 'getInstallmentPlanResponse'
+        'error_code' => 'getErrorCode',
+        'message' => 'getMessage',
+        'additional_info' => 'getAdditionalInfo'
     ];
 
     /**
@@ -242,8 +248,9 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('installment_plan_number', $data ?? [], null);
-        $this->setIfExists('installment_plan_response', $data ?? [], null);
+        $this->setIfExists('error_code', $data ?? [], null);
+        $this->setIfExists('message', $data ?? [], null);
+        $this->setIfExists('additional_info', $data ?? [], null);
     }
 
     /**
@@ -289,59 +296,88 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
 
 
     /**
-     * Gets installment_plan_number
+     * Gets error_code
      *
      * @return string|null
      */
-    public function getInstallmentPlanNumber()
+    public function getErrorCode()
     {
-        return $this->container['installment_plan_number'];
+        return $this->container['error_code'];
     }
 
     /**
-     * Sets installment_plan_number
+     * Sets error_code
      *
-     * @param string|null $installment_plan_number installment_plan_number
+     * @param string|null $error_code error_code
      *
      * @return self
      */
-    public function setInstallmentPlanNumber($installment_plan_number)
+    public function setErrorCode($error_code)
     {
 
-        if (is_null($installment_plan_number)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_number cannot be null');
+        if (is_null($error_code)) {
+            throw new \InvalidArgumentException('non-nullable error_code cannot be null');
         }
 
-        $this->container['installment_plan_number'] = $installment_plan_number;
+        $this->container['error_code'] = $error_code;
 
         return $this;
     }
 
     /**
-     * Gets installment_plan_response
+     * Gets message
      *
-     * @return \Splitit\Model\InstallmentPlanResponse|null
+     * @return string|null
      */
-    public function getInstallmentPlanResponse()
+    public function getMessage()
     {
-        return $this->container['installment_plan_response'];
+        return $this->container['message'];
     }
 
     /**
-     * Sets installment_plan_response
+     * Sets message
      *
-     * @param \Splitit\Model\InstallmentPlanResponse|null $installment_plan_response installment_plan_response
+     * @param string|null $message message
      *
      * @return self
      */
-    public function setInstallmentPlanResponse($installment_plan_response)
+    public function setMessage($message)
     {
 
-        if (is_null($installment_plan_response)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_response cannot be null');
+        if (is_null($message)) {
+            throw new \InvalidArgumentException('non-nullable message cannot be null');
         }
 
-        $this->container['installment_plan_response'] = $installment_plan_response;
+        $this->container['message'] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Gets additional_info
+     *
+     * @return string|null
+     */
+    public function getAdditionalInfo()
+    {
+        return $this->container['additional_info'];
+    }
+
+    /**
+     * Sets additional_info
+     *
+     * @param string|null $additional_info additional_info
+     *
+     * @return self
+     */
+    public function setAdditionalInfo($additional_info)
+    {
+
+        if (is_null($additional_info)) {
+            throw new \InvalidArgumentException('non-nullable additional_info cannot be null');
+        }
+
+        $this->container['additional_info'] = $additional_info;
 
         return $this;
     }

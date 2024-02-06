@@ -1,10 +1,10 @@
-# # InstallmentPlanCancelResponse
+# # Disputes
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**installment_plan_number** | **string** |  | [optional]
-**installment_plan_response** | [**\Splitit\Model\InstallmentPlanResponse**](InstallmentPlanResponse.md) |  | [optional]
+**in_dispute** | **bool** |  | [optional]
+**evidence_provided_on** | **\DateTime** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

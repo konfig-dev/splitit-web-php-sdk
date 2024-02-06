@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentPlanCancelResponse
+ * Disputes
  *
  * PHP version 7.4
  *
@@ -26,13 +26,13 @@ use \ArrayAccess;
 use \Splitit\ObjectSerializer;
 
 /**
- * InstallmentPlanCancelResponse Class Doc Comment
+ * Disputes Class Doc Comment
  *
  * @category Class
  * @package  Splitit
  * @implements \ArrayAccess<string, mixed>
  */
-class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \JsonSerializable
+class Disputes implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       *
       * @var string
       */
-    protected static $openAPIModelName = 'InstallmentPlanCancelResponse';
+    protected static $openAPIModelName = 'Disputes';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,8 +49,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var string[]
       */
     protected static $openAPITypes = [
-        'installment_plan_number' => 'string',
-        'installment_plan_response' => '\Splitit\Model\InstallmentPlanResponse'
+        'in_dispute' => 'bool',
+        'evidence_provided_on' => '\DateTime'
     ];
 
     /**
@@ -61,8 +61,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'installment_plan_number' => null,
-        'installment_plan_response' => null
+        'in_dispute' => null,
+        'evidence_provided_on' => 'date-time'
     ];
 
     /**
@@ -71,8 +71,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var boolean[]
       */
     protected static $openAPINullables = [
-        'installment_plan_number' => false,
-		'installment_plan_response' => false
+        'in_dispute' => false,
+		'evidence_provided_on' => false
     ];
 
     /**
@@ -161,8 +161,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $attributeMap = [
-        'installment_plan_number' => 'InstallmentPlanNumber',
-        'installment_plan_response' => 'installmentPlanResponse'
+        'in_dispute' => 'InDispute',
+        'evidence_provided_on' => 'EvidenceProvidedOn'
     ];
 
     /**
@@ -171,8 +171,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $setters = [
-        'installment_plan_number' => 'setInstallmentPlanNumber',
-        'installment_plan_response' => 'setInstallmentPlanResponse'
+        'in_dispute' => 'setInDispute',
+        'evidence_provided_on' => 'setEvidenceProvidedOn'
     ];
 
     /**
@@ -181,8 +181,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $getters = [
-        'installment_plan_number' => 'getInstallmentPlanNumber',
-        'installment_plan_response' => 'getInstallmentPlanResponse'
+        'in_dispute' => 'getInDispute',
+        'evidence_provided_on' => 'getEvidenceProvidedOn'
     ];
 
     /**
@@ -242,8 +242,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('installment_plan_number', $data ?? [], null);
-        $this->setIfExists('installment_plan_response', $data ?? [], null);
+        $this->setIfExists('in_dispute', $data ?? [], null);
+        $this->setIfExists('evidence_provided_on', $data ?? [], null);
     }
 
     /**
@@ -289,59 +289,59 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
 
 
     /**
-     * Gets installment_plan_number
+     * Gets in_dispute
      *
-     * @return string|null
+     * @return bool|null
      */
-    public function getInstallmentPlanNumber()
+    public function getInDispute()
     {
-        return $this->container['installment_plan_number'];
+        return $this->container['in_dispute'];
     }
 
     /**
-     * Sets installment_plan_number
+     * Sets in_dispute
      *
-     * @param string|null $installment_plan_number installment_plan_number
+     * @param bool|null $in_dispute in_dispute
      *
      * @return self
      */
-    public function setInstallmentPlanNumber($installment_plan_number)
+    public function setInDispute($in_dispute)
     {
 
-        if (is_null($installment_plan_number)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_number cannot be null');
+        if (is_null($in_dispute)) {
+            throw new \InvalidArgumentException('non-nullable in_dispute cannot be null');
         }
 
-        $this->container['installment_plan_number'] = $installment_plan_number;
+        $this->container['in_dispute'] = $in_dispute;
 
         return $this;
     }
 
     /**
-     * Gets installment_plan_response
+     * Gets evidence_provided_on
      *
-     * @return \Splitit\Model\InstallmentPlanResponse|null
+     * @return \DateTime|null
      */
-    public function getInstallmentPlanResponse()
+    public function getEvidenceProvidedOn()
     {
-        return $this->container['installment_plan_response'];
+        return $this->container['evidence_provided_on'];
     }
 
     /**
-     * Sets installment_plan_response
+     * Sets evidence_provided_on
      *
-     * @param \Splitit\Model\InstallmentPlanResponse|null $installment_plan_response installment_plan_response
+     * @param \DateTime|null $evidence_provided_on evidence_provided_on
      *
      * @return self
      */
-    public function setInstallmentPlanResponse($installment_plan_response)
+    public function setEvidenceProvidedOn($evidence_provided_on)
     {
 
-        if (is_null($installment_plan_response)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_response cannot be null');
+        if (is_null($evidence_provided_on)) {
+            throw new \InvalidArgumentException('non-nullable evidence_provided_on cannot be null');
         }
 
-        $this->container['installment_plan_response'] = $installment_plan_response;
+        $this->container['evidence_provided_on'] = $evidence_provided_on;
 
         return $this;
     }

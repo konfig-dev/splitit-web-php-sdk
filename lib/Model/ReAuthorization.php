@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentPlanCancelResponse
+ * ReAuthorization
  *
  * PHP version 7.4
  *
@@ -26,13 +26,13 @@ use \ArrayAccess;
 use \Splitit\ObjectSerializer;
 
 /**
- * InstallmentPlanCancelResponse Class Doc Comment
+ * ReAuthorization Class Doc Comment
  *
  * @category Class
  * @package  Splitit
  * @implements \ArrayAccess<string, mixed>
  */
-class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \JsonSerializable
+class ReAuthorization implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       *
       * @var string
       */
-    protected static $openAPIModelName = 'InstallmentPlanCancelResponse';
+    protected static $openAPIModelName = 'ReAuthorization';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,8 +49,11 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var string[]
       */
     protected static $openAPITypes = [
-        'installment_plan_number' => 'string',
-        'installment_plan_response' => '\Splitit\Model\InstallmentPlanResponse'
+        'processing_date' => '\DateTime',
+        'amount' => '\Splitit\Model\Money',
+        'transaction_results' => '\Splitit\Model\TransactionResult[]',
+        'card_details' => '\Splitit\Model\CardData2',
+        'result' => 'bool'
     ];
 
     /**
@@ -61,8 +64,11 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'installment_plan_number' => null,
-        'installment_plan_response' => null
+        'processing_date' => 'date-time',
+        'amount' => null,
+        'transaction_results' => null,
+        'card_details' => null,
+        'result' => null
     ];
 
     /**
@@ -71,8 +77,11 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var boolean[]
       */
     protected static $openAPINullables = [
-        'installment_plan_number' => false,
-		'installment_plan_response' => false
+        'processing_date' => false,
+		'amount' => false,
+		'transaction_results' => false,
+		'card_details' => false,
+		'result' => false
     ];
 
     /**
@@ -161,8 +170,11 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $attributeMap = [
-        'installment_plan_number' => 'InstallmentPlanNumber',
-        'installment_plan_response' => 'installmentPlanResponse'
+        'processing_date' => 'ProcessingDate',
+        'amount' => 'Amount',
+        'transaction_results' => 'TransactionResults',
+        'card_details' => 'CardDetails',
+        'result' => 'Result'
     ];
 
     /**
@@ -171,8 +183,11 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $setters = [
-        'installment_plan_number' => 'setInstallmentPlanNumber',
-        'installment_plan_response' => 'setInstallmentPlanResponse'
+        'processing_date' => 'setProcessingDate',
+        'amount' => 'setAmount',
+        'transaction_results' => 'setTransactionResults',
+        'card_details' => 'setCardDetails',
+        'result' => 'setResult'
     ];
 
     /**
@@ -181,8 +196,11 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $getters = [
-        'installment_plan_number' => 'getInstallmentPlanNumber',
-        'installment_plan_response' => 'getInstallmentPlanResponse'
+        'processing_date' => 'getProcessingDate',
+        'amount' => 'getAmount',
+        'transaction_results' => 'getTransactionResults',
+        'card_details' => 'getCardDetails',
+        'result' => 'getResult'
     ];
 
     /**
@@ -242,8 +260,11 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('installment_plan_number', $data ?? [], null);
-        $this->setIfExists('installment_plan_response', $data ?? [], null);
+        $this->setIfExists('processing_date', $data ?? [], null);
+        $this->setIfExists('amount', $data ?? [], null);
+        $this->setIfExists('transaction_results', $data ?? [], null);
+        $this->setIfExists('card_details', $data ?? [], null);
+        $this->setIfExists('result', $data ?? [], null);
     }
 
     /**
@@ -289,59 +310,146 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
 
 
     /**
-     * Gets installment_plan_number
+     * Gets processing_date
      *
-     * @return string|null
+     * @return \DateTime|null
      */
-    public function getInstallmentPlanNumber()
+    public function getProcessingDate()
     {
-        return $this->container['installment_plan_number'];
+        return $this->container['processing_date'];
     }
 
     /**
-     * Sets installment_plan_number
+     * Sets processing_date
      *
-     * @param string|null $installment_plan_number installment_plan_number
+     * @param \DateTime|null $processing_date processing_date
      *
      * @return self
      */
-    public function setInstallmentPlanNumber($installment_plan_number)
+    public function setProcessingDate($processing_date)
     {
 
-        if (is_null($installment_plan_number)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_number cannot be null');
+        if (is_null($processing_date)) {
+            throw new \InvalidArgumentException('non-nullable processing_date cannot be null');
         }
 
-        $this->container['installment_plan_number'] = $installment_plan_number;
+        $this->container['processing_date'] = $processing_date;
 
         return $this;
     }
 
     /**
-     * Gets installment_plan_response
+     * Gets amount
      *
-     * @return \Splitit\Model\InstallmentPlanResponse|null
+     * @return \Splitit\Model\Money|null
      */
-    public function getInstallmentPlanResponse()
+    public function getAmount()
     {
-        return $this->container['installment_plan_response'];
+        return $this->container['amount'];
     }
 
     /**
-     * Sets installment_plan_response
+     * Sets amount
      *
-     * @param \Splitit\Model\InstallmentPlanResponse|null $installment_plan_response installment_plan_response
+     * @param \Splitit\Model\Money|null $amount amount
      *
      * @return self
      */
-    public function setInstallmentPlanResponse($installment_plan_response)
+    public function setAmount($amount)
     {
 
-        if (is_null($installment_plan_response)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_response cannot be null');
+        if (is_null($amount)) {
+            throw new \InvalidArgumentException('non-nullable amount cannot be null');
         }
 
-        $this->container['installment_plan_response'] = $installment_plan_response;
+        $this->container['amount'] = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Gets transaction_results
+     *
+     * @return \Splitit\Model\TransactionResult[]|null
+     */
+    public function getTransactionResults()
+    {
+        return $this->container['transaction_results'];
+    }
+
+    /**
+     * Sets transaction_results
+     *
+     * @param \Splitit\Model\TransactionResult[]|null $transaction_results transaction_results
+     *
+     * @return self
+     */
+    public function setTransactionResults($transaction_results)
+    {
+
+        if (is_null($transaction_results)) {
+            throw new \InvalidArgumentException('non-nullable transaction_results cannot be null');
+        }
+
+        $this->container['transaction_results'] = $transaction_results;
+
+        return $this;
+    }
+
+    /**
+     * Gets card_details
+     *
+     * @return \Splitit\Model\CardData2|null
+     */
+    public function getCardDetails()
+    {
+        return $this->container['card_details'];
+    }
+
+    /**
+     * Sets card_details
+     *
+     * @param \Splitit\Model\CardData2|null $card_details card_details
+     *
+     * @return self
+     */
+    public function setCardDetails($card_details)
+    {
+
+        if (is_null($card_details)) {
+            throw new \InvalidArgumentException('non-nullable card_details cannot be null');
+        }
+
+        $this->container['card_details'] = $card_details;
+
+        return $this;
+    }
+
+    /**
+     * Gets result
+     *
+     * @return bool|null
+     */
+    public function getResult()
+    {
+        return $this->container['result'];
+    }
+
+    /**
+     * Sets result
+     *
+     * @param bool|null $result result
+     *
+     * @return self
+     */
+    public function setResult($result)
+    {
+
+        if (is_null($result)) {
+            throw new \InvalidArgumentException('non-nullable result cannot be null');
+        }
+
+        $this->container['result'] = $result;
 
         return $this;
     }

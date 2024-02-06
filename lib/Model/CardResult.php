@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentPlanCancelResponse
+ * CardResult
  *
  * PHP version 7.4
  *
@@ -26,13 +26,13 @@ use \ArrayAccess;
 use \Splitit\ObjectSerializer;
 
 /**
- * InstallmentPlanCancelResponse Class Doc Comment
+ * CardResult Class Doc Comment
  *
  * @category Class
  * @package  Splitit
  * @implements \ArrayAccess<string, mixed>
  */
-class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \JsonSerializable
+class CardResult implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       *
       * @var string
       */
-    protected static $openAPIModelName = 'InstallmentPlanCancelResponse';
+    protected static $openAPIModelName = 'CardResult';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,8 +49,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var string[]
       */
     protected static $openAPITypes = [
-        'installment_plan_number' => 'string',
-        'installment_plan_response' => '\Splitit\Model\InstallmentPlanResponse'
+        'code' => 'string',
+        'description' => 'string'
     ];
 
     /**
@@ -61,8 +61,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'installment_plan_number' => null,
-        'installment_plan_response' => null
+        'code' => null,
+        'description' => null
     ];
 
     /**
@@ -71,8 +71,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var boolean[]
       */
     protected static $openAPINullables = [
-        'installment_plan_number' => false,
-		'installment_plan_response' => false
+        'code' => false,
+		'description' => false
     ];
 
     /**
@@ -161,8 +161,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $attributeMap = [
-        'installment_plan_number' => 'InstallmentPlanNumber',
-        'installment_plan_response' => 'installmentPlanResponse'
+        'code' => 'Code',
+        'description' => 'Description'
     ];
 
     /**
@@ -171,8 +171,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $setters = [
-        'installment_plan_number' => 'setInstallmentPlanNumber',
-        'installment_plan_response' => 'setInstallmentPlanResponse'
+        'code' => 'setCode',
+        'description' => 'setDescription'
     ];
 
     /**
@@ -181,8 +181,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $getters = [
-        'installment_plan_number' => 'getInstallmentPlanNumber',
-        'installment_plan_response' => 'getInstallmentPlanResponse'
+        'code' => 'getCode',
+        'description' => 'getDescription'
     ];
 
     /**
@@ -242,8 +242,8 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('installment_plan_number', $data ?? [], null);
-        $this->setIfExists('installment_plan_response', $data ?? [], null);
+        $this->setIfExists('code', $data ?? [], null);
+        $this->setIfExists('description', $data ?? [], null);
     }
 
     /**
@@ -289,59 +289,59 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
 
 
     /**
-     * Gets installment_plan_number
+     * Gets code
      *
      * @return string|null
      */
-    public function getInstallmentPlanNumber()
+    public function getCode()
     {
-        return $this->container['installment_plan_number'];
+        return $this->container['code'];
     }
 
     /**
-     * Sets installment_plan_number
+     * Sets code
      *
-     * @param string|null $installment_plan_number installment_plan_number
+     * @param string|null $code code
      *
      * @return self
      */
-    public function setInstallmentPlanNumber($installment_plan_number)
+    public function setCode($code)
     {
 
-        if (is_null($installment_plan_number)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_number cannot be null');
+        if (is_null($code)) {
+            throw new \InvalidArgumentException('non-nullable code cannot be null');
         }
 
-        $this->container['installment_plan_number'] = $installment_plan_number;
+        $this->container['code'] = $code;
 
         return $this;
     }
 
     /**
-     * Gets installment_plan_response
+     * Gets description
      *
-     * @return \Splitit\Model\InstallmentPlanResponse|null
+     * @return string|null
      */
-    public function getInstallmentPlanResponse()
+    public function getDescription()
     {
-        return $this->container['installment_plan_response'];
+        return $this->container['description'];
     }
 
     /**
-     * Sets installment_plan_response
+     * Sets description
      *
-     * @param \Splitit\Model\InstallmentPlanResponse|null $installment_plan_response installment_plan_response
+     * @param string|null $description description
      *
      * @return self
      */
-    public function setInstallmentPlanResponse($installment_plan_response)
+    public function setDescription($description)
     {
 
-        if (is_null($installment_plan_response)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_response cannot be null');
+        if (is_null($description)) {
+            throw new \InvalidArgumentException('non-nullable description cannot be null');
         }
 
-        $this->container['installment_plan_response'] = $installment_plan_response;
+        $this->container['description'] = $description;
 
         return $this;
     }
