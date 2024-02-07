@@ -656,6 +656,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $plan_data = SENTINEL_VALUE,
         $card_details = SENTINEL_VALUE,
         $billing_address = SENTINEL_VALUE,
+        $shopper_identifier = SENTINEL_VALUE,
         string $contentType = self::contentTypes['checkEligibility'][0]
     )
     {
@@ -663,6 +664,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "plan_data", $plan_data);
         $this->setRequestBodyProperty($_body, "card_details", $card_details);
         $this->setRequestBodyProperty($_body, "billing_address", $billing_address);
+        $this->setRequestBodyProperty($_body, "shopper_identifier", $shopper_identifier);
         $check_installments_eligibility_request = $_body;
 
         list($response) = $this->checkEligibilityWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $check_installments_eligibility_request, $contentType);
@@ -899,6 +901,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $plan_data = SENTINEL_VALUE,
         $card_details = SENTINEL_VALUE,
         $billing_address = SENTINEL_VALUE,
+        $shopper_identifier = SENTINEL_VALUE,
         string $contentType = self::contentTypes['checkEligibility'][0]
     )
     {
@@ -906,6 +909,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "plan_data", $plan_data);
         $this->setRequestBodyProperty($_body, "card_details", $card_details);
         $this->setRequestBodyProperty($_body, "billing_address", $billing_address);
+        $this->setRequestBodyProperty($_body, "shopper_identifier", $shopper_identifier);
         $check_installments_eligibility_request = $_body;
 
         return $this->checkEligibilityAsyncWithHttpInfo($x_splitit_idempotency_key, $x_splitit_touch_point, $check_installments_eligibility_request, $contentType)

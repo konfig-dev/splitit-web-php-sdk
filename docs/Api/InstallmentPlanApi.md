@@ -109,6 +109,7 @@ $card_details = [
     ];
 $billing_address = [
     ];
+$shopper_identifier = "string_example";
 
 try {
     $result = $splitit->installmentPlan->checkEligibility(
@@ -116,7 +117,8 @@ try {
         $x_splitit_touch_point, 
         $plan_data, 
         $card_details, 
-        $billing_address
+        $billing_address, 
+        $shopper_identifier
     );
     print_r($result->$getInstallmentProvider());
     print_r($result->$getPaymentPlanOptions());

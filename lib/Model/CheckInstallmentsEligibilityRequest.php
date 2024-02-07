@@ -51,7 +51,8 @@ class CheckInstallmentsEligibilityRequest implements ModelInterface, ArrayAccess
     protected static $openAPITypes = [
         'plan_data' => '\Splitit\Model\PlanData',
         'card_details' => '\Splitit\Model\CardData',
-        'billing_address' => '\Splitit\Model\AddressData'
+        'billing_address' => '\Splitit\Model\AddressData',
+        'shopper_identifier' => 'string'
     ];
 
     /**
@@ -64,7 +65,8 @@ class CheckInstallmentsEligibilityRequest implements ModelInterface, ArrayAccess
     protected static $openAPIFormats = [
         'plan_data' => null,
         'card_details' => null,
-        'billing_address' => null
+        'billing_address' => null,
+        'shopper_identifier' => null
     ];
 
     /**
@@ -75,7 +77,8 @@ class CheckInstallmentsEligibilityRequest implements ModelInterface, ArrayAccess
     protected static $openAPINullables = [
         'plan_data' => false,
 		'card_details' => false,
-		'billing_address' => false
+		'billing_address' => false,
+		'shopper_identifier' => false
     ];
 
     /**
@@ -166,7 +169,8 @@ class CheckInstallmentsEligibilityRequest implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'plan_data' => 'PlanData',
         'card_details' => 'CardDetails',
-        'billing_address' => 'BillingAddress'
+        'billing_address' => 'BillingAddress',
+        'shopper_identifier' => 'ShopperIdentifier'
     ];
 
     /**
@@ -177,7 +181,8 @@ class CheckInstallmentsEligibilityRequest implements ModelInterface, ArrayAccess
     protected static $setters = [
         'plan_data' => 'setPlanData',
         'card_details' => 'setCardDetails',
-        'billing_address' => 'setBillingAddress'
+        'billing_address' => 'setBillingAddress',
+        'shopper_identifier' => 'setShopperIdentifier'
     ];
 
     /**
@@ -188,7 +193,8 @@ class CheckInstallmentsEligibilityRequest implements ModelInterface, ArrayAccess
     protected static $getters = [
         'plan_data' => 'getPlanData',
         'card_details' => 'getCardDetails',
-        'billing_address' => 'getBillingAddress'
+        'billing_address' => 'getBillingAddress',
+        'shopper_identifier' => 'getShopperIdentifier'
     ];
 
     /**
@@ -251,6 +257,7 @@ class CheckInstallmentsEligibilityRequest implements ModelInterface, ArrayAccess
         $this->setIfExists('plan_data', $data ?? [], null);
         $this->setIfExists('card_details', $data ?? [], null);
         $this->setIfExists('billing_address', $data ?? [], null);
+        $this->setIfExists('shopper_identifier', $data ?? [], null);
     }
 
     /**
@@ -378,6 +385,35 @@ class CheckInstallmentsEligibilityRequest implements ModelInterface, ArrayAccess
         }
 
         $this->container['billing_address'] = $billing_address;
+
+        return $this;
+    }
+
+    /**
+     * Gets shopper_identifier
+     *
+     * @return string|null
+     */
+    public function getShopperIdentifier()
+    {
+        return $this->container['shopper_identifier'];
+    }
+
+    /**
+     * Sets shopper_identifier
+     *
+     * @param string|null $shopper_identifier shopper_identifier
+     *
+     * @return self
+     */
+    public function setShopperIdentifier($shopper_identifier)
+    {
+
+        if (is_null($shopper_identifier)) {
+            throw new \InvalidArgumentException('non-nullable shopper_identifier cannot be null');
+        }
+
+        $this->container['shopper_identifier'] = $shopper_identifier;
 
         return $this;
     }

@@ -52,7 +52,8 @@ class ShopperData implements ModelInterface, ArrayAccess, \JsonSerializable
         'full_name' => 'string',
         'email' => 'string',
         'phone_number' => 'string',
-        'culture' => 'string'
+        'culture' => 'string',
+        'external_id' => 'string'
     ];
 
     /**
@@ -66,7 +67,8 @@ class ShopperData implements ModelInterface, ArrayAccess, \JsonSerializable
         'full_name' => null,
         'email' => null,
         'phone_number' => null,
-        'culture' => null
+        'culture' => null,
+        'external_id' => null
     ];
 
     /**
@@ -78,7 +80,8 @@ class ShopperData implements ModelInterface, ArrayAccess, \JsonSerializable
         'full_name' => false,
 		'email' => false,
 		'phone_number' => false,
-		'culture' => false
+		'culture' => false,
+		'external_id' => false
     ];
 
     /**
@@ -170,7 +173,8 @@ class ShopperData implements ModelInterface, ArrayAccess, \JsonSerializable
         'full_name' => 'FullName',
         'email' => 'Email',
         'phone_number' => 'PhoneNumber',
-        'culture' => 'Culture'
+        'culture' => 'Culture',
+        'external_id' => 'ExternalId'
     ];
 
     /**
@@ -182,7 +186,8 @@ class ShopperData implements ModelInterface, ArrayAccess, \JsonSerializable
         'full_name' => 'setFullName',
         'email' => 'setEmail',
         'phone_number' => 'setPhoneNumber',
-        'culture' => 'setCulture'
+        'culture' => 'setCulture',
+        'external_id' => 'setExternalId'
     ];
 
     /**
@@ -194,7 +199,8 @@ class ShopperData implements ModelInterface, ArrayAccess, \JsonSerializable
         'full_name' => 'getFullName',
         'email' => 'getEmail',
         'phone_number' => 'getPhoneNumber',
-        'culture' => 'getCulture'
+        'culture' => 'getCulture',
+        'external_id' => 'getExternalId'
     ];
 
     /**
@@ -258,6 +264,7 @@ class ShopperData implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('email', $data ?? [], null);
         $this->setIfExists('phone_number', $data ?? [], null);
         $this->setIfExists('culture', $data ?? [], null);
+        $this->setIfExists('external_id', $data ?? [], null);
     }
 
     /**
@@ -414,6 +421,35 @@ class ShopperData implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['culture'] = $culture;
+
+        return $this;
+    }
+
+    /**
+     * Gets external_id
+     *
+     * @return string|null
+     */
+    public function getExternalId()
+    {
+        return $this->container['external_id'];
+    }
+
+    /**
+     * Sets external_id
+     *
+     * @param string|null $external_id external_id
+     *
+     * @return self
+     */
+    public function setExternalId($external_id)
+    {
+
+        if (is_null($external_id)) {
+            throw new \InvalidArgumentException('non-nullable external_id cannot be null');
+        }
+
+        $this->container['external_id'] = $external_id;
 
         return $this;
     }

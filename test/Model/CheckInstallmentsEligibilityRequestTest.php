@@ -97,4 +97,13 @@ class CheckInstallmentsEligibilityRequestTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "shopper_identifier"
+     */
+    public function testPropertyShopperIdentifier()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }
