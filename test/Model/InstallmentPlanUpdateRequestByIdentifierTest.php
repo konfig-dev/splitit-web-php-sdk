@@ -108,6 +108,15 @@ class InstallmentPlanUpdateRequestByIdentifierTest extends TestCase
     }
 
     /**
+     * Test attribute "new_amount"
+     */
+    public function testPropertyNewAmount()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "identifier"
      */
     public function testPropertyIdentifier()

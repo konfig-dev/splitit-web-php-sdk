@@ -52,7 +52,8 @@ class InstallmentPlanUpdateResponse implements ModelInterface, ArrayAccess, \Jso
         'ref_order_number' => 'string',
         'installment_plan_number' => 'string',
         'status' => '\Splitit\Model\PlanStatus',
-        'shipping_status' => '\Splitit\Model\ShippingStatus'
+        'shipping_status' => '\Splitit\Model\ShippingStatus',
+        'new_amount' => 'float'
     ];
 
     /**
@@ -66,7 +67,8 @@ class InstallmentPlanUpdateResponse implements ModelInterface, ArrayAccess, \Jso
         'ref_order_number' => null,
         'installment_plan_number' => null,
         'status' => null,
-        'shipping_status' => null
+        'shipping_status' => null,
+        'new_amount' => 'decimal'
     ];
 
     /**
@@ -78,7 +80,8 @@ class InstallmentPlanUpdateResponse implements ModelInterface, ArrayAccess, \Jso
         'ref_order_number' => false,
 		'installment_plan_number' => false,
 		'status' => false,
-		'shipping_status' => false
+		'shipping_status' => false,
+		'new_amount' => false
     ];
 
     /**
@@ -170,7 +173,8 @@ class InstallmentPlanUpdateResponse implements ModelInterface, ArrayAccess, \Jso
         'ref_order_number' => 'RefOrderNumber',
         'installment_plan_number' => 'InstallmentPlanNumber',
         'status' => 'Status',
-        'shipping_status' => 'ShippingStatus'
+        'shipping_status' => 'ShippingStatus',
+        'new_amount' => 'NewAmount'
     ];
 
     /**
@@ -182,7 +186,8 @@ class InstallmentPlanUpdateResponse implements ModelInterface, ArrayAccess, \Jso
         'ref_order_number' => 'setRefOrderNumber',
         'installment_plan_number' => 'setInstallmentPlanNumber',
         'status' => 'setStatus',
-        'shipping_status' => 'setShippingStatus'
+        'shipping_status' => 'setShippingStatus',
+        'new_amount' => 'setNewAmount'
     ];
 
     /**
@@ -194,7 +199,8 @@ class InstallmentPlanUpdateResponse implements ModelInterface, ArrayAccess, \Jso
         'ref_order_number' => 'getRefOrderNumber',
         'installment_plan_number' => 'getInstallmentPlanNumber',
         'status' => 'getStatus',
-        'shipping_status' => 'getShippingStatus'
+        'shipping_status' => 'getShippingStatus',
+        'new_amount' => 'getNewAmount'
     ];
 
     /**
@@ -258,6 +264,7 @@ class InstallmentPlanUpdateResponse implements ModelInterface, ArrayAccess, \Jso
         $this->setIfExists('installment_plan_number', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('shipping_status', $data ?? [], null);
+        $this->setIfExists('new_amount', $data ?? [], null);
     }
 
     /**
@@ -420,6 +427,35 @@ class InstallmentPlanUpdateResponse implements ModelInterface, ArrayAccess, \Jso
         }
 
         $this->container['shipping_status'] = $shipping_status;
+
+        return $this;
+    }
+
+    /**
+     * Gets new_amount
+     *
+     * @return float|null
+     */
+    public function getNewAmount()
+    {
+        return $this->container['new_amount'];
+    }
+
+    /**
+     * Sets new_amount
+     *
+     * @param float|null $new_amount new_amount
+     *
+     * @return self
+     */
+    public function setNewAmount($new_amount)
+    {
+
+        if (is_null($new_amount)) {
+            throw new \InvalidArgumentException('non-nullable new_amount cannot be null');
+        }
+
+        $this->container['new_amount'] = $new_amount;
 
         return $this;
     }

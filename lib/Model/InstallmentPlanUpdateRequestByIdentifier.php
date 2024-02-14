@@ -52,7 +52,8 @@ class InstallmentPlanUpdateRequestByIdentifier implements ModelInterface, ArrayA
         'ref_order_number' => 'string',
         'tracking_number' => 'string',
         'capture' => 'bool',
-        'shipping_status' => '\Splitit\Model\ShippingStatus2',
+        'shipping_status' => '\Splitit\Model\ShippingStatus',
+        'new_amount' => 'float',
         'identifier' => '\Splitit\Model\IdentifierContract'
     ];
 
@@ -68,6 +69,7 @@ class InstallmentPlanUpdateRequestByIdentifier implements ModelInterface, ArrayA
         'tracking_number' => null,
         'capture' => null,
         'shipping_status' => null,
+        'new_amount' => 'decimal',
         'identifier' => null
     ];
 
@@ -81,6 +83,7 @@ class InstallmentPlanUpdateRequestByIdentifier implements ModelInterface, ArrayA
 		'tracking_number' => false,
 		'capture' => false,
 		'shipping_status' => false,
+		'new_amount' => false,
 		'identifier' => false
     ];
 
@@ -174,6 +177,7 @@ class InstallmentPlanUpdateRequestByIdentifier implements ModelInterface, ArrayA
         'tracking_number' => 'TrackingNumber',
         'capture' => 'Capture',
         'shipping_status' => 'ShippingStatus',
+        'new_amount' => 'NewAmount',
         'identifier' => 'Identifier'
     ];
 
@@ -187,6 +191,7 @@ class InstallmentPlanUpdateRequestByIdentifier implements ModelInterface, ArrayA
         'tracking_number' => 'setTrackingNumber',
         'capture' => 'setCapture',
         'shipping_status' => 'setShippingStatus',
+        'new_amount' => 'setNewAmount',
         'identifier' => 'setIdentifier'
     ];
 
@@ -200,6 +205,7 @@ class InstallmentPlanUpdateRequestByIdentifier implements ModelInterface, ArrayA
         'tracking_number' => 'getTrackingNumber',
         'capture' => 'getCapture',
         'shipping_status' => 'getShippingStatus',
+        'new_amount' => 'getNewAmount',
         'identifier' => 'getIdentifier'
     ];
 
@@ -264,6 +270,7 @@ class InstallmentPlanUpdateRequestByIdentifier implements ModelInterface, ArrayA
         $this->setIfExists('tracking_number', $data ?? [], null);
         $this->setIfExists('capture', $data ?? [], null);
         $this->setIfExists('shipping_status', $data ?? [], null);
+        $this->setIfExists('new_amount', $data ?? [], null);
         $this->setIfExists('identifier', $data ?? [], null);
     }
 
@@ -399,7 +406,7 @@ class InstallmentPlanUpdateRequestByIdentifier implements ModelInterface, ArrayA
     /**
      * Gets shipping_status
      *
-     * @return \Splitit\Model\ShippingStatus2|null
+     * @return \Splitit\Model\ShippingStatus|null
      */
     public function getShippingStatus()
     {
@@ -409,7 +416,7 @@ class InstallmentPlanUpdateRequestByIdentifier implements ModelInterface, ArrayA
     /**
      * Sets shipping_status
      *
-     * @param \Splitit\Model\ShippingStatus2|null $shipping_status shipping_status
+     * @param \Splitit\Model\ShippingStatus|null $shipping_status shipping_status
      *
      * @return self
      */
@@ -421,6 +428,35 @@ class InstallmentPlanUpdateRequestByIdentifier implements ModelInterface, ArrayA
         }
 
         $this->container['shipping_status'] = $shipping_status;
+
+        return $this;
+    }
+
+    /**
+     * Gets new_amount
+     *
+     * @return float|null
+     */
+    public function getNewAmount()
+    {
+        return $this->container['new_amount'];
+    }
+
+    /**
+     * Sets new_amount
+     *
+     * @param float|null $new_amount new_amount
+     *
+     * @return self
+     */
+    public function setNewAmount($new_amount)
+    {
+
+        if (is_null($new_amount)) {
+            throw new \InvalidArgumentException('non-nullable new_amount cannot be null');
+        }
+
+        $this->container['new_amount'] = $new_amount;
 
         return $this;
     }

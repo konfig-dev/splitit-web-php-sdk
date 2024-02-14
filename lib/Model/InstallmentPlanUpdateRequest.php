@@ -52,7 +52,8 @@ class InstallmentPlanUpdateRequest implements ModelInterface, ArrayAccess, \Json
         'ref_order_number' => 'string',
         'tracking_number' => 'string',
         'capture' => 'bool',
-        'shipping_status' => '\Splitit\Model\ShippingStatus2'
+        'shipping_status' => '\Splitit\Model\ShippingStatus',
+        'new_amount' => 'float'
     ];
 
     /**
@@ -66,7 +67,8 @@ class InstallmentPlanUpdateRequest implements ModelInterface, ArrayAccess, \Json
         'ref_order_number' => null,
         'tracking_number' => null,
         'capture' => null,
-        'shipping_status' => null
+        'shipping_status' => null,
+        'new_amount' => 'decimal'
     ];
 
     /**
@@ -78,7 +80,8 @@ class InstallmentPlanUpdateRequest implements ModelInterface, ArrayAccess, \Json
         'ref_order_number' => false,
 		'tracking_number' => false,
 		'capture' => false,
-		'shipping_status' => false
+		'shipping_status' => false,
+		'new_amount' => false
     ];
 
     /**
@@ -170,7 +173,8 @@ class InstallmentPlanUpdateRequest implements ModelInterface, ArrayAccess, \Json
         'ref_order_number' => 'RefOrderNumber',
         'tracking_number' => 'TrackingNumber',
         'capture' => 'Capture',
-        'shipping_status' => 'ShippingStatus'
+        'shipping_status' => 'ShippingStatus',
+        'new_amount' => 'NewAmount'
     ];
 
     /**
@@ -182,7 +186,8 @@ class InstallmentPlanUpdateRequest implements ModelInterface, ArrayAccess, \Json
         'ref_order_number' => 'setRefOrderNumber',
         'tracking_number' => 'setTrackingNumber',
         'capture' => 'setCapture',
-        'shipping_status' => 'setShippingStatus'
+        'shipping_status' => 'setShippingStatus',
+        'new_amount' => 'setNewAmount'
     ];
 
     /**
@@ -194,7 +199,8 @@ class InstallmentPlanUpdateRequest implements ModelInterface, ArrayAccess, \Json
         'ref_order_number' => 'getRefOrderNumber',
         'tracking_number' => 'getTrackingNumber',
         'capture' => 'getCapture',
-        'shipping_status' => 'getShippingStatus'
+        'shipping_status' => 'getShippingStatus',
+        'new_amount' => 'getNewAmount'
     ];
 
     /**
@@ -258,6 +264,7 @@ class InstallmentPlanUpdateRequest implements ModelInterface, ArrayAccess, \Json
         $this->setIfExists('tracking_number', $data ?? [], null);
         $this->setIfExists('capture', $data ?? [], null);
         $this->setIfExists('shipping_status', $data ?? [], null);
+        $this->setIfExists('new_amount', $data ?? [], null);
     }
 
     /**
@@ -392,7 +399,7 @@ class InstallmentPlanUpdateRequest implements ModelInterface, ArrayAccess, \Json
     /**
      * Gets shipping_status
      *
-     * @return \Splitit\Model\ShippingStatus2|null
+     * @return \Splitit\Model\ShippingStatus|null
      */
     public function getShippingStatus()
     {
@@ -402,7 +409,7 @@ class InstallmentPlanUpdateRequest implements ModelInterface, ArrayAccess, \Json
     /**
      * Sets shipping_status
      *
-     * @param \Splitit\Model\ShippingStatus2|null $shipping_status shipping_status
+     * @param \Splitit\Model\ShippingStatus|null $shipping_status shipping_status
      *
      * @return self
      */
@@ -414,6 +421,35 @@ class InstallmentPlanUpdateRequest implements ModelInterface, ArrayAccess, \Json
         }
 
         $this->container['shipping_status'] = $shipping_status;
+
+        return $this;
+    }
+
+    /**
+     * Gets new_amount
+     *
+     * @return float|null
+     */
+    public function getNewAmount()
+    {
+        return $this->container['new_amount'];
+    }
+
+    /**
+     * Sets new_amount
+     *
+     * @param float|null $new_amount new_amount
+     *
+     * @return self
+     */
+    public function setNewAmount($new_amount)
+    {
+
+        if (is_null($new_amount)) {
+            throw new \InvalidArgumentException('non-nullable new_amount cannot be null');
+        }
+
+        $this->container['new_amount'] = $new_amount;
 
         return $this;
     }

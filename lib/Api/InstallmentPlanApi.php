@@ -65,45 +65,45 @@ class InstallmentPlanApi extends \Splitit\CustomApi
             'application/json',
         ],
         'checkEligibility' => [
-            'application/json-patch+json',
             'application/json',
             'text/json',
+            'application/json-patch+json',
             'application/*+json',
         ],
         'get' => [
             'application/json',
         ],
         'post' => [
-            'application/json-patch+json',
             'application/json',
             'text/json',
+            'application/json-patch+json',
             'application/*+json',
         ],
         'post2' => [
-            'application/json-patch+json',
             'application/json',
             'text/json',
+            'application/json-patch+json',
             'application/*+json',
         ],
         'refund' => [
-            'application/json-patch+json',
             'application/json',
             'text/json',
+            'application/json-patch+json',
             'application/*+json',
         ],
         'search' => [
             'application/json',
         ],
         'updateOrder' => [
-            'application/json-patch+json',
             'application/json',
             'text/json',
+            'application/json-patch+json',
             'application/*+json',
         ],
         'updateOrder2' => [
-            'application/json-patch+json',
             'application/json',
             'text/json',
+            'application/json-patch+json',
             'application/*+json',
         ],
         'verifyAuthorization' => [
@@ -574,7 +574,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['application/json', 'text/json', 'text/plain', ],
             $contentType,
             $multipart
         );
@@ -1046,7 +1046,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['application/json', 'text/json', 'text/plain', ],
             $contentType,
             $multipart
         );
@@ -1511,7 +1511,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['application/json', 'text/json', 'text/plain', ],
             $contentType,
             $multipart
         );
@@ -2058,7 +2058,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['application/json', 'text/json', 'text/plain', ],
             $contentType,
             $multipart
         );
@@ -2616,7 +2616,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['application/json', 'text/json', 'text/plain', ],
             $contentType,
             $multipart
         );
@@ -3113,7 +3113,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['application/json', 'text/json', 'text/plain', ],
             $contentType,
             $multipart
         );
@@ -3617,7 +3617,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['application/json', 'text/json', 'text/plain', ],
             $contentType,
             $multipart
         );
@@ -3686,7 +3686,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $installment_plan_number installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
-     * @param  \Splitit\Model\UpdateOrderRequest $update_order_request update_order_request (required)
+     * @param  \Splitit\Model\InstallmentPlanUpdateRequest $installment_plan_update_request installment_plan_update_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOrder'] to see the possible values for this operation
      *
      * @throws \Splitit\ApiException on non-2xx response
@@ -3698,21 +3698,23 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $installment_plan_number,
         $x_splitit_idempotency_key,
         $x_splitit_touch_point,
-        $tracking_number = SENTINEL_VALUE,
         $ref_order_number = SENTINEL_VALUE,
-        $shipping_status = SENTINEL_VALUE,
+        $tracking_number = SENTINEL_VALUE,
         $capture = SENTINEL_VALUE,
+        $shipping_status = SENTINEL_VALUE,
+        $new_amount = SENTINEL_VALUE,
         string $contentType = self::contentTypes['updateOrder'][0]
     )
     {
         $_body = [];
-        $this->setRequestBodyProperty($_body, "tracking_number", $tracking_number);
         $this->setRequestBodyProperty($_body, "ref_order_number", $ref_order_number);
-        $this->setRequestBodyProperty($_body, "shipping_status", $shipping_status);
+        $this->setRequestBodyProperty($_body, "tracking_number", $tracking_number);
         $this->setRequestBodyProperty($_body, "capture", $capture);
-        $update_order_request = $_body;
+        $this->setRequestBodyProperty($_body, "shipping_status", $shipping_status);
+        $this->setRequestBodyProperty($_body, "new_amount", $new_amount);
+        $installment_plan_update_request = $_body;
 
-        list($response) = $this->updateOrderWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, $contentType);
+        list($response) = $this->updateOrderWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request, $contentType);
         return $response;
     }
 
@@ -3722,7 +3724,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
-     * @param  \Splitit\Model\UpdateOrderRequest $update_order_request (required)
+     * @param  \Splitit\Model\InstallmentPlanUpdateRequest $installment_plan_update_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOrder'] to see the possible values for this operation
      * @param  \Splitit\RequestOptions $requestOptions
      *
@@ -3730,10 +3732,10 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanUpdateResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateOrderWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0], \Splitit\RequestOptions $requestOptions = null)
+    public function updateOrderWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request, string $contentType = self::contentTypes['updateOrder'][0], \Splitit\RequestOptions $requestOptions = null)
     {
         if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
-        ["request" => $request, "serializedBody" => $serializedBody] = $this->updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request, $contentType);
 
         // Customization hook
         $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
@@ -3752,7 +3754,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                         $installment_plan_number,
                         $x_splitit_idempotency_key,
                         $x_splitit_touch_point,
-                        $update_order_request,
+                        $installment_plan_update_request,
                         $contentType,
                         $requestOptions->setRetryOAuth(false)
                     );
@@ -3935,7 +3937,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
-     * @param  \Splitit\Model\UpdateOrderRequest $update_order_request (required)
+     * @param  \Splitit\Model\InstallmentPlanUpdateRequest $installment_plan_update_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOrder'] to see the possible values for this operation
      * @param  \Splitit\RequestOptions $requestOptions
      *
@@ -3947,21 +3949,23 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $installment_plan_number,
         $x_splitit_idempotency_key,
         $x_splitit_touch_point,
-        $tracking_number = SENTINEL_VALUE,
         $ref_order_number = SENTINEL_VALUE,
-        $shipping_status = SENTINEL_VALUE,
+        $tracking_number = SENTINEL_VALUE,
         $capture = SENTINEL_VALUE,
+        $shipping_status = SENTINEL_VALUE,
+        $new_amount = SENTINEL_VALUE,
         string $contentType = self::contentTypes['updateOrder'][0]
     )
     {
         $_body = [];
-        $this->setRequestBodyProperty($_body, "tracking_number", $tracking_number);
         $this->setRequestBodyProperty($_body, "ref_order_number", $ref_order_number);
-        $this->setRequestBodyProperty($_body, "shipping_status", $shipping_status);
+        $this->setRequestBodyProperty($_body, "tracking_number", $tracking_number);
         $this->setRequestBodyProperty($_body, "capture", $capture);
-        $update_order_request = $_body;
+        $this->setRequestBodyProperty($_body, "shipping_status", $shipping_status);
+        $this->setRequestBodyProperty($_body, "new_amount", $new_amount);
+        $installment_plan_update_request = $_body;
 
-        return $this->updateOrderAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, $contentType)
+        return $this->updateOrderAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3975,17 +3979,17 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
-     * @param  \Splitit\Model\UpdateOrderRequest $update_order_request (required)
+     * @param  \Splitit\Model\InstallmentPlanUpdateRequest $installment_plan_update_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOrder'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateOrderAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0], $requestOptions = null)
+    public function updateOrderAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request, string $contentType = self::contentTypes['updateOrder'][0], $requestOptions = null)
     {
         if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         $returnType = '\Splitit\Model\InstallmentPlanUpdateResponse';
-        ["request" => $request, "serializedBody" => $serializedBody] = $this->updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request, $contentType);
 
         // Customization hook
         $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
@@ -4032,13 +4036,13 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
-     * @param  \Splitit\Model\UpdateOrderRequest $update_order_request (required)
+     * @param  \Splitit\Model\InstallmentPlanUpdateRequest $installment_plan_update_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOrder'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request, string $contentType = self::contentTypes['updateOrder'][0])
+    public function updateOrderRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request, string $contentType = self::contentTypes['updateOrder'][0])
     {
 
         // Check if $installment_plan_number is a string
@@ -4071,18 +4075,18 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                 'Missing the required parameter x_splitit_touch_point when calling updateOrder'
             );
         }
-        if ($update_order_request !== SENTINEL_VALUE) {
-            if (!($update_order_request instanceof \Splitit\Model\UpdateOrderRequest)) {
-                if (!is_array($update_order_request))
-                    throw new \InvalidArgumentException('"update_order_request" must be associative array or an instance of \Splitit\Model\UpdateOrderRequest InstallmentPlanApi.updateOrder.');
+        if ($installment_plan_update_request !== SENTINEL_VALUE) {
+            if (!($installment_plan_update_request instanceof \Splitit\Model\InstallmentPlanUpdateRequest)) {
+                if (!is_array($installment_plan_update_request))
+                    throw new \InvalidArgumentException('"installment_plan_update_request" must be associative array or an instance of \Splitit\Model\InstallmentPlanUpdateRequest InstallmentPlanApi.updateOrder.');
                 else
-                    $update_order_request = new \Splitit\Model\UpdateOrderRequest($update_order_request);
+                    $installment_plan_update_request = new \Splitit\Model\InstallmentPlanUpdateRequest($installment_plan_update_request);
             }
         }
-        // verify the required parameter 'update_order_request' is set
-        if ($update_order_request === SENTINEL_VALUE || (is_array($update_order_request) && count($update_order_request) === 0)) {
+        // verify the required parameter 'installment_plan_update_request' is set
+        if ($installment_plan_update_request === SENTINEL_VALUE || (is_array($installment_plan_update_request) && count($installment_plan_update_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter update_order_request when calling updateOrder'
+                'Missing the required parameter installment_plan_update_request when calling updateOrder'
             );
         }
 
@@ -4115,18 +4119,18 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['application/json', 'text/json', 'text/plain', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($update_order_request)) {
+        if (isset($installment_plan_update_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($update_order_request));
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($installment_plan_update_request));
             } else {
-                $httpBody = $update_order_request;
+                $httpBody = $installment_plan_update_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4205,6 +4209,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $tracking_number = SENTINEL_VALUE,
         $capture = SENTINEL_VALUE,
         $shipping_status = SENTINEL_VALUE,
+        $new_amount = SENTINEL_VALUE,
         $identifier = SENTINEL_VALUE,
         string $contentType = self::contentTypes['updateOrder2'][0]
     )
@@ -4214,6 +4219,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "tracking_number", $tracking_number);
         $this->setRequestBodyProperty($_body, "capture", $capture);
         $this->setRequestBodyProperty($_body, "shipping_status", $shipping_status);
+        $this->setRequestBodyProperty($_body, "new_amount", $new_amount);
         $this->setRequestBodyProperty($_body, "identifier", $identifier);
         $installment_plan_update_request_by_identifier = $_body;
 
@@ -4452,6 +4458,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $tracking_number = SENTINEL_VALUE,
         $capture = SENTINEL_VALUE,
         $shipping_status = SENTINEL_VALUE,
+        $new_amount = SENTINEL_VALUE,
         $identifier = SENTINEL_VALUE,
         string $contentType = self::contentTypes['updateOrder2'][0]
     )
@@ -4461,6 +4468,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $this->setRequestBodyProperty($_body, "tracking_number", $tracking_number);
         $this->setRequestBodyProperty($_body, "capture", $capture);
         $this->setRequestBodyProperty($_body, "shipping_status", $shipping_status);
+        $this->setRequestBodyProperty($_body, "new_amount", $new_amount);
         $this->setRequestBodyProperty($_body, "identifier", $identifier);
         $installment_plan_update_request_by_identifier = $_body;
 
@@ -4598,7 +4606,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['application/json', 'text/json', 'text/plain', ],
             $contentType,
             $multipart
         );
@@ -5063,7 +5071,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['text/plain', 'application/json', 'text/json', ],
+            ['application/json', 'text/json', 'text/plain', ],
             $contentType,
             $multipart
         );

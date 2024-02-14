@@ -71,7 +71,7 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: `text/plain`, `application/json`, `text/json`
+- **Accept**: `application/json`, `text/json`, `text/plain`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -145,8 +145,8 @@ try {
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json-patch+json`, `application/json`, `text/json`, `application/*+json`
-- **Accept**: `text/plain`, `application/json`, `text/json`
+- **Content-Type**: `application/json`, `text/json`, `application/json-patch+json`, `application/*+json`
+- **Accept**: `application/json`, `text/json`, `text/plain`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -221,7 +221,7 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: `text/plain`, `application/json`, `text/json`
+- **Accept**: `application/json`, `text/json`, `text/plain`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -320,8 +320,8 @@ try {
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json-patch+json`, `application/json`, `text/json`, `application/*+json`
-- **Accept**: `text/plain`, `application/json`, `text/json`
+- **Content-Type**: `application/json`, `text/json`, `application/json-patch+json`, `application/*+json`
+- **Accept**: `application/json`, `text/json`, `text/plain`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -428,8 +428,8 @@ try {
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json-patch+json`, `application/json`, `text/json`, `application/*+json`
-- **Accept**: `text/plain`, `application/json`, `text/json`
+- **Content-Type**: `application/json`, `text/json`, `application/json-patch+json`, `application/*+json`
+- **Accept**: `application/json`, `text/json`, `text/plain`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -498,8 +498,8 @@ try {
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json-patch+json`, `application/json`, `text/json`, `application/*+json`
-- **Accept**: `text/plain`, `application/json`, `text/json`
+- **Content-Type**: `application/json`, `text/json`, `application/json-patch+json`, `application/*+json`
+- **Accept**: `application/json`, `text/json`, `text/plain`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -567,7 +567,7 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: `text/plain`, `application/json`, `text/json`
+- **Accept**: `application/json`, `text/json`, `text/plain`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -576,7 +576,7 @@ try {
 ## `updateOrder()`
 
 ```php
-updateOrder($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $update_order_request): \Splitit\Model\InstallmentPlanUpdateResponse
+updateOrder($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_update_request): \Splitit\Model\InstallmentPlanUpdateResponse
 ```
 
 
@@ -595,25 +595,28 @@ $splitit = new \Splitit\Client(
 $installment_plan_number = "installmentPlanNumber_example";
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
 $x_splitit_touch_point = ""; // TouchPoint
-$tracking_number = "string_example";
 $ref_order_number = "string_example";
-$shipping_status = "Pending";
+$tracking_number = "string_example";
 $capture = True;
+$shipping_status = "Pending";
+$new_amount = 3.14;
 
 try {
     $result = $splitit->installmentPlan->updateOrder(
         $installment_plan_number, 
         $x_splitit_idempotency_key, 
         $x_splitit_touch_point, 
-        $tracking_number, 
         $ref_order_number, 
+        $tracking_number, 
+        $capture, 
         $shipping_status, 
-        $capture
+        $new_amount
     );
     print_r($result->$getRefOrderNumber());
     print_r($result->$getInstallmentPlanNumber());
     print_r($result->$getStatus());
     print_r($result->$getShippingStatus());
+    print_r($result->$getNewAmount());
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->updateOrder: ', $e->getMessage(), PHP_EOL;
 }
@@ -626,7 +629,7 @@ try {
 | **installment_plan_number** | **string**|  | |
 | **x_splitit_idempotency_key** | **string**|  | |
 | **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
-| **update_order_request** | [**\Splitit\Model\UpdateOrderRequest**](../Model/UpdateOrderRequest.md)|  | |
+| **installment_plan_update_request** | [**\Splitit\Model\InstallmentPlanUpdateRequest**](../Model/InstallmentPlanUpdateRequest.md)|  | |
 
 ### Return type
 
@@ -638,8 +641,8 @@ try {
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json-patch+json`, `application/json`, `text/json`, `application/*+json`
-- **Accept**: `text/plain`, `application/json`, `text/json`
+- **Content-Type**: `application/json`, `text/json`, `application/json-patch+json`, `application/*+json`
+- **Accept**: `application/json`, `text/json`, `text/plain`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -669,7 +672,8 @@ $x_splitit_touch_point = ""; // TouchPoint
 $ref_order_number = "string_example";
 $tracking_number = "string_example";
 $capture = True;
-$shipping_status = "Shipped";
+$shipping_status = "Pending";
+$new_amount = 3.14;
 $identifier = [
     ];
 
@@ -681,12 +685,14 @@ try {
         $tracking_number, 
         $capture, 
         $shipping_status, 
+        $new_amount, 
         $identifier
     );
     print_r($result->$getRefOrderNumber());
     print_r($result->$getInstallmentPlanNumber());
     print_r($result->$getStatus());
     print_r($result->$getShippingStatus());
+    print_r($result->$getNewAmount());
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->updateOrder2: ', $e->getMessage(), PHP_EOL;
 }
@@ -710,8 +716,8 @@ try {
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json-patch+json`, `application/json`, `text/json`, `application/*+json`
-- **Accept**: `text/plain`, `application/json`, `text/json`
+- **Content-Type**: `application/json`, `text/json`, `application/json-patch+json`, `application/*+json`
+- **Accept**: `application/json`, `text/json`, `text/plain`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -773,7 +779,7 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: `text/plain`, `application/json`, `text/json`
+- **Accept**: `application/json`, `text/json`, `text/plain`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)

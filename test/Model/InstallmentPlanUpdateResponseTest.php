@@ -106,4 +106,13 @@ class InstallmentPlanUpdateResponseTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "new_amount"
+     */
+    public function testPropertyNewAmount()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }
