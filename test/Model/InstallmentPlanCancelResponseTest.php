@@ -79,13 +79,4 @@ class InstallmentPlanCancelResponseTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
-
-    /**
-     * Test attribute "installment_plan_response"
-     */
-    public function testPropertyInstallmentPlanResponse()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
 }

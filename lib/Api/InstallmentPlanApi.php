@@ -63,6 +63,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
     public const contentTypes = [
         'cancel' => [
             'application/json',
+            'text/json',
+            'application/json-patch+json',
+            'application/*+json',
         ],
         'checkEligibility' => [
             'application/json',
@@ -185,6 +188,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $installment_plan_number installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
+     * @param  \Splitit\Model\InstallmentPlanCancelRequest $installment_plan_cancel_request installment_plan_cancel_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancel'] to see the possible values for this operation
      *
      * @throws \Splitit\ApiException on non-2xx response
@@ -195,12 +199,16 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $installment_plan_number,
         $x_splitit_idempotency_key,
         $x_splitit_touch_point,
+        $reference_id = SENTINEL_VALUE,
 
         string $contentType = self::contentTypes['cancel'][0]
     )
     {
+        $_body = null;
+        $this->setRequestBodyProperty($_body, "reference_id", $reference_id);
+        $installment_plan_cancel_request = $_body;
 
-        list($response) = $this->cancelWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType);
+        list($response) = $this->cancelWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_cancel_request, $contentType);
         return $response;
     }
 
@@ -210,6 +218,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
+     * @param  \Splitit\Model\InstallmentPlanCancelRequest $installment_plan_cancel_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancel'] to see the possible values for this operation
      * @param  \Splitit\RequestOptions $requestOptions
      *
@@ -217,13 +226,13 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @throws \InvalidArgumentException
      * @return array of \Splitit\Model\InstallmentPlanCancelResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function cancelWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = self::contentTypes['cancel'][0], \Splitit\RequestOptions $requestOptions = null)
+    public function cancelWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_cancel_request = null, string $contentType = self::contentTypes['cancel'][0], \Splitit\RequestOptions $requestOptions = null)
     {
         if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
-        ["request" => $request, "serializedBody" => $serializedBody] = $this->cancelRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->cancelRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_cancel_request, $contentType);
 
         // Customization hook
-        $this->beforeSendHook($request, $requestOptions, $this->config);
+        $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
 
         try {
             $options = $this->createHttpClientOption();
@@ -239,6 +248,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
                         $installment_plan_number,
                         $x_splitit_idempotency_key,
                         $x_splitit_touch_point,
+                        $installment_plan_cancel_request,
                         $contentType,
                         $requestOptions->setRetryOAuth(false)
                     );
@@ -421,6 +431,7 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
+     * @param  \Splitit\Model\InstallmentPlanCancelRequest $installment_plan_cancel_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancel'] to see the possible values for this operation
      * @param  \Splitit\RequestOptions $requestOptions
      *
@@ -431,12 +442,16 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $installment_plan_number,
         $x_splitit_idempotency_key,
         $x_splitit_touch_point,
+        $reference_id = SENTINEL_VALUE,
 
         string $contentType = self::contentTypes['cancel'][0]
     )
     {
+        $_body = null;
+        $this->setRequestBodyProperty($_body, "reference_id", $reference_id);
+        $installment_plan_cancel_request = $_body;
 
-        return $this->cancelAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType)
+        return $this->cancelAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_cancel_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -450,19 +465,20 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
+     * @param  \Splitit\Model\InstallmentPlanCancelRequest $installment_plan_cancel_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = self::contentTypes['cancel'][0], $requestOptions = null)
+    public function cancelAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_cancel_request = null, string $contentType = self::contentTypes['cancel'][0], $requestOptions = null)
     {
         if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
         $returnType = '\Splitit\Model\InstallmentPlanCancelResponse';
-        ["request" => $request, "serializedBody" => $serializedBody] = $this->cancelRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType);
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->cancelRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_cancel_request, $contentType);
 
         // Customization hook
-        $this->beforeSendHook($request, $requestOptions, $this->config);
+        $this->beforeSendHook($request, $requestOptions, $this->config, $serializedBody);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -506,12 +522,13 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      * @param  string $installment_plan_number (required)
      * @param  string $x_splitit_idempotency_key (required)
      * @param  string $x_splitit_touch_point TouchPoint (required)
+     * @param  \Splitit\Model\InstallmentPlanCancelRequest $installment_plan_cancel_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function cancelRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = self::contentTypes['cancel'][0])
+    public function cancelRequest($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_cancel_request = SENTINEL_VALUE, string $contentType = self::contentTypes['cancel'][0])
     {
 
         // Check if $installment_plan_number is a string
@@ -543,6 +560,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
             throw new \InvalidArgumentException(
                 'Missing the required parameter x_splitit_touch_point when calling cancel'
             );
+        }
+        if ($installment_plan_cancel_request !== SENTINEL_VALUE) {
+            if (!($installment_plan_cancel_request instanceof \Splitit\Model\InstallmentPlanCancelRequest)) {
+                if (!is_array($installment_plan_cancel_request))
+                    throw new \InvalidArgumentException('"installment_plan_cancel_request" must be associative array or an instance of \Splitit\Model\InstallmentPlanCancelRequest InstallmentPlanApi.cancel.');
+                else
+                    $installment_plan_cancel_request = new \Splitit\Model\InstallmentPlanCancelRequest($installment_plan_cancel_request);
+            }
         }
 
 
@@ -580,7 +605,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($installment_plan_cancel_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($installment_plan_cancel_request));
+            } else {
+                $httpBody = $installment_plan_cancel_request;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -2706,12 +2738,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $x_splitit_idempotency_key,
         $x_splitit_touch_point,
         $refund_strategy = SENTINEL_VALUE,
+        $reference_id = SENTINEL_VALUE,
         string $contentType = self::contentTypes['refund'][0]
     )
     {
         $_body = [];
         $this->setRequestBodyProperty($_body, "amount", $amount);
         $this->setRequestBodyProperty($_body, "refund_strategy", $refund_strategy);
+        $this->setRequestBodyProperty($_body, "reference_id", $reference_id);
         $installment_plan_refund_request = $_body;
 
         list($response) = $this->refundWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request, $contentType);
@@ -2951,12 +2985,14 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         $x_splitit_idempotency_key,
         $x_splitit_touch_point,
         $refund_strategy = SENTINEL_VALUE,
+        $reference_id = SENTINEL_VALUE,
         string $contentType = self::contentTypes['refund'][0]
     )
     {
         $_body = [];
         $this->setRequestBodyProperty($_body, "amount", $amount);
         $this->setRequestBodyProperty($_body, "refund_strategy", $refund_strategy);
+        $this->setRequestBodyProperty($_body, "reference_id", $reference_id);
         $installment_plan_refund_request = $_body;
 
         return $this->refundAsyncWithHttpInfo($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_refund_request, $contentType)

@@ -1,6 +1,6 @@
 <?php
 /**
- * FraudCheckTest
+ * InstallmentPlanCancelRequestTest
  *
  * PHP version 7.4
  *
@@ -25,13 +25,13 @@ namespace Splitit\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * FraudCheckTest Class Doc Comment
+ * InstallmentPlanCancelRequestTest Class Doc Comment
  *
  * @category    Class
- * @description FraudCheck
+ * @description InstallmentPlanCancelRequest
  * @package     Splitit
  */
-class FraudCheckTest extends TestCase
+class InstallmentPlanCancelRequestTest extends TestCase
 {
 
     /**
@@ -63,45 +63,18 @@ class FraudCheckTest extends TestCase
     }
 
     /**
-     * Test "FraudCheck"
+     * Test "InstallmentPlanCancelRequest"
      */
-    public function testFraudCheck()
+    public function testInstallmentPlanCancelRequest()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "fraud_check_result"
+     * Test attribute "reference_id"
      */
-    public function testPropertyFraudCheckResult()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "provider_result_code"
-     */
-    public function testPropertyProviderResultCode()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "provider_result_desc"
-     */
-    public function testPropertyProviderResultDesc()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "provider_reference_id"
-     */
-    public function testPropertyProviderReferenceId()
+    public function testPropertyReferenceId()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

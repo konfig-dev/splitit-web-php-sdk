@@ -49,8 +49,7 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var string[]
       */
     protected static $openAPITypes = [
-        'installment_plan_number' => 'string',
-        'installment_plan_response' => '\Splitit\Model\InstallmentPlanResponse'
+        'installment_plan_number' => 'string'
     ];
 
     /**
@@ -61,8 +60,7 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'installment_plan_number' => null,
-        'installment_plan_response' => null
+        'installment_plan_number' => null
     ];
 
     /**
@@ -71,8 +69,7 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
       * @var boolean[]
       */
     protected static $openAPINullables = [
-        'installment_plan_number' => false,
-		'installment_plan_response' => false
+        'installment_plan_number' => false
     ];
 
     /**
@@ -161,8 +158,7 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $attributeMap = [
-        'installment_plan_number' => 'InstallmentPlanNumber',
-        'installment_plan_response' => 'installmentPlanResponse'
+        'installment_plan_number' => 'InstallmentPlanNumber'
     ];
 
     /**
@@ -171,8 +167,7 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $setters = [
-        'installment_plan_number' => 'setInstallmentPlanNumber',
-        'installment_plan_response' => 'setInstallmentPlanResponse'
+        'installment_plan_number' => 'setInstallmentPlanNumber'
     ];
 
     /**
@@ -181,8 +176,7 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
      * @var string[]
      */
     protected static $getters = [
-        'installment_plan_number' => 'getInstallmentPlanNumber',
-        'installment_plan_response' => 'getInstallmentPlanResponse'
+        'installment_plan_number' => 'getInstallmentPlanNumber'
     ];
 
     /**
@@ -243,7 +237,6 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
     public function __construct(array $data = null)
     {
         $this->setIfExists('installment_plan_number', $data ?? [], null);
-        $this->setIfExists('installment_plan_response', $data ?? [], null);
     }
 
     /**
@@ -313,35 +306,6 @@ class InstallmentPlanCancelResponse implements ModelInterface, ArrayAccess, \Jso
         }
 
         $this->container['installment_plan_number'] = $installment_plan_number;
-
-        return $this;
-    }
-
-    /**
-     * Gets installment_plan_response
-     *
-     * @return \Splitit\Model\InstallmentPlanResponse|null
-     */
-    public function getInstallmentPlanResponse()
-    {
-        return $this->container['installment_plan_response'];
-    }
-
-    /**
-     * Sets installment_plan_response
-     *
-     * @param \Splitit\Model\InstallmentPlanResponse|null $installment_plan_response installment_plan_response
-     *
-     * @return self
-     */
-    public function setInstallmentPlanResponse($installment_plan_response)
-    {
-
-        if (is_null($installment_plan_response)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_response cannot be null');
-        }
-
-        $this->container['installment_plan_response'] = $installment_plan_response;
 
         return $this;
     }

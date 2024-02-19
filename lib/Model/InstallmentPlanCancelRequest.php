@@ -1,6 +1,6 @@
 <?php
 /**
- * AddressData22
+ * InstallmentPlanCancelRequest
  *
  * PHP version 7.4
  *
@@ -26,13 +26,13 @@ use \ArrayAccess;
 use \Splitit\ObjectSerializer;
 
 /**
- * AddressData22 Class Doc Comment
+ * InstallmentPlanCancelRequest Class Doc Comment
  *
  * @category Class
  * @package  Splitit
  * @implements \ArrayAccess<string, mixed>
  */
-class AddressData22 implements ModelInterface, ArrayAccess, \JsonSerializable
+class InstallmentPlanCancelRequest implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class AddressData22 implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'AddressData22';
+    protected static $openAPIModelName = 'InstallmentPlanCancelRequest';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,13 +49,7 @@ class AddressData22 implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'address_line' => 'string',
-        'address_line2' => 'string',
-        'city' => 'string',
-        'country' => 'string',
-        'state' => 'string',
-        'zip' => 'string',
-        'full_address_line' => 'string'
+        'reference_id' => 'string'
     ];
 
     /**
@@ -66,13 +60,7 @@ class AddressData22 implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'address_line' => null,
-        'address_line2' => null,
-        'city' => null,
-        'country' => null,
-        'state' => null,
-        'zip' => null,
-        'full_address_line' => null
+        'reference_id' => null
     ];
 
     /**
@@ -81,13 +69,7 @@ class AddressData22 implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static $openAPINullables = [
-        'address_line' => false,
-		'address_line2' => false,
-		'city' => false,
-		'country' => false,
-		'state' => false,
-		'zip' => false,
-		'full_address_line' => false
+        'reference_id' => false
     ];
 
     /**
@@ -176,13 +158,7 @@ class AddressData22 implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'address_line' => 'AddressLine',
-        'address_line2' => 'AddressLine2',
-        'city' => 'City',
-        'country' => 'Country',
-        'state' => 'State',
-        'zip' => 'Zip',
-        'full_address_line' => 'FullAddressLine'
+        'reference_id' => 'ReferenceId'
     ];
 
     /**
@@ -191,13 +167,7 @@ class AddressData22 implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'address_line' => 'setAddressLine',
-        'address_line2' => 'setAddressLine2',
-        'city' => 'setCity',
-        'country' => 'setCountry',
-        'state' => 'setState',
-        'zip' => 'setZip',
-        'full_address_line' => 'setFullAddressLine'
+        'reference_id' => 'setReferenceId'
     ];
 
     /**
@@ -206,13 +176,7 @@ class AddressData22 implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'address_line' => 'getAddressLine',
-        'address_line2' => 'getAddressLine2',
-        'city' => 'getCity',
-        'country' => 'getCountry',
-        'state' => 'getState',
-        'zip' => 'getZip',
-        'full_address_line' => 'getFullAddressLine'
+        'reference_id' => 'getReferenceId'
     ];
 
     /**
@@ -272,13 +236,7 @@ class AddressData22 implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('address_line', $data ?? [], null);
-        $this->setIfExists('address_line2', $data ?? [], null);
-        $this->setIfExists('city', $data ?? [], null);
-        $this->setIfExists('country', $data ?? [], null);
-        $this->setIfExists('state', $data ?? [], null);
-        $this->setIfExists('zip', $data ?? [], null);
-        $this->setIfExists('full_address_line', $data ?? [], null);
+        $this->setIfExists('reference_id', $data ?? [], null);
     }
 
     /**
@@ -324,204 +282,30 @@ class AddressData22 implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets address_line
+     * Gets reference_id
      *
      * @return string|null
      */
-    public function getAddressLine()
+    public function getReferenceId()
     {
-        return $this->container['address_line'];
+        return $this->container['reference_id'];
     }
 
     /**
-     * Sets address_line
+     * Sets reference_id
      *
-     * @param string|null $address_line address_line
+     * @param string|null $reference_id reference_id
      *
      * @return self
      */
-    public function setAddressLine($address_line)
+    public function setReferenceId($reference_id)
     {
 
-        if (is_null($address_line)) {
-            throw new \InvalidArgumentException('non-nullable address_line cannot be null');
+        if (is_null($reference_id)) {
+            throw new \InvalidArgumentException('non-nullable reference_id cannot be null');
         }
 
-        $this->container['address_line'] = $address_line;
-
-        return $this;
-    }
-
-    /**
-     * Gets address_line2
-     *
-     * @return string|null
-     */
-    public function getAddressLine2()
-    {
-        return $this->container['address_line2'];
-    }
-
-    /**
-     * Sets address_line2
-     *
-     * @param string|null $address_line2 address_line2
-     *
-     * @return self
-     */
-    public function setAddressLine2($address_line2)
-    {
-
-        if (is_null($address_line2)) {
-            throw new \InvalidArgumentException('non-nullable address_line2 cannot be null');
-        }
-
-        $this->container['address_line2'] = $address_line2;
-
-        return $this;
-    }
-
-    /**
-     * Gets city
-     *
-     * @return string|null
-     */
-    public function getCity()
-    {
-        return $this->container['city'];
-    }
-
-    /**
-     * Sets city
-     *
-     * @param string|null $city city
-     *
-     * @return self
-     */
-    public function setCity($city)
-    {
-
-        if (is_null($city)) {
-            throw new \InvalidArgumentException('non-nullable city cannot be null');
-        }
-
-        $this->container['city'] = $city;
-
-        return $this;
-    }
-
-    /**
-     * Gets country
-     *
-     * @return string|null
-     */
-    public function getCountry()
-    {
-        return $this->container['country'];
-    }
-
-    /**
-     * Sets country
-     *
-     * @param string|null $country country
-     *
-     * @return self
-     */
-    public function setCountry($country)
-    {
-
-        if (is_null($country)) {
-            throw new \InvalidArgumentException('non-nullable country cannot be null');
-        }
-
-        $this->container['country'] = $country;
-
-        return $this;
-    }
-
-    /**
-     * Gets state
-     *
-     * @return string|null
-     */
-    public function getState()
-    {
-        return $this->container['state'];
-    }
-
-    /**
-     * Sets state
-     *
-     * @param string|null $state state
-     *
-     * @return self
-     */
-    public function setState($state)
-    {
-
-        if (is_null($state)) {
-            throw new \InvalidArgumentException('non-nullable state cannot be null');
-        }
-
-        $this->container['state'] = $state;
-
-        return $this;
-    }
-
-    /**
-     * Gets zip
-     *
-     * @return string|null
-     */
-    public function getZip()
-    {
-        return $this->container['zip'];
-    }
-
-    /**
-     * Sets zip
-     *
-     * @param string|null $zip zip
-     *
-     * @return self
-     */
-    public function setZip($zip)
-    {
-
-        if (is_null($zip)) {
-            throw new \InvalidArgumentException('non-nullable zip cannot be null');
-        }
-
-        $this->container['zip'] = $zip;
-
-        return $this;
-    }
-
-    /**
-     * Gets full_address_line
-     *
-     * @return string|null
-     */
-    public function getFullAddressLine()
-    {
-        return $this->container['full_address_line'];
-    }
-
-    /**
-     * Sets full_address_line
-     *
-     * @param string|null $full_address_line full_address_line
-     *
-     * @return self
-     */
-    public function setFullAddressLine($full_address_line)
-    {
-
-        if (is_null($full_address_line)) {
-            throw new \InvalidArgumentException('non-nullable full_address_line cannot be null');
-        }
-
-        $this->container['full_address_line'] = $full_address_line;
+        $this->container['reference_id'] = $reference_id;
 
         return $this;
     }

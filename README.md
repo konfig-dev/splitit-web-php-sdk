@@ -54,15 +54,16 @@ $splitit = new \Splitit\Client(
 $installment_plan_number = "installmentPlanNumber_example";
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
 $x_splitit_touch_point = ""; // TouchPoint
+$reference_id = "string_example";
 
 try {
     $result = $splitit->installmentPlan->cancel(
         $installment_plan_number, 
         $x_splitit_idempotency_key, 
-        $x_splitit_touch_point
+        $x_splitit_touch_point, 
+        $reference_id
     );
     print_r($result->$getInstallmentPlanNumber());
-    print_r($result->$getInstallmentPlanResponse());
 } catch (\Exception $e) {
     echo 'Exception when calling InstallmentPlanApi->cancel: ', $e->getMessage(), PHP_EOL;
 }
@@ -88,38 +89,25 @@ Class | Method | HTTP request | Description
 ## Models
 
 - [AddressData](docs/Model/AddressData.md)
-- [AddressData2](docs/Model/AddressData2.md)
-- [AddressData22](docs/Model/AddressData22.md)
 - [AddressDataModel](docs/Model/AddressDataModel.md)
 - [AuthorizationModel](docs/Model/AuthorizationModel.md)
 - [BluesnapVaultedShopperToken](docs/Model/BluesnapVaultedShopperToken.md)
 - [CardBrand](docs/Model/CardBrand.md)
 - [CardData](docs/Model/CardData.md)
-- [CardData2](docs/Model/CardData2.md)
-- [CardResult](docs/Model/CardResult.md)
 - [CardType](docs/Model/CardType.md)
 - [CheckInstallmentsEligibilityRequest](docs/Model/CheckInstallmentsEligibilityRequest.md)
-- [ConsumerData](docs/Model/ConsumerData.md)
-- [Currency](docs/Model/Currency.md)
-- [CurrencyAllOf](docs/Model/CurrencyAllOf.md)
-- [DisputeStatus](docs/Model/DisputeStatus.md)
-- [Disputes](docs/Model/Disputes.md)
 - [Error](docs/Model/Error.md)
-- [Error2](docs/Model/Error2.md)
 - [ErrorExtended](docs/Model/ErrorExtended.md)
 - [ErrorExtendedAllOf](docs/Model/ErrorExtendedAllOf.md)
 - [EventsEndpointsModel](docs/Model/EventsEndpointsModel.md)
-- [ExternalProviderTypes](docs/Model/ExternalProviderTypes.md)
 - [FailedResponse](docs/Model/FailedResponse.md)
-- [FraudCheck](docs/Model/FraudCheck.md)
 - [GatewayTokenData](docs/Model/GatewayTokenData.md)
 - [GwAuthorizationStatus](docs/Model/GwAuthorizationStatus.md)
 - [IdentifierContract](docs/Model/IdentifierContract.md)
 - [InitiatePlanResponse](docs/Model/InitiatePlanResponse.md)
 - [InitiateRedirectionEndpointsModel](docs/Model/InitiateRedirectionEndpointsModel.md)
 - [Installment](docs/Model/Installment.md)
-- [Installment2](docs/Model/Installment2.md)
-- [InstallmentPlan](docs/Model/InstallmentPlan.md)
+- [InstallmentPlanCancelRequest](docs/Model/InstallmentPlanCancelRequest.md)
 - [InstallmentPlanCancelResponse](docs/Model/InstallmentPlanCancelResponse.md)
 - [InstallmentPlanCreateRequest](docs/Model/InstallmentPlanCreateRequest.md)
 - [InstallmentPlanCreateResponse](docs/Model/InstallmentPlanCreateResponse.md)
@@ -127,7 +115,6 @@ Class | Method | HTTP request | Description
 - [InstallmentPlanInitiateRequest](docs/Model/InstallmentPlanInitiateRequest.md)
 - [InstallmentPlanRefundRequest](docs/Model/InstallmentPlanRefundRequest.md)
 - [InstallmentPlanRefundResponse](docs/Model/InstallmentPlanRefundResponse.md)
-- [InstallmentPlanResponse](docs/Model/InstallmentPlanResponse.md)
 - [InstallmentPlanSearchResponse](docs/Model/InstallmentPlanSearchResponse.md)
 - [InstallmentPlanUpdateRequest](docs/Model/InstallmentPlanUpdateRequest.md)
 - [InstallmentPlanUpdateRequestByIdentifier](docs/Model/InstallmentPlanUpdateRequestByIdentifier.md)
@@ -137,11 +124,7 @@ Class | Method | HTTP request | Description
 - [InstallmentsEligibilityResponse](docs/Model/InstallmentsEligibilityResponse.md)
 - [LinksData](docs/Model/LinksData.md)
 - [LinksModel](docs/Model/LinksModel.md)
-- [MerchantRef](docs/Model/MerchantRef.md)
-- [MerchantRefAllOf](docs/Model/MerchantRefAllOf.md)
 - [MockerShopperToken](docs/Model/MockerShopperToken.md)
-- [Money](docs/Model/Money.md)
-- [MoneyFlows](docs/Model/MoneyFlows.md)
 - [PaymentMethodModel](docs/Model/PaymentMethodModel.md)
 - [PaymentMethodType](docs/Model/PaymentMethodType.md)
 - [PaymentPlanOptionModel](docs/Model/PaymentPlanOptionModel.md)
@@ -153,25 +136,19 @@ Class | Method | HTTP request | Description
 - [ProcessingData](docs/Model/ProcessingData.md)
 - [ProcessingData2](docs/Model/ProcessingData2.md)
 - [PurchaseMethod](docs/Model/PurchaseMethod.md)
-- [ReAuthorization](docs/Model/ReAuthorization.md)
 - [RedirectionEndpointsModel](docs/Model/RedirectionEndpointsModel.md)
-- [ReferenceEntityBase](docs/Model/ReferenceEntityBase.md)
 - [RefundModel](docs/Model/RefundModel.md)
 - [RefundStatus](docs/Model/RefundStatus.md)
 - [RefundStrategy](docs/Model/RefundStrategy.md)
 - [RefundSummary](docs/Model/RefundSummary.md)
-- [ResponseHeader](docs/Model/ResponseHeader.md)
 - [SearchInstallmentPlanResponseItem](docs/Model/SearchInstallmentPlanResponseItem.md)
 - [ShippingStatus](docs/Model/ShippingStatus.md)
 - [ShopperData](docs/Model/ShopperData.md)
 - [SpreedlyToken](docs/Model/SpreedlyToken.md)
-- [TerminalRef](docs/Model/TerminalRef.md)
 - [TestModes](docs/Model/TestModes.md)
 - [ThreeDSData](docs/Model/ThreeDSData.md)
 - [ThreeDSData2](docs/Model/ThreeDSData2.md)
 - [ThreeDsRedirectDataV3](docs/Model/ThreeDsRedirectDataV3.md)
-- [TransactionResult](docs/Model/TransactionResult.md)
-- [User](docs/Model/User.md)
 - [UxSettingsModel](docs/Model/UxSettingsModel.md)
 - [VerifyAuthorizationResponse](docs/Model/VerifyAuthorizationResponse.md)
 

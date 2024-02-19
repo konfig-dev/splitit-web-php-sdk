@@ -50,7 +50,8 @@ class InstallmentPlanRefundRequest implements ModelInterface, ArrayAccess, \Json
       */
     protected static $openAPITypes = [
         'amount' => 'float',
-        'refund_strategy' => '\Splitit\Model\RefundStrategy'
+        'refund_strategy' => '\Splitit\Model\RefundStrategy',
+        'reference_id' => 'string'
     ];
 
     /**
@@ -62,7 +63,8 @@ class InstallmentPlanRefundRequest implements ModelInterface, ArrayAccess, \Json
       */
     protected static $openAPIFormats = [
         'amount' => 'decimal',
-        'refund_strategy' => null
+        'refund_strategy' => null,
+        'reference_id' => null
     ];
 
     /**
@@ -72,7 +74,8 @@ class InstallmentPlanRefundRequest implements ModelInterface, ArrayAccess, \Json
       */
     protected static $openAPINullables = [
         'amount' => false,
-		'refund_strategy' => false
+		'refund_strategy' => false,
+		'reference_id' => false
     ];
 
     /**
@@ -162,7 +165,8 @@ class InstallmentPlanRefundRequest implements ModelInterface, ArrayAccess, \Json
      */
     protected static $attributeMap = [
         'amount' => 'Amount',
-        'refund_strategy' => 'RefundStrategy'
+        'refund_strategy' => 'RefundStrategy',
+        'reference_id' => 'ReferenceId'
     ];
 
     /**
@@ -172,7 +176,8 @@ class InstallmentPlanRefundRequest implements ModelInterface, ArrayAccess, \Json
      */
     protected static $setters = [
         'amount' => 'setAmount',
-        'refund_strategy' => 'setRefundStrategy'
+        'refund_strategy' => 'setRefundStrategy',
+        'reference_id' => 'setReferenceId'
     ];
 
     /**
@@ -182,7 +187,8 @@ class InstallmentPlanRefundRequest implements ModelInterface, ArrayAccess, \Json
      */
     protected static $getters = [
         'amount' => 'getAmount',
-        'refund_strategy' => 'getRefundStrategy'
+        'refund_strategy' => 'getRefundStrategy',
+        'reference_id' => 'getReferenceId'
     ];
 
     /**
@@ -244,6 +250,7 @@ class InstallmentPlanRefundRequest implements ModelInterface, ArrayAccess, \Json
     {
         $this->setIfExists('amount', $data ?? [], null);
         $this->setIfExists('refund_strategy', $data ?? [], null);
+        $this->setIfExists('reference_id', $data ?? [], null);
     }
 
     /**
@@ -345,6 +352,35 @@ class InstallmentPlanRefundRequest implements ModelInterface, ArrayAccess, \Json
         }
 
         $this->container['refund_strategy'] = $refund_strategy;
+
+        return $this;
+    }
+
+    /**
+     * Gets reference_id
+     *
+     * @return string|null
+     */
+    public function getReferenceId()
+    {
+        return $this->container['reference_id'];
+    }
+
+    /**
+     * Sets reference_id
+     *
+     * @param string|null $reference_id reference_id
+     *
+     * @return self
+     */
+    public function setReferenceId($reference_id)
+    {
+
+        if (is_null($reference_id)) {
+            throw new \InvalidArgumentException('non-nullable reference_id cannot be null');
+        }
+
+        $this->container['reference_id'] = $reference_id;
 
         return $this;
     }
