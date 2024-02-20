@@ -4,7 +4,6 @@ All URIs are relative to https://web-api-v3.production.splitit.com, except if th
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
-| [**cancel()**](InstallmentPlanApi.md#cancel) | **POST** /api/installmentplans/{installmentPlanNumber}/cancel |  |
 | [**checkEligibility()**](InstallmentPlanApi.md#checkEligibility) | **POST** /api/installmentplans/check-eligibility |  |
 | [**get()**](InstallmentPlanApi.md#get) | **GET** /api/installmentplans/{installmentPlanNumber} |  |
 | [**post()**](InstallmentPlanApi.md#post) | **POST** /api/installmentplans/initiate |  |
@@ -15,69 +14,6 @@ All URIs are relative to https://web-api-v3.production.splitit.com, except if th
 | [**updateOrder2()**](InstallmentPlanApi.md#updateOrder2) | **PUT** /api/installmentplans/updateorder |  |
 | [**verifyAuthorization()**](InstallmentPlanApi.md#verifyAuthorization) | **GET** /api/installmentplans/{installmentPlanNumber}/verifyauthorization |  |
 
-
-## `cancel()`
-
-```php
-cancel($installment_plan_number, $x_splitit_idempotency_key, $x_splitit_touch_point, $installment_plan_cancel_request): \Splitit\Model\InstallmentPlanCancelResponse
-```
-
-
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-$splitit = new \Splitit\Client(
-    getenv("SPLITIT_CLIENT_ID"),
-    getenv("SPLITIT_CLIENT_SECRET")
-);
-
-$installment_plan_number = "installmentPlanNumber_example";
-$x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
-$x_splitit_touch_point = ""; // TouchPoint
-$reference_id = "string_example";
-
-try {
-    $result = $splitit->installmentPlan->cancel(
-        $installment_plan_number, 
-        $x_splitit_idempotency_key, 
-        $x_splitit_touch_point, 
-        $reference_id
-    );
-    print_r($result->$getInstallmentPlanNumber());
-} catch (\Exception $e) {
-    echo 'Exception when calling InstallmentPlanApi->cancel: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **installment_plan_number** | **string**|  | |
-| **x_splitit_idempotency_key** | **string**|  | |
-| **x_splitit_touch_point** | **string**| TouchPoint | [default to &#39;&#39;] |
-| **installment_plan_cancel_request** | [**\Splitit\Model\InstallmentPlanCancelRequest**](../Model/InstallmentPlanCancelRequest.md)|  | [optional] |
-
-### Return type
-
-[**\Splitit\Model\InstallmentPlanCancelResponse**](../Model/InstallmentPlanCancelResponse.md)
-
-### Authorization
-
-[oauth](../../README.md#oauth)
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`, `text/json`, `application/json-patch+json`, `application/*+json`
-- **Accept**: `application/json`, `text/json`, `text/plain`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
 
 ## `checkEligibility()`
 

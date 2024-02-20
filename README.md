@@ -51,21 +51,34 @@ $splitit = new \Splitit\Client(
     getenv("SPLITIT_CLIENT_SECRET")
 );
 
-$installment_plan_number = "installmentPlanNumber_example";
 $x_splitit_idempotency_key = "X-Splitit-IdempotencyKey_example";
 $x_splitit_touch_point = ""; // TouchPoint
-$reference_id = "string_example";
+$plan_data = [
+        "total_amount" => 3.14,
+        "number_of_installments" => 1,
+        "purchase_method" => "InStore",
+    ];
+$card_details = [
+        "card_brand" => "Mastercard",
+        "card_type" => "Credit",
+    ];
+$billing_address = [
+    ];
+$shopper_identifier = "string_example";
 
 try {
-    $result = $splitit->installmentPlan->cancel(
-        $installment_plan_number, 
+    $result = $splitit->installmentPlan->checkEligibility(
         $x_splitit_idempotency_key, 
         $x_splitit_touch_point, 
-        $reference_id
+        $plan_data, 
+        $card_details, 
+        $billing_address, 
+        $shopper_identifier
     );
-    print_r($result->$getInstallmentPlanNumber());
+    print_r($result->$getInstallmentProvider());
+    print_r($result->$getPaymentPlanOptions());
 } catch (\Exception $e) {
-    echo 'Exception when calling InstallmentPlanApi->cancel: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling InstallmentPlanApi->checkEligibility: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -75,7 +88,6 @@ All URIs are relative to *https://web-api-v3.production.splitit.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*InstallmentPlanApi* | [**cancel**](docs/Api/InstallmentPlanApi.md#cancel) | **POST** /api/installmentplans/{installmentPlanNumber}/cancel | 
 *InstallmentPlanApi* | [**checkEligibility**](docs/Api/InstallmentPlanApi.md#checkeligibility) | **POST** /api/installmentplans/check-eligibility | 
 *InstallmentPlanApi* | [**get**](docs/Api/InstallmentPlanApi.md#get) | **GET** /api/installmentplans/{installmentPlanNumber} | 
 *InstallmentPlanApi* | [**post**](docs/Api/InstallmentPlanApi.md#post) | **POST** /api/installmentplans/initiate | 
@@ -107,8 +119,6 @@ Class | Method | HTTP request | Description
 - [InitiatePlanResponse](docs/Model/InitiatePlanResponse.md)
 - [InitiateRedirectionEndpointsModel](docs/Model/InitiateRedirectionEndpointsModel.md)
 - [Installment](docs/Model/Installment.md)
-- [InstallmentPlanCancelRequest](docs/Model/InstallmentPlanCancelRequest.md)
-- [InstallmentPlanCancelResponse](docs/Model/InstallmentPlanCancelResponse.md)
 - [InstallmentPlanCreateRequest](docs/Model/InstallmentPlanCreateRequest.md)
 - [InstallmentPlanCreateResponse](docs/Model/InstallmentPlanCreateResponse.md)
 - [InstallmentPlanGetResponse](docs/Model/InstallmentPlanGetResponse.md)
