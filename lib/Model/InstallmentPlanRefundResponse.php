@@ -54,7 +54,8 @@ class InstallmentPlanRefundResponse implements ModelInterface, ArrayAccess, \Jso
         'currency' => 'string',
         'non_credit_refund_amount' => 'float',
         'credit_refund_amount' => 'float',
-        'summary' => '\Splitit\Model\RefundSummary'
+        'summary' => '\Splitit\Model\RefundSummary',
+        'reference_id' => 'string'
     ];
 
     /**
@@ -70,7 +71,8 @@ class InstallmentPlanRefundResponse implements ModelInterface, ArrayAccess, \Jso
         'currency' => null,
         'non_credit_refund_amount' => 'decimal',
         'credit_refund_amount' => 'decimal',
-        'summary' => null
+        'summary' => null,
+        'reference_id' => null
     ];
 
     /**
@@ -84,7 +86,8 @@ class InstallmentPlanRefundResponse implements ModelInterface, ArrayAccess, \Jso
 		'currency' => false,
 		'non_credit_refund_amount' => false,
 		'credit_refund_amount' => false,
-		'summary' => false
+		'summary' => false,
+		'reference_id' => false
     ];
 
     /**
@@ -178,7 +181,8 @@ class InstallmentPlanRefundResponse implements ModelInterface, ArrayAccess, \Jso
         'currency' => 'Currency',
         'non_credit_refund_amount' => 'NonCreditRefundAmount',
         'credit_refund_amount' => 'CreditRefundAmount',
-        'summary' => 'Summary'
+        'summary' => 'Summary',
+        'reference_id' => 'ReferenceId'
     ];
 
     /**
@@ -192,7 +196,8 @@ class InstallmentPlanRefundResponse implements ModelInterface, ArrayAccess, \Jso
         'currency' => 'setCurrency',
         'non_credit_refund_amount' => 'setNonCreditRefundAmount',
         'credit_refund_amount' => 'setCreditRefundAmount',
-        'summary' => 'setSummary'
+        'summary' => 'setSummary',
+        'reference_id' => 'setReferenceId'
     ];
 
     /**
@@ -206,7 +211,8 @@ class InstallmentPlanRefundResponse implements ModelInterface, ArrayAccess, \Jso
         'currency' => 'getCurrency',
         'non_credit_refund_amount' => 'getNonCreditRefundAmount',
         'credit_refund_amount' => 'getCreditRefundAmount',
-        'summary' => 'getSummary'
+        'summary' => 'getSummary',
+        'reference_id' => 'getReferenceId'
     ];
 
     /**
@@ -272,6 +278,7 @@ class InstallmentPlanRefundResponse implements ModelInterface, ArrayAccess, \Jso
         $this->setIfExists('non_credit_refund_amount', $data ?? [], null);
         $this->setIfExists('credit_refund_amount', $data ?? [], null);
         $this->setIfExists('summary', $data ?? [], null);
+        $this->setIfExists('reference_id', $data ?? [], null);
     }
 
     /**
@@ -486,6 +493,35 @@ class InstallmentPlanRefundResponse implements ModelInterface, ArrayAccess, \Jso
         }
 
         $this->container['summary'] = $summary;
+
+        return $this;
+    }
+
+    /**
+     * Gets reference_id
+     *
+     * @return string|null
+     */
+    public function getReferenceId()
+    {
+        return $this->container['reference_id'];
+    }
+
+    /**
+     * Sets reference_id
+     *
+     * @param string|null $reference_id reference_id
+     *
+     * @return self
+     */
+    public function setReferenceId($reference_id)
+    {
+
+        if (is_null($reference_id)) {
+            throw new \InvalidArgumentException('non-nullable reference_id cannot be null');
+        }
+
+        $this->container['reference_id'] = $reference_id;
 
         return $this;
     }

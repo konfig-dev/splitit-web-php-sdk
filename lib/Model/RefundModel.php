@@ -54,7 +54,8 @@ class RefundModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'total_amount' => 'float',
         'status' => '\Splitit\Model\RefundStatus',
         'non_credit_refund_amount' => 'float',
-        'credit_refund_amount' => 'float'
+        'credit_refund_amount' => 'float',
+        'reference_id' => 'string'
     ];
 
     /**
@@ -70,7 +71,8 @@ class RefundModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'total_amount' => 'decimal',
         'status' => null,
         'non_credit_refund_amount' => 'decimal',
-        'credit_refund_amount' => 'decimal'
+        'credit_refund_amount' => 'decimal',
+        'reference_id' => null
     ];
 
     /**
@@ -84,7 +86,8 @@ class RefundModel implements ModelInterface, ArrayAccess, \JsonSerializable
 		'total_amount' => false,
 		'status' => false,
 		'non_credit_refund_amount' => false,
-		'credit_refund_amount' => false
+		'credit_refund_amount' => false,
+		'reference_id' => false
     ];
 
     /**
@@ -178,7 +181,8 @@ class RefundModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'total_amount' => 'TotalAmount',
         'status' => 'Status',
         'non_credit_refund_amount' => 'NonCreditRefundAmount',
-        'credit_refund_amount' => 'CreditRefundAmount'
+        'credit_refund_amount' => 'CreditRefundAmount',
+        'reference_id' => 'ReferenceId'
     ];
 
     /**
@@ -192,7 +196,8 @@ class RefundModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'total_amount' => 'setTotalAmount',
         'status' => 'setStatus',
         'non_credit_refund_amount' => 'setNonCreditRefundAmount',
-        'credit_refund_amount' => 'setCreditRefundAmount'
+        'credit_refund_amount' => 'setCreditRefundAmount',
+        'reference_id' => 'setReferenceId'
     ];
 
     /**
@@ -206,7 +211,8 @@ class RefundModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'total_amount' => 'getTotalAmount',
         'status' => 'getStatus',
         'non_credit_refund_amount' => 'getNonCreditRefundAmount',
-        'credit_refund_amount' => 'getCreditRefundAmount'
+        'credit_refund_amount' => 'getCreditRefundAmount',
+        'reference_id' => 'getReferenceId'
     ];
 
     /**
@@ -272,6 +278,7 @@ class RefundModel implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('non_credit_refund_amount', $data ?? [], null);
         $this->setIfExists('credit_refund_amount', $data ?? [], null);
+        $this->setIfExists('reference_id', $data ?? [], null);
     }
 
     /**
@@ -501,6 +508,35 @@ class RefundModel implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['credit_refund_amount'] = $credit_refund_amount;
+
+        return $this;
+    }
+
+    /**
+     * Gets reference_id
+     *
+     * @return string|null
+     */
+    public function getReferenceId()
+    {
+        return $this->container['reference_id'];
+    }
+
+    /**
+     * Sets reference_id
+     *
+     * @param string|null $reference_id reference_id
+     *
+     * @return self
+     */
+    public function setReferenceId($reference_id)
+    {
+
+        if (is_null($reference_id)) {
+            throw new \InvalidArgumentException('non-nullable reference_id cannot be null');
+        }
+
+        $this->container['reference_id'] = $reference_id;
 
         return $this;
     }

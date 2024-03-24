@@ -119,7 +119,7 @@ class Configuration
      *
      * @var string
      */
-    protected $userAgent = 'Konfig/2.3.7/PHP';
+    protected $userAgent = 'Konfig/3.0.0/PHP';
 
     /**
      * Debug switch (default set to false)
@@ -501,7 +501,7 @@ class Configuration
         $report .= '    OS: ' . php_uname() . PHP_EOL;
         $report .= '    PHP Version: ' . PHP_VERSION . PHP_EOL;
         $report .= '    The version of the OpenAPI document: 1.0.0' . PHP_EOL;
-        $report .= '    SDK Package Version: 2.3.7' . PHP_EOL;
+        $report .= '    SDK Package Version: 3.0.0' . PHP_EOL;
         $report .= '    Temp Folder Path: ' . self::getDefaultConfiguration()->getTempFolderPath() . PHP_EOL;
 
         return $report;
@@ -526,7 +526,7 @@ class Configuration
         if ($prefix === null) {
             $keyWithPrefix = $apiKey;
         } else {
-            $keyWithPrefix = $prefix . ' ' . $apiKey;
+            $keyWithPrefix = $prefix . $apiKey;
         }
 
         return $keyWithPrefix;
