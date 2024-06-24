@@ -2,7 +2,7 @@
 
 Splitit's Web API
 
-[![Packagist](https://img.shields.io/badge/Packagist-v3.0.0-blue)](https://packagist.org/packages/konfig/splitit-web-php-sdk)
+[![Packagist](https://img.shields.io/badge/Packagist-v3.0.1-blue)](https://packagist.org/packages/konfig/splitit-web-php-sdk)
 
 ## Table of Contents<a id="table-of-contents"></a>
 
@@ -45,7 +45,7 @@ To install the bindings via [Composer](https://getcomposer.org/), add the follow
     }
   ],
   "require": {
-    "konfig/splitit-web-php-sdk": "3.0.0"
+    "konfig/splitit-web-php-sdk": "3.0.1"
   }
 }
 ```
@@ -198,9 +198,9 @@ TouchPoint
 
 ```php
 $result = $splitit->installmentPlan->post(
-    True, 
     "X-Splitit-IdempotencyKey_example", 
     "", 
+    True, 
     True, 
     [
     ], 
@@ -225,13 +225,13 @@ $result = $splitit->installmentPlan->post(
 
 #### ⚙️ Parameters<a id="⚙️-parameters"></a>
 
-##### AutoCapture: `bool`<a id="autocapture-bool"></a>
-
 ##### x_splitit_idempotency_key: `string`<a id="x_splitit_idempotency_key-string"></a>
 
 ##### x_splitit_touch_point: `string`<a id="x_splitit_touch_point-string"></a>
 
 TouchPoint
+
+##### AutoCapture: `bool`<a id="autocapture-bool"></a>
 
 ##### Attempt3dSecure: `bool`<a id="attempt3dsecure-bool"></a>
 

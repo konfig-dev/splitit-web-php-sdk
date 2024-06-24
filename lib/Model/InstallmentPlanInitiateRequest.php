@@ -322,9 +322,6 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
     {
         $invalidProperties = [];
 
-        if ($this->container['auto_capture'] === null) {
-            $invalidProperties[] = "'auto_capture' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -343,7 +340,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
     /**
      * Gets auto_capture
      *
-     * @return bool
+     * @return bool|null
      */
     public function getAutoCapture()
     {
@@ -353,7 +350,7 @@ class InstallmentPlanInitiateRequest implements ModelInterface, ArrayAccess, \Js
     /**
      * Sets auto_capture
      *
-     * @param bool $auto_capture auto_capture
+     * @param bool|null $auto_capture auto_capture
      *
      * @return self
      */

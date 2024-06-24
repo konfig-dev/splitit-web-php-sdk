@@ -1129,9 +1129,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      */
     public function post(
 
-        $auto_capture,
         $x_splitit_idempotency_key,
         $x_splitit_touch_point,
+        $auto_capture = SENTINEL_VALUE,
         $attempt3d_secure = SENTINEL_VALUE,
         $shopper = SENTINEL_VALUE,
         $plan_data = SENTINEL_VALUE,
@@ -1415,9 +1415,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
      */
     public function postAsync(
 
-        $auto_capture,
         $x_splitit_idempotency_key,
         $x_splitit_touch_point,
+        $auto_capture = SENTINEL_VALUE,
         $attempt3d_secure = SENTINEL_VALUE,
         $shopper = SENTINEL_VALUE,
         $plan_data = SENTINEL_VALUE,

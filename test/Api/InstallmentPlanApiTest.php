@@ -114,9 +114,9 @@ class InstallmentPlanApiTest extends TestCase
     public function testPost()
     {
         $response = $this->splitit->installmentPlan->post(
+            date("c"),
+            date("c"),
             true,
-            date("c"),
-            date("c"),
             true,
             [
                 'email' => 'fake@email.com',
