@@ -2,7 +2,7 @@
 
 Splitit's Web API
 
-[![Packagist](https://img.shields.io/badge/Packagist-v3.0.1-blue)](https://packagist.org/packages/konfig/splitit-web-php-sdk)
+[![Packagist](https://img.shields.io/badge/Packagist-v3.0.2-blue)](https://packagist.org/packages/konfig/splitit-web-php-sdk)
 
 ## Table of Contents<a id="table-of-contents"></a>
 
@@ -45,7 +45,7 @@ To install the bindings via [Composer](https://getcomposer.org/), add the follow
     }
   ],
   "require": {
-    "konfig/splitit-web-php-sdk": "3.0.1"
+    "konfig/splitit-web-php-sdk": "3.0.2"
   }
 }
 ```
