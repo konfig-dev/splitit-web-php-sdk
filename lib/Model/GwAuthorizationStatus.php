@@ -45,8 +45,6 @@ class GwAuthorizationStatus
 
     public const CANCELED = 'Canceled';
 
-    public const VOIDED = 'Voided';
-
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -58,8 +56,7 @@ class GwAuthorizationStatus
             self::SUCCEEDED,
             self::PENDING3_DS,
             self::FAILED,
-            self::CANCELED,
-            self::VOIDED
+            self::CANCELED
         ];
     }
 }
