@@ -70,6 +70,9 @@ class InstallmentPlanApi extends \Splitit\CustomApi
         'get' => [
             'application/json',
         ],
+        'getEligibilityTermsAndCondition' => [
+            'application/json',
+        ],
         'post' => [
             'application/json',
             'text/json',
@@ -1044,6 +1047,464 @@ class InstallmentPlanApi extends \Splitit\CustomApi
             $resourcePath = str_replace(
                 '{' . 'installmentPlanNumber' . '}',
                 ObjectSerializer::toPathValue($installment_plan_number),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'text/json', 'text/plain', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        $this->config->refreshOAuthAccessToken();
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $method = 'GET';
+        $this->beforeCreateRequestHook($method, $resourcePath, $queryParams, $headers, $httpBody);
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return [
+            "request" => new Request(
+                $method,
+                $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+                $headers,
+                $httpBody
+            ),
+            "serializedBody" => $httpBody
+        ];
+    }
+
+    /**
+     * Operation getEligibilityTermsAndCondition
+     *
+     * @param  string $ipn ipn (required)
+     * @param  string $x_splitit_idempotency_key x_splitit_idempotency_key (required)
+     * @param  string $x_splitit_touch_point TouchPoint (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEligibilityTermsAndCondition'] to see the possible values for this operation
+     *
+     * @throws \Splitit\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Splitit\Model\EligibilityTermsAndConditionResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse
+     */
+    public function getEligibilityTermsAndCondition(
+        $ipn,
+        $x_splitit_idempotency_key,
+        $x_splitit_touch_point,
+
+        string $contentType = self::contentTypes['getEligibilityTermsAndCondition'][0]
+    )
+    {
+
+        list($response) = $this->getEligibilityTermsAndConditionWithHttpInfo($ipn, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getEligibilityTermsAndConditionWithHttpInfo
+     *
+     * @param  string $ipn (required)
+     * @param  string $x_splitit_idempotency_key (required)
+     * @param  string $x_splitit_touch_point TouchPoint (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEligibilityTermsAndCondition'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
+     *
+     * @throws \Splitit\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Splitit\Model\EligibilityTermsAndConditionResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse|\Splitit\Model\FailedResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getEligibilityTermsAndConditionWithHttpInfo($ipn, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = self::contentTypes['getEligibilityTermsAndCondition'][0], \Splitit\RequestOptions $requestOptions = null)
+    {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->getEligibilityTermsAndConditionRequest($ipn, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                if (
+                    ($e->getCode() == 401 || $e->getCode() == 403) &&
+                    !empty($this->getConfig()->getAccessToken()) &&
+                    $requestOptions->shouldRetryOAuth()
+                ) {
+                    return $this->getEligibilityTermsAndConditionWithHttpInfo(
+                        $ipn,
+                        $x_splitit_idempotency_key,
+                        $x_splitit_touch_point,
+                        $contentType,
+                        $requestOptions->setRetryOAuth(false)
+                    );
+                }
+
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\Splitit\Model\EligibilityTermsAndConditionResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\Splitit\Model\EligibilityTermsAndConditionResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Splitit\Model\EligibilityTermsAndConditionResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\Splitit\Model\FailedResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\Splitit\Model\FailedResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Splitit\Model\FailedResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\Splitit\Model\FailedResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\Splitit\Model\FailedResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Splitit\Model\FailedResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('\Splitit\Model\FailedResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\Splitit\Model\FailedResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Splitit\Model\FailedResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\Splitit\Model\FailedResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\Splitit\Model\FailedResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Splitit\Model\FailedResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\Splitit\Model\EligibilityTermsAndConditionResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Splitit\Model\EligibilityTermsAndConditionResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Splitit\Model\FailedResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Splitit\Model\FailedResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Splitit\Model\FailedResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Splitit\Model\FailedResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getEligibilityTermsAndConditionAsync
+     *
+     * @param  string $ipn (required)
+     * @param  string $x_splitit_idempotency_key (required)
+     * @param  string $x_splitit_touch_point TouchPoint (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEligibilityTermsAndCondition'] to see the possible values for this operation
+     * @param  \Splitit\RequestOptions $requestOptions
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getEligibilityTermsAndConditionAsync(
+        $ipn,
+        $x_splitit_idempotency_key,
+        $x_splitit_touch_point,
+
+        string $contentType = self::contentTypes['getEligibilityTermsAndCondition'][0]
+    )
+    {
+
+        return $this->getEligibilityTermsAndConditionAsyncWithHttpInfo($ipn, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getEligibilityTermsAndConditionAsyncWithHttpInfo
+     *
+     * @param  string $ipn (required)
+     * @param  string $x_splitit_idempotency_key (required)
+     * @param  string $x_splitit_touch_point TouchPoint (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEligibilityTermsAndCondition'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getEligibilityTermsAndConditionAsyncWithHttpInfo($ipn, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = self::contentTypes['getEligibilityTermsAndCondition'][0], $requestOptions = null)
+    {
+        if ($requestOptions == null) $requestOptions = new \Splitit\RequestOptions();
+        $returnType = '\Splitit\Model\EligibilityTermsAndConditionResponse';
+        ["request" => $request, "serializedBody" => $serializedBody] = $this->getEligibilityTermsAndConditionRequest($ipn, $x_splitit_idempotency_key, $x_splitit_touch_point, $contentType);
+
+        // Customization hook
+        $this->beforeSendHook($request, $requestOptions, $this->config);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getEligibilityTermsAndCondition'
+     *
+     * @param  string $ipn (required)
+     * @param  string $x_splitit_idempotency_key (required)
+     * @param  string $x_splitit_touch_point TouchPoint (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEligibilityTermsAndCondition'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getEligibilityTermsAndConditionRequest($ipn, $x_splitit_idempotency_key, $x_splitit_touch_point, string $contentType = self::contentTypes['getEligibilityTermsAndCondition'][0])
+    {
+
+        // Check if $ipn is a string
+        if ($ipn !== SENTINEL_VALUE && !is_string($ipn)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($ipn, true), gettype($ipn)));
+        }
+        // verify the required parameter 'ipn' is set
+        if ($ipn === SENTINEL_VALUE || (is_array($ipn) && count($ipn) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter ipn when calling getEligibilityTermsAndCondition'
+            );
+        }
+        // Check if $x_splitit_idempotency_key is a string
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE && !is_string($x_splitit_idempotency_key)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_idempotency_key, true), gettype($x_splitit_idempotency_key)));
+        }
+        // verify the required parameter 'x_splitit_idempotency_key' is set
+        if ($x_splitit_idempotency_key === SENTINEL_VALUE || (is_array($x_splitit_idempotency_key) && count($x_splitit_idempotency_key) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter x_splitit_idempotency_key when calling getEligibilityTermsAndCondition'
+            );
+        }
+        // Check if $x_splitit_touch_point is a string
+        if ($x_splitit_touch_point !== SENTINEL_VALUE && !is_string($x_splitit_touch_point)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($x_splitit_touch_point, true), gettype($x_splitit_touch_point)));
+        }
+        // verify the required parameter 'x_splitit_touch_point' is set
+        if ($x_splitit_touch_point === SENTINEL_VALUE || (is_array($x_splitit_touch_point) && count($x_splitit_touch_point) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter x_splitit_touch_point when calling getEligibilityTermsAndCondition'
+            );
+        }
+
+
+        $resourcePath = '/api/installmentplans/{ipn}/legal';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // header params
+        if ($x_splitit_idempotency_key !== SENTINEL_VALUE) {
+            $headerParams['X-Splitit-IdempotencyKey'] = ObjectSerializer::toHeaderValue($x_splitit_idempotency_key);
+        }
+        // header params
+        if ($x_splitit_touch_point !== SENTINEL_VALUE) {
+            $headerParams['X-Splitit-TouchPoint'] = ObjectSerializer::toHeaderValue($x_splitit_touch_point);
+        }
+
+        // path params
+        if ($ipn !== SENTINEL_VALUE) {
+            $resourcePath = str_replace(
+                '{' . 'ipn' . '}',
+                ObjectSerializer::toPathValue($ipn),
                 $resourcePath
             );
         }
