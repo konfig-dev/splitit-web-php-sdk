@@ -16,6 +16,7 @@ Splitit's Web API
 - [Reference](#reference)
   * [`splitit.installmentPlan.checkEligibility`](#splititinstallmentplancheckeligibility)
   * [`splitit.installmentPlan.get`](#splititinstallmentplanget)
+  * [`splitit.installmentPlan.getEligibilityTermsAndCondition`](#splititinstallmentplangeteligibilitytermsandcondition)
   * [`splitit.installmentPlan.post`](#splititinstallmentplanpost)
   * [`splitit.installmentPlan.post2`](#splititinstallmentplanpost2)
   * [`splitit.installmentPlan.refund`](#splititinstallmentplanrefund)
@@ -183,6 +184,45 @@ TouchPoint
 #### 🌐 Endpoint<a id="🌐-endpoint"></a>
 
 `/api/installmentplans/{installmentPlanNumber}` `GET`
+
+[🔙 **Back to Table of Contents**](#table-of-contents)
+
+---
+
+
+### `splitit.installmentPlan.getEligibilityTermsAndCondition`<a id="splititinstallmentplangeteligibilitytermsandcondition"></a>
+
+
+
+
+#### 🛠️ Usage<a id="🛠️-usage"></a>
+
+```php
+$result = $splitit->installmentPlan->getEligibilityTermsAndCondition(
+    "ipn_example", 
+    "X-Splitit-IdempotencyKey_example", 
+    ""
+);
+```
+
+#### ⚙️ Parameters<a id="⚙️-parameters"></a>
+
+##### ipn: `string`<a id="ipn-string"></a>
+
+##### x_splitit_idempotency_key: `string`<a id="x_splitit_idempotency_key-string"></a>
+
+##### x_splitit_touch_point: `string`<a id="x_splitit_touch_point-string"></a>
+
+TouchPoint
+
+
+#### 🔄 Return<a id="🔄-return"></a>
+
+[**EligibilityTermsAndConditionResponse**](./lib/Model/EligibilityTermsAndConditionResponse.php)
+
+#### 🌐 Endpoint<a id="🌐-endpoint"></a>
+
+`/api/installmentplans/{ipn}/legal` `GET`
 
 [🔙 **Back to Table of Contents**](#table-of-contents)
 
