@@ -59,7 +59,8 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         'allowed_installment_options' => 'int[]',
         'tags' => 'array<string,string>',
         'processing_data' => '\Splitit\Model\ProcessingData2',
-        'first_installment_date' => '\DateTime'
+        'first_installment_date' => '\DateTime',
+        'strategy' => '\Splitit\Model\PlanStrategy'
     ];
 
     /**
@@ -80,7 +81,8 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         'allowed_installment_options' => 'int32',
         'tags' => null,
         'processing_data' => null,
-        'first_installment_date' => 'date-time'
+        'first_installment_date' => 'date-time',
+        'strategy' => null
     ];
 
     /**
@@ -99,7 +101,8 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
 		'allowed_installment_options' => false,
 		'tags' => false,
 		'processing_data' => false,
-		'first_installment_date' => false
+		'first_installment_date' => false,
+		'strategy' => false
     ];
 
     /**
@@ -198,7 +201,8 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         'allowed_installment_options' => 'AllowedInstallmentOptions',
         'tags' => 'Tags',
         'processing_data' => 'ProcessingData',
-        'first_installment_date' => 'FirstInstallmentDate'
+        'first_installment_date' => 'FirstInstallmentDate',
+        'strategy' => 'Strategy'
     ];
 
     /**
@@ -217,7 +221,8 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         'allowed_installment_options' => 'setAllowedInstallmentOptions',
         'tags' => 'setTags',
         'processing_data' => 'setProcessingData',
-        'first_installment_date' => 'setFirstInstallmentDate'
+        'first_installment_date' => 'setFirstInstallmentDate',
+        'strategy' => 'setStrategy'
     ];
 
     /**
@@ -236,7 +241,8 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         'allowed_installment_options' => 'getAllowedInstallmentOptions',
         'tags' => 'getTags',
         'processing_data' => 'getProcessingData',
-        'first_installment_date' => 'getFirstInstallmentDate'
+        'first_installment_date' => 'getFirstInstallmentDate',
+        'strategy' => 'getStrategy'
     ];
 
     /**
@@ -307,6 +313,7 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('tags', $data ?? [], null);
         $this->setIfExists('processing_data', $data ?? [], null);
         $this->setIfExists('first_installment_date', $data ?? [], null);
+        $this->setIfExists('strategy', $data ?? [], null);
     }
 
     /**
@@ -675,6 +682,35 @@ class PlanData implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['first_installment_date'] = $first_installment_date;
+
+        return $this;
+    }
+
+    /**
+     * Gets strategy
+     *
+     * @return \Splitit\Model\PlanStrategy|null
+     */
+    public function getStrategy()
+    {
+        return $this->container['strategy'];
+    }
+
+    /**
+     * Sets strategy
+     *
+     * @param \Splitit\Model\PlanStrategy|null $strategy strategy
+     *
+     * @return self
+     */
+    public function setStrategy($strategy)
+    {
+
+        if (is_null($strategy)) {
+            throw new \InvalidArgumentException('non-nullable strategy cannot be null');
+        }
+
+        $this->container['strategy'] = $strategy;
 
         return $this;
     }

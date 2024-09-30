@@ -82,6 +82,7 @@ $result = $splitit->installmentPlan->checkEligibility(
         "total_amount" => 3.14,
         "number_of_installments" => 1,
         "purchase_method" => "InStore",
+        "strategy" => "SecuredPlan",
     ], 
     [
         "card_brand" => "Mastercard",
@@ -110,6 +111,7 @@ $result = $splitit->installmentPlan->checkEligibility(
         "total_amount" => 3.14,
         "number_of_installments" => 1,
         "purchase_method" => "InStore",
+        "strategy" => "SecuredPlan",
     ], 
     [
         "card_brand" => "Mastercard",
@@ -259,6 +261,7 @@ $result = $splitit->installmentPlan->post(
     [
     ], 
     "None", 
+    "SecuredPlan", 
     "string_example"
 );
 ```
@@ -290,6 +293,8 @@ TouchPoint
 ##### ProcessingData: [`ProcessingData`](./lib/Model/ProcessingData.php)<a id="processingdata-processingdatalibmodelprocessingdataphp"></a>
 
 ##### x_splitit_test_mode: `string`<a id="x_splitit_test_mode-string"></a>
+
+##### x_splitit_strategy: `string`<a id="x_splitit_strategy-string"></a>
 
 ##### splititclientinfo: `string`<a id="splititclientinfo-string"></a>
 
@@ -339,6 +344,7 @@ $result = $splitit->installmentPlan->post2(
     [
     ], 
     "None", 
+    "SecuredPlan", 
     "string_example"
 );
 ```
@@ -372,6 +378,8 @@ TouchPoint
 ##### EventsEndpoints: [`EventsEndpointsModel`](./lib/Model/EventsEndpointsModel.php)<a id="eventsendpoints-eventsendpointsmodellibmodeleventsendpointsmodelphp"></a>
 
 ##### x_splitit_test_mode: `string`<a id="x_splitit_test_mode-string"></a>
+
+##### x_splitit_strategy: `string`<a id="x_splitit_strategy-string"></a>
 
 ##### splititclientinfo: `string`<a id="splititclientinfo-string"></a>
 
