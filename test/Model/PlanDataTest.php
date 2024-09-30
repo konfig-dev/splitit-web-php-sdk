@@ -169,4 +169,13 @@ class PlanDataTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "strategy"
+     */
+    public function testPropertyStrategy()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }
