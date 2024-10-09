@@ -58,7 +58,8 @@ class InitiatePlanResponse implements ModelInterface, ArrayAccess, \JsonSerializ
         'extended_params' => 'array<string,string>',
         'shopper' => '\Splitit\Model\ShopperData',
         'billing_address' => '\Splitit\Model\AddressData',
-        'checkout_url' => 'string'
+        'checkout_url' => 'string',
+        'principal_amount' => 'float'
     ];
 
     /**
@@ -78,7 +79,8 @@ class InitiatePlanResponse implements ModelInterface, ArrayAccess, \JsonSerializ
         'extended_params' => null,
         'shopper' => null,
         'billing_address' => null,
-        'checkout_url' => null
+        'checkout_url' => null,
+        'principal_amount' => 'decimal'
     ];
 
     /**
@@ -96,7 +98,8 @@ class InitiatePlanResponse implements ModelInterface, ArrayAccess, \JsonSerializ
 		'extended_params' => false,
 		'shopper' => false,
 		'billing_address' => false,
-		'checkout_url' => false
+		'checkout_url' => false,
+		'principal_amount' => false
     ];
 
     /**
@@ -194,7 +197,8 @@ class InitiatePlanResponse implements ModelInterface, ArrayAccess, \JsonSerializ
         'extended_params' => 'ExtendedParams',
         'shopper' => 'Shopper',
         'billing_address' => 'BillingAddress',
-        'checkout_url' => 'CheckoutUrl'
+        'checkout_url' => 'CheckoutUrl',
+        'principal_amount' => 'PrincipalAmount'
     ];
 
     /**
@@ -212,7 +216,8 @@ class InitiatePlanResponse implements ModelInterface, ArrayAccess, \JsonSerializ
         'extended_params' => 'setExtendedParams',
         'shopper' => 'setShopper',
         'billing_address' => 'setBillingAddress',
-        'checkout_url' => 'setCheckoutUrl'
+        'checkout_url' => 'setCheckoutUrl',
+        'principal_amount' => 'setPrincipalAmount'
     ];
 
     /**
@@ -230,7 +235,8 @@ class InitiatePlanResponse implements ModelInterface, ArrayAccess, \JsonSerializ
         'extended_params' => 'getExtendedParams',
         'shopper' => 'getShopper',
         'billing_address' => 'getBillingAddress',
-        'checkout_url' => 'getCheckoutUrl'
+        'checkout_url' => 'getCheckoutUrl',
+        'principal_amount' => 'getPrincipalAmount'
     ];
 
     /**
@@ -300,6 +306,7 @@ class InitiatePlanResponse implements ModelInterface, ArrayAccess, \JsonSerializ
         $this->setIfExists('shopper', $data ?? [], null);
         $this->setIfExists('billing_address', $data ?? [], null);
         $this->setIfExists('checkout_url', $data ?? [], null);
+        $this->setIfExists('principal_amount', $data ?? [], null);
     }
 
     /**
@@ -633,6 +640,35 @@ class InitiatePlanResponse implements ModelInterface, ArrayAccess, \JsonSerializ
         }
 
         $this->container['checkout_url'] = $checkout_url;
+
+        return $this;
+    }
+
+    /**
+     * Gets principal_amount
+     *
+     * @return float|null
+     */
+    public function getPrincipalAmount()
+    {
+        return $this->container['principal_amount'];
+    }
+
+    /**
+     * Sets principal_amount
+     *
+     * @param float|null $principal_amount principal_amount
+     *
+     * @return self
+     */
+    public function setPrincipalAmount($principal_amount)
+    {
+
+        if (is_null($principal_amount)) {
+            throw new \InvalidArgumentException('non-nullable principal_amount cannot be null');
+        }
+
+        $this->container['principal_amount'] = $principal_amount;
 
         return $this;
     }
