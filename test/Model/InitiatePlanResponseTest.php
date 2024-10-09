@@ -160,4 +160,13 @@ class InitiatePlanResponseTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "principal_amount"
+     */
+    public function testPropertyPrincipalAmount()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }
