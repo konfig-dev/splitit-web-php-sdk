@@ -88,4 +88,13 @@ class EligibilityTermsAndConditionResponseTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "provider"
+     */
+    public function testPropertyProvider()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }
