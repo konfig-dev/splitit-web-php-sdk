@@ -50,7 +50,8 @@ class EligibilityTermsAndConditionResponse implements ModelInterface, ArrayAcces
       */
     protected static $openAPITypes = [
         'terms_and_conditions' => 'string',
-        'privacy_policy' => 'string'
+        'privacy_policy' => 'string',
+        'provider' => 'string'
     ];
 
     /**
@@ -62,7 +63,8 @@ class EligibilityTermsAndConditionResponse implements ModelInterface, ArrayAcces
       */
     protected static $openAPIFormats = [
         'terms_and_conditions' => null,
-        'privacy_policy' => null
+        'privacy_policy' => null,
+        'provider' => null
     ];
 
     /**
@@ -72,7 +74,8 @@ class EligibilityTermsAndConditionResponse implements ModelInterface, ArrayAcces
       */
     protected static $openAPINullables = [
         'terms_and_conditions' => false,
-		'privacy_policy' => false
+		'privacy_policy' => false,
+		'provider' => false
     ];
 
     /**
@@ -162,7 +165,8 @@ class EligibilityTermsAndConditionResponse implements ModelInterface, ArrayAcces
      */
     protected static $attributeMap = [
         'terms_and_conditions' => 'TermsAndConditions',
-        'privacy_policy' => 'PrivacyPolicy'
+        'privacy_policy' => 'PrivacyPolicy',
+        'provider' => 'Provider'
     ];
 
     /**
@@ -172,7 +176,8 @@ class EligibilityTermsAndConditionResponse implements ModelInterface, ArrayAcces
      */
     protected static $setters = [
         'terms_and_conditions' => 'setTermsAndConditions',
-        'privacy_policy' => 'setPrivacyPolicy'
+        'privacy_policy' => 'setPrivacyPolicy',
+        'provider' => 'setProvider'
     ];
 
     /**
@@ -182,7 +187,8 @@ class EligibilityTermsAndConditionResponse implements ModelInterface, ArrayAcces
      */
     protected static $getters = [
         'terms_and_conditions' => 'getTermsAndConditions',
-        'privacy_policy' => 'getPrivacyPolicy'
+        'privacy_policy' => 'getPrivacyPolicy',
+        'provider' => 'getProvider'
     ];
 
     /**
@@ -244,6 +250,7 @@ class EligibilityTermsAndConditionResponse implements ModelInterface, ArrayAcces
     {
         $this->setIfExists('terms_and_conditions', $data ?? [], null);
         $this->setIfExists('privacy_policy', $data ?? [], null);
+        $this->setIfExists('provider', $data ?? [], null);
     }
 
     /**
@@ -342,6 +349,35 @@ class EligibilityTermsAndConditionResponse implements ModelInterface, ArrayAcces
         }
 
         $this->container['privacy_policy'] = $privacy_policy;
+
+        return $this;
+    }
+
+    /**
+     * Gets provider
+     *
+     * @return string|null
+     */
+    public function getProvider()
+    {
+        return $this->container['provider'];
+    }
+
+    /**
+     * Sets provider
+     *
+     * @param string|null $provider provider
+     *
+     * @return self
+     */
+    public function setProvider($provider)
+    {
+
+        if (is_null($provider)) {
+            throw new \InvalidArgumentException('non-nullable provider cannot be null');
+        }
+
+        $this->container['provider'] = $provider;
 
         return $this;
     }
