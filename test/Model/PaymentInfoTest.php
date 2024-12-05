@@ -1,6 +1,6 @@
 <?php
 /**
- * PlanErrorResponseTest
+ * PaymentInfoTest
  *
  * PHP version 7.4
  *
@@ -25,13 +25,13 @@ namespace Splitit\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * PlanErrorResponseTest Class Doc Comment
+ * PaymentInfoTest Class Doc Comment
  *
  * @category    Class
- * @description PlanErrorResponse
+ * @description PaymentInfo
  * @package     Splitit
  */
-class PlanErrorResponseTest extends TestCase
+class PaymentInfoTest extends TestCase
 {
 
     /**
@@ -63,45 +63,27 @@ class PlanErrorResponseTest extends TestCase
     }
 
     /**
-     * Test "PlanErrorResponse"
+     * Test "PaymentInfo"
      */
-    public function testPlanErrorResponse()
+    public function testPaymentInfo()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "trace_id"
+     * Test attribute "card_bin"
      */
-    public function testPropertyTraceId()
+    public function testPropertyCardBin()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "error"
+     * Test attribute "card_type"
      */
-    public function testPropertyError()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "installment_plan_number"
-     */
-    public function testPropertyInstallmentPlanNumber()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "payment_info"
-     */
-    public function testPropertyPaymentInfo()
+    public function testPropertyCardType()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

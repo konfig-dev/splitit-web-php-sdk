@@ -1,6 +1,6 @@
 <?php
 /**
- * PlanErrorResponse
+ * PaymentInfo
  *
  * PHP version 7.4
  *
@@ -26,13 +26,13 @@ use \ArrayAccess;
 use \Splitit\ObjectSerializer;
 
 /**
- * PlanErrorResponse Class Doc Comment
+ * PaymentInfo Class Doc Comment
  *
  * @category Class
  * @package  Splitit
  * @implements \ArrayAccess<string, mixed>
  */
-class PlanErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
+class PaymentInfo implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class PlanErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializabl
       *
       * @var string
       */
-    protected static $openAPIModelName = 'PlanErrorResponse';
+    protected static $openAPIModelName = 'PaymentInfo';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,10 +49,8 @@ class PlanErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var string[]
       */
     protected static $openAPITypes = [
-        'trace_id' => 'string',
-        'error' => '\Splitit\Model\ErrorExtended',
-        'installment_plan_number' => 'string',
-        'payment_info' => '\Splitit\Model\PaymentInfo'
+        'card_bin' => 'string',
+        'card_type' => '\Splitit\Model\CardType'
     ];
 
     /**
@@ -63,10 +61,8 @@ class PlanErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'trace_id' => null,
-        'error' => null,
-        'installment_plan_number' => null,
-        'payment_info' => null
+        'card_bin' => null,
+        'card_type' => null
     ];
 
     /**
@@ -75,10 +71,8 @@ class PlanErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var boolean[]
       */
     protected static $openAPINullables = [
-        'trace_id' => false,
-		'error' => false,
-		'installment_plan_number' => false,
-		'payment_info' => false
+        'card_bin' => false,
+		'card_type' => false
     ];
 
     /**
@@ -167,10 +161,8 @@ class PlanErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $attributeMap = [
-        'trace_id' => 'TraceId',
-        'error' => 'Error',
-        'installment_plan_number' => 'InstallmentPlanNumber',
-        'payment_info' => 'PaymentInfo'
+        'card_bin' => 'CardBin',
+        'card_type' => 'CardType'
     ];
 
     /**
@@ -179,10 +171,8 @@ class PlanErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $setters = [
-        'trace_id' => 'setTraceId',
-        'error' => 'setError',
-        'installment_plan_number' => 'setInstallmentPlanNumber',
-        'payment_info' => 'setPaymentInfo'
+        'card_bin' => 'setCardBin',
+        'card_type' => 'setCardType'
     ];
 
     /**
@@ -191,10 +181,8 @@ class PlanErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $getters = [
-        'trace_id' => 'getTraceId',
-        'error' => 'getError',
-        'installment_plan_number' => 'getInstallmentPlanNumber',
-        'payment_info' => 'getPaymentInfo'
+        'card_bin' => 'getCardBin',
+        'card_type' => 'getCardType'
     ];
 
     /**
@@ -254,10 +242,8 @@ class PlanErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('trace_id', $data ?? [], null);
-        $this->setIfExists('error', $data ?? [], null);
-        $this->setIfExists('installment_plan_number', $data ?? [], null);
-        $this->setIfExists('payment_info', $data ?? [], null);
+        $this->setIfExists('card_bin', $data ?? [], null);
+        $this->setIfExists('card_type', $data ?? [], null);
     }
 
     /**
@@ -303,117 +289,59 @@ class PlanErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializabl
 
 
     /**
-     * Gets trace_id
+     * Gets card_bin
      *
      * @return string|null
      */
-    public function getTraceId()
+    public function getCardBin()
     {
-        return $this->container['trace_id'];
+        return $this->container['card_bin'];
     }
 
     /**
-     * Sets trace_id
+     * Sets card_bin
      *
-     * @param string|null $trace_id trace_id
+     * @param string|null $card_bin card_bin
      *
      * @return self
      */
-    public function setTraceId($trace_id)
+    public function setCardBin($card_bin)
     {
 
-        if (is_null($trace_id)) {
-            throw new \InvalidArgumentException('non-nullable trace_id cannot be null');
+        if (is_null($card_bin)) {
+            throw new \InvalidArgumentException('non-nullable card_bin cannot be null');
         }
 
-        $this->container['trace_id'] = $trace_id;
+        $this->container['card_bin'] = $card_bin;
 
         return $this;
     }
 
     /**
-     * Gets error
+     * Gets card_type
      *
-     * @return \Splitit\Model\ErrorExtended|null
+     * @return \Splitit\Model\CardType|null
      */
-    public function getError()
+    public function getCardType()
     {
-        return $this->container['error'];
+        return $this->container['card_type'];
     }
 
     /**
-     * Sets error
+     * Sets card_type
      *
-     * @param \Splitit\Model\ErrorExtended|null $error error
+     * @param \Splitit\Model\CardType|null $card_type card_type
      *
      * @return self
      */
-    public function setError($error)
+    public function setCardType($card_type)
     {
 
-        if (is_null($error)) {
-            throw new \InvalidArgumentException('non-nullable error cannot be null');
+        if (is_null($card_type)) {
+            throw new \InvalidArgumentException('non-nullable card_type cannot be null');
         }
 
-        $this->container['error'] = $error;
-
-        return $this;
-    }
-
-    /**
-     * Gets installment_plan_number
-     *
-     * @return string|null
-     */
-    public function getInstallmentPlanNumber()
-    {
-        return $this->container['installment_plan_number'];
-    }
-
-    /**
-     * Sets installment_plan_number
-     *
-     * @param string|null $installment_plan_number installment_plan_number
-     *
-     * @return self
-     */
-    public function setInstallmentPlanNumber($installment_plan_number)
-    {
-
-        if (is_null($installment_plan_number)) {
-            throw new \InvalidArgumentException('non-nullable installment_plan_number cannot be null');
-        }
-
-        $this->container['installment_plan_number'] = $installment_plan_number;
-
-        return $this;
-    }
-
-    /**
-     * Gets payment_info
-     *
-     * @return \Splitit\Model\PaymentInfo|null
-     */
-    public function getPaymentInfo()
-    {
-        return $this->container['payment_info'];
-    }
-
-    /**
-     * Sets payment_info
-     *
-     * @param \Splitit\Model\PaymentInfo|null $payment_info payment_info
-     *
-     * @return self
-     */
-    public function setPaymentInfo($payment_info)
-    {
-
-        if (is_null($payment_info)) {
-            throw new \InvalidArgumentException('non-nullable payment_info cannot be null');
-        }
-
-        $this->container['payment_info'] = $payment_info;
+        $this->container['card_type'] = $card_type;
 
         return $this;
     }
