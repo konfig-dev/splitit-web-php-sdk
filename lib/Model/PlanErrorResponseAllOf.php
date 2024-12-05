@@ -49,7 +49,8 @@ class PlanErrorResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerial
       * @var string[]
       */
     protected static $openAPITypes = [
-        'installment_plan_number' => 'string'
+        'installment_plan_number' => 'string',
+        'payment_info' => '\Splitit\Model\PaymentInfo'
     ];
 
     /**
@@ -60,7 +61,8 @@ class PlanErrorResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerial
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'installment_plan_number' => null
+        'installment_plan_number' => null,
+        'payment_info' => null
     ];
 
     /**
@@ -69,7 +71,8 @@ class PlanErrorResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerial
       * @var boolean[]
       */
     protected static $openAPINullables = [
-        'installment_plan_number' => false
+        'installment_plan_number' => false,
+		'payment_info' => false
     ];
 
     /**
@@ -158,7 +161,8 @@ class PlanErrorResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerial
      * @var string[]
      */
     protected static $attributeMap = [
-        'installment_plan_number' => 'InstallmentPlanNumber'
+        'installment_plan_number' => 'InstallmentPlanNumber',
+        'payment_info' => 'PaymentInfo'
     ];
 
     /**
@@ -167,7 +171,8 @@ class PlanErrorResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerial
      * @var string[]
      */
     protected static $setters = [
-        'installment_plan_number' => 'setInstallmentPlanNumber'
+        'installment_plan_number' => 'setInstallmentPlanNumber',
+        'payment_info' => 'setPaymentInfo'
     ];
 
     /**
@@ -176,7 +181,8 @@ class PlanErrorResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerial
      * @var string[]
      */
     protected static $getters = [
-        'installment_plan_number' => 'getInstallmentPlanNumber'
+        'installment_plan_number' => 'getInstallmentPlanNumber',
+        'payment_info' => 'getPaymentInfo'
     ];
 
     /**
@@ -237,6 +243,7 @@ class PlanErrorResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerial
     public function __construct(array $data = null)
     {
         $this->setIfExists('installment_plan_number', $data ?? [], null);
+        $this->setIfExists('payment_info', $data ?? [], null);
     }
 
     /**
@@ -306,6 +313,35 @@ class PlanErrorResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerial
         }
 
         $this->container['installment_plan_number'] = $installment_plan_number;
+
+        return $this;
+    }
+
+    /**
+     * Gets payment_info
+     *
+     * @return \Splitit\Model\PaymentInfo|null
+     */
+    public function getPaymentInfo()
+    {
+        return $this->container['payment_info'];
+    }
+
+    /**
+     * Sets payment_info
+     *
+     * @param \Splitit\Model\PaymentInfo|null $payment_info payment_info
+     *
+     * @return self
+     */
+    public function setPaymentInfo($payment_info)
+    {
+
+        if (is_null($payment_info)) {
+            throw new \InvalidArgumentException('non-nullable payment_info cannot be null');
+        }
+
+        $this->container['payment_info'] = $payment_info;
 
         return $this;
     }

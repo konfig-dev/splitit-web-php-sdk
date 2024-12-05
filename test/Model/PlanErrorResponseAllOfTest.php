@@ -79,4 +79,13 @@ class PlanErrorResponseAllOfTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "payment_info"
+     */
+    public function testPropertyPaymentInfo()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }
